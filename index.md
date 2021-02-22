@@ -21,6 +21,11 @@ ninja install
 ldconfig
 ```
 
+检查pkt-config已成功配置：
+```
+pkg-config --modversion libdpdk
+```
+
 ## 开启IOMMU, Hugepage和isolcpu
 
 修改 /etc/default/grub 文件，添加
@@ -94,6 +99,8 @@ make install
 ```
 ## 运行nginx
 
+参考：https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/
+
 首先记住网卡的网络信息，并写入f-stack配置文件中
 ```
 dev1="ens35"
@@ -130,3 +137,71 @@ ps -ef | grep nginx
 curl -v $myip
 $nginx_dir/sbin/nginx -s stop
 ```
+
+
+## 安装OVS-dpdk
+参考 https://docs.openvswitch.org/en/latest/intro/install/dpdk/
+```
+./configure --with-dpdk=/usr/local/f-stack/dpdk/build CFLAGS="-Ofast -msse4.2 -mpopcnt -mavx"
+make
+make install
+```
+
+## 运行OVS-dpdk
+参考：https://blog.csdn.net/cloudvtech/article/details/80492234
+```
+rm -rf /usr/local/etc/openvswitch/conf.db #需要删除吗？不确定
+export PATH=$PATH:/usr/local/share/openvswitch/scripts
+export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
+
+ovs-ctl --no-ovsdb-server --db-sock="$DB_SOCK" start
+
+ovs-vsctl --no-wait init
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x2
+ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x4
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=512
+export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
+
+# https://docs.openvswitch.org/en/latest/topics/dpdk/bridge/
+ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev
+ovs-vsctl show
+
+# 添加四个vhost-user，1-4连接，2-3连接
+
+ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user2 -- set Interface vhost-user2 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user3 -- set Interface vhost-user3 type=dpdkvhostuser
+ovs-vsctl show
+
+ovs-ofctl del-flows br0
+ovs-ofctl add-flow br0 in_port=2,dl_type=0x800,idle_timeout=0,action=output:3
+ovs-ofctl add-flow br0 in_port=3,dl_type=0x800,idle_timeout=0,action=output:2
+ovs-ofctl add-flow br0 in_port=1,dl_type=0x800,idle_timeout=0,action=output:4
+ovs-ofctl add-flow br0 in_port=4,dl_type=0x800,idle_timeout=0,action=output:1
+ovs-ofctl show br0
+ovs-ofctl dump-flows br0
+
+```
+
+## 创建容器
+创建Dockerfile：
+```
+FROM ubuntu:18.04
+WORKDIR /usr/local/f-stack
+COPY . /usr/local/f-stack
+RUN apt update && apt install -y libnuma-dev libssl-dev vim
+ENV PATH "$PATH:/usr/local/f-stack/dpdk/build/app/"
+```
+
+创建镜像：
+```
+docker build -t f-stack .
+```
+
+运行容器：
+```
+docker run -ti --privileged -v /mnt/huge:/mnt/huge -v /usr/local/var/run/openvswitch:/var/run/openvswitch f-stack
+```
+
