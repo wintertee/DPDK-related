@@ -38,15 +38,16 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash default_hugepagesz=1G hugepagesz=1G hug
 sudo update-grub
 ```
 
-挂载Hugepage：
+挂载Hugepage：http://doc.dpdk.org/guides/linux_gsg/sys_reqs.html?highlight=hugepages
 ```
 mkdir -p /mnt/huge
-mount -t hugetlbfs nodev /mnt/huge
+# mount -t hugetlbfs pagesize=1GB /mnt/huge # 临时挂载
+echo "nodev /mnt/huge hugetlbfs pagesize=1GB 0 0" >> /etc/fstab # 永久挂载
 ```
 
 检查Hugepage:
 ```
-cat /proc/meminfo | grep Huge
+grep Huge /proc/meminfo
 ```
 
 ## 运行testpmd测试dpdk
