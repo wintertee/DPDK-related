@@ -154,7 +154,7 @@ rm -rf /usr/local/etc/openvswitch/conf.db #需要删除吗？不确定
 export PATH=$PATH:/usr/local/share/openvswitch/scripts
 export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
 
-ovs-ctl --no-ovsdb-server --db-sock="$DB_SOCK" start
+ovs-ctl --db-sock="$DB_SOCK" start
 
 ovs-vsctl --no-wait init
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
@@ -169,10 +169,10 @@ ovs-vsctl show
 
 # 添加四个vhost-user，1-4连接，2-3连接
 
-ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuser
-ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuser
-ovs-vsctl add-port br0 vhost-user2 -- set Interface vhost-user2 type=dpdkvhostuser
-ovs-vsctl add-port br0 vhost-user3 -- set Interface vhost-user3 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuserclient
+ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuserclient
+ovs-vsctl add-port br0 vhost-user2 -- set Interface vhost-user2 type=dpdkvhostuserclient
+ovs-vsctl add-port br0 vhost-user3 -- set Interface vhost-user3 type=dpdkvhostuserclient
 ovs-vsctl show
 
 ovs-ofctl del-flows br0
