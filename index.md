@@ -184,6 +184,7 @@ ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev
 ovs-vsctl show
 
 # 添加四个vhost-user，1-4连接，2-3连接
+# https://docs.openvswitch.org/en/latest/topics/dpdk/vhost-user/#vhost-user-vs-vhost-user-client
 
 ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuserclient
 ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuserclient
@@ -196,7 +197,6 @@ ovs-ofctl add-flow br0 in_port=2,dl_type=0x800,idle_timeout=0,action=output:3
 ovs-ofctl add-flow br0 in_port=3,dl_type=0x800,idle_timeout=0,action=output:2
 ovs-ofctl add-flow br0 in_port=1,dl_type=0x800,idle_timeout=0,action=output:4
 ovs-ofctl add-flow br0 in_port=4,dl_type=0x800,idle_timeout=0,action=output:1
-
 
 ```
 
@@ -233,6 +233,7 @@ docker exec -it <ID> bash
 ```
 
 ## 测试ovs-dpdk和docker
+参考：https://blog.csdn.net/me_blue/article/details/78589592
 ![示意图](http://ww1.sinaimg.cn/large/411271bbly1flkxo8h5zoj20ot0fzwhc.jpg)
 
 先在第一个容器中运行pktgen：
