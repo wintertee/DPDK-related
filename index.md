@@ -82,12 +82,12 @@ make install
 ```
 
 ## 编译nginx
-
+```
 cd app/nginx-1.16.1
 bash ./configure --prefix=/usr/local/nginx_fstack --with-ff_module
 make
 make install
-
+```
 ## 运行nginx
 
 首先记住网卡的网络信息，并写入f-stack配置文件中
