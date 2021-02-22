@@ -105,6 +105,17 @@ sed "s/^netmask=.*$/netmask=${mynetmask}/" -i -E $nginx_dir/conf/f-stack.conf
 sed "s/^broadcast=.*$/broadcast=${mybroadcast}/" -i -E $nginx_dir/conf/f-stack.conf
 sed "s/^gateway=.*$/gateway=${mygateway}/" -i -E $nginx_dir/conf/f-stack.conf
 ```
+绑定igb_uio：
+```
+modprobe uio
+insmod dpdk/build/kernel/linux/igb_uio/igb_uio.ko
+insmod dpdk/build/kernel/linux/kni/rte_kni.ko carrier=on
+
+python dpdk/usertools/dpdk-devbind.py --status # 查看当前网卡绑定的驱动
+ifconfig $dev down
+python dpdk/usertools/dpdk-devbind.py --bind=igb_uio $dev
+
+```
 运行和测试nginx:
 ```
 $nginx_dir/sbin/nginx
