@@ -41,8 +41,8 @@ mount -t hugetlbfs nodev /mnt/huge
 
 将两个网卡绑定uio驱动：
 ```
-dev1="ens33"
-dev2="ens34"
+dev1="ens35"
+dev2="ens36"
 
 modprobe uio
 insmod dpdk/build/kernel/linux/igb_uio/igb_uio.ko
@@ -92,7 +92,7 @@ make install
 
 首先记住网卡的网络信息，并写入f-stack配置文件中
 ```
-dev="ens33"
+dev="ens35"
 nginx_dir="/usr/local/nginx_fstack"
 
 myip=`ifconfig $dev | grep inet | grep -v ':' | awk '{print $2}'`
