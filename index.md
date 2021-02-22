@@ -44,6 +44,11 @@ mkdir -p /mnt/huge
 mount -t hugetlbfs nodev /mnt/huge
 ```
 
+检查Hugepage:
+```
+cat /proc/meminfo | grep Huge
+```
+
 ## 运行testpmd测试dpdk
 
 将电脑的两个网卡之间连接。在虚拟机中，可以添加两个host-only的网卡，并启用混杂模式。（VirtualBox可以直接设置。VMWare需要在vmx文件中添加ethernet%d.noPromisc = "FALSE"）
@@ -138,9 +143,19 @@ curl -v $myip
 $nginx_dir/sbin/nginx -s stop
 ```
 
+## 下载和安装pktgen
+
+下载pktgen-21.02.0，解压到f-stack目录下。
+```
+cd pktgen-21.02.0
+meson build
+cd build
+ninja
+ninja install
+```
 
 ## 安装OVS-dpdk
-参考 https://docs.openvswitch.org/en/latest/intro/install/dpdk/
+参考 https://docs.openvswitch.org/en/latest/intro/install/dpdk/ https://blog.csdn.net/me_blue/article/details/78589592
 ```
 ./configure --with-dpdk=/usr/local/f-stack/dpdk/build CFLAGS="-Ofast -msse4.2 -mpopcnt -mavx"
 make
@@ -160,7 +175,7 @@ ovs-vsctl --no-wait init
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x2
 ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x4
-ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=512
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=1024
 export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
 
 # https://docs.openvswitch.org/en/latest/topics/dpdk/bridge/
@@ -180,9 +195,16 @@ ovs-ofctl add-flow br0 in_port=2,dl_type=0x800,idle_timeout=0,action=output:3
 ovs-ofctl add-flow br0 in_port=3,dl_type=0x800,idle_timeout=0,action=output:2
 ovs-ofctl add-flow br0 in_port=1,dl_type=0x800,idle_timeout=0,action=output:4
 ovs-ofctl add-flow br0 in_port=4,dl_type=0x800,idle_timeout=0,action=output:1
+
+
+```
+
+检查配置：
+```
+ovs-vsctl show 
 ovs-ofctl show br0
 ovs-ofctl dump-flows br0
-
+ovs-ofctl dump-ports br0
 ```
 
 ## 创建容器
@@ -191,7 +213,7 @@ ovs-ofctl dump-flows br0
 FROM ubuntu:18.04
 WORKDIR /usr/local/f-stack
 COPY . /usr/local/f-stack
-RUN apt update && apt install -y libnuma-dev libssl-dev vim
+RUN apt update && apt install -y libnuma-dev libssl-dev vim libpcap-dev
 ENV PATH "$PATH:/usr/local/f-stack/dpdk/build/app/"
 ```
 
@@ -202,6 +224,15 @@ docker build -t f-stack .
 
 运行容器：
 ```
-docker run -ti --privileged -v /mnt/huge:/mnt/huge -v /usr/local/var/run/openvswitch:/var/run/openvswitch f-stack
+docker run -ti --privileged -v /mnt/huge:/mnt/huge -v /usr/local/var/run/openvswitch:/var/run/openvswitch -v /usr/local/lib/x86_64-linux-gnu:/usr/local/lib/x86_64-linux-gnu f-stack
 ```
+
+```
+docker exec -it <ID> bash
+```
+
+## 测试ovs-dpdk和docker
+![示意图](http://ww1.sinaimg.cn/large/411271bbly1flkxo8h5zoj20ot0fzwhc.jpg)
+
+先在第一个容器中运行pktgen：
 
