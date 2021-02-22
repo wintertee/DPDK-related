@@ -28,6 +28,10 @@ ldconfig
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=2 iommu=pt intel_iommu=on isolcpus=4-7"
 ```
+更新GRUB：
+```
+sudo update-grub
+```
 
 挂载Hugepage：
 ```
