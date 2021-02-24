@@ -52,6 +52,8 @@ grep Huge /proc/meminfo
 
 ## 运行testpmd测试dpdk
 
+参考：https://doc.dpdk.org/guides-20.05/linux_gsg/linux_drivers.html
+
 将电脑的两个网卡之间连接。在虚拟机中，可以添加两个host-only的网卡，并启用混杂模式。（VirtualBox可以直接设置。VMWare需要在vmx文件中添加ethernet%d.noPromisc = "FALSE"）
 
 将两个网卡绑定uio驱动：
