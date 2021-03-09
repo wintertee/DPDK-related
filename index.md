@@ -188,10 +188,10 @@ ovs-vsctl show
 # 添加四个vhost-user，1-4连接，2-3连接
 # https://docs.openvswitch.org/en/latest/topics/dpdk/vhost-user/#vhost-user-vs-vhost-user-client
 
-ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuserclient
-ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuserclient
-ovs-vsctl add-port br0 vhost-user2 -- set Interface vhost-user2 type=dpdkvhostuserclient
-ovs-vsctl add-port br0 vhost-user3 -- set Interface vhost-user3 type=dpdkvhostuserclient
+ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user2 -- set Interface vhost-user2 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user3 -- set Interface vhost-user3 type=dpdkvhostuser
 ovs-vsctl show
 
 ovs-ofctl del-flows br0
