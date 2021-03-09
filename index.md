@@ -239,4 +239,9 @@ docker exec -it <ID> bash
 ![示意图](http://ww1.sinaimg.cn/large/411271bbly1flkxo8h5zoj20ot0fzwhc.jpg)
 
 先在第一个容器中运行pktgen：
-
+```
+pktgen-21.02.0/build/app/pktgen -c 0x19 --master-lcore 3 -n 1 --socket-mem 1024 --file-prefix pktgen --no-pci  \
+--vdev 'net_virtio_user0,mac=00:00:00:00:00:05,path=/var/run/openvswitch/vhost-user0' \
+--vdev 'net_virtio_user1,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user1' \
+-- -T -P -m "0.0,4.1"
+```
