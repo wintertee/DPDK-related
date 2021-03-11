@@ -252,9 +252,15 @@ docker exec -it <ID> bash
 pktgen-21.02.0/build/app/pktgen -c 0x1  -n 1 --socket-mem 1024  --no-pci --vdev 'net_virtio_user1,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user1' -- -T -P -m "1.0"
 ```
 
-在第二个容器中运行testpmd，进行包转发4<->3：
+在第二个容器中运行testpmd，进行包转发4<->3，在第2、3核上工作：
+```
+./dpdk/build/app/dpdk-testpmd -c 0x6  -n 1 --socket-mem 1024  --no-pci --vdev 'net_virtio_user2,mac=00:00:00:00:00:02,path=/var/run/openvswitch/vhost-user2' --vdev 'net_virtio_user3,mac=00:00:00:00:00:03,path=/var/run/openvswitch/vhost-user3'  --  -i
 ```
 
+在第三个容器中运行testpmd，在端口2上收包，在4、5核上工作：
+```
+./dpdk/build/app/dpdk-testpmd -c 0x18  -n 1 --socket-mem 1024  --no-pci --vdev 'net_virtio_user2,mac=00:00:00:00:00:02,path=/var/run/openvswitch/vhost-user2' --  -i
+```
 
 
 
