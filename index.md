@@ -31,7 +31,7 @@ pkg-config --modversion libdpdk
 修改 /etc/default/grub 文件，添加
 
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=2 iommu=pt intel_iommu=on isolcpus=4-7"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=6 iommu=pt intel_iommu=on isolcpus=0-6"
 ```
 更新GRUB：
 ```
@@ -148,7 +148,7 @@ $nginx_dir/sbin/nginx -s stop
 
 ## 下载和安装pktgen
 
-下载pktgen-21.02.0，解压到f-stack目录下。
+下载pktgen-21.02.0，解压到f-stack目录下。 https://git.dpdk.org/apps/pktgen-dpdk
 ```
 cd pktgen-21.02.0
 meson build
@@ -176,8 +176,8 @@ ovs-ctl --db-sock="$DB_SOCK" start
 
 ovs-vsctl --no-wait init
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
-ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x2
-ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x4
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x20
+ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x40
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=1024
 export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
 
@@ -208,6 +208,15 @@ ovs-vsctl show
 ovs-ofctl show br0
 ovs-ofctl dump-flows br0
 ovs-ofctl dump-ports br0
+```
+
+## 关闭ovs
+
+```
+
+ovs-appctl -t ovs-vswitchd exit
+ovs-appctl -t ovsdb-server exit
+ovs-vsctl del-br br0
 ```
 
 ## 创建容器
