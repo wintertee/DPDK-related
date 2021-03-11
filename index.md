@@ -188,10 +188,10 @@ ovs-vsctl show
 # 添加四个vhost-user，1-4连接，2-3连接
 # https://docs.openvswitch.org/en/latest/topics/dpdk/vhost-user/#vhost-user-vs-vhost-user-client
 
-ovs-vsctl add-port br0 vhost-user0 -- set Interface vhost-user0 type=dpdkvhostuser
 ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuser
 ovs-vsctl add-port br0 vhost-user2 -- set Interface vhost-user2 type=dpdkvhostuser
 ovs-vsctl add-port br0 vhost-user3 -- set Interface vhost-user3 type=dpdkvhostuser
+ovs-vsctl add-port br0 vhost-user4 -- set Interface vhost-user4 type=dpdkvhostuser
 ovs-vsctl show
 
 ovs-ofctl del-flows br0
@@ -240,8 +240,7 @@ docker exec -it <ID> bash
 
 先在第一个容器中运行pktgen：
 ```
-pktgen-21.02.0/build/app/pktgen -c 0x19 --master-lcore 3 -n 1 --socket-mem 1024 --file-prefix pktgen --no-pci  \
---vdev 'net_virtio_user0,mac=00:00:00:00:00:05,path=/var/run/openvswitch/vhost-user0' \
---vdev 'net_virtio_user1,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user1' \
--- -T -P -m "0.0,4.1"
+pktgen-21.02.0/build/app/pktgen -c 0x1  -n 1 --socket-mem 1024  --no-pci --vdev 'net_virtio_user0,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user0' -- -T -P -m "0.0"
 ```
+
+
