@@ -176,8 +176,8 @@ ovs-ctl --db-sock="$DB_SOCK" start
 
 ovs-vsctl --no-wait init
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
-ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x20
-ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x40
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x20 # 在第6核运行
+ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x40 # 在第7核运行
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=1024
 export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
 
@@ -247,9 +247,14 @@ docker exec -it <ID> bash
 参考：https://blog.csdn.net/me_blue/article/details/78589592
 ![示意图](http://ww1.sinaimg.cn/large/411271bbly1flkxo8h5zoj20ot0fzwhc.jpg)
 
-先在第一个容器中运行pktgen：
+先在第一个容器中运行pktgen，在第一个端口上发送消息，在第一核上工作：
 ```
-pktgen-21.02.0/build/app/pktgen -c 0x1  -n 1 --socket-mem 1024  --no-pci --vdev 'net_virtio_user0,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user0' -- -T -P -m "0.0"
+pktgen-21.02.0/build/app/pktgen -c 0x1  -n 1 --socket-mem 1024  --no-pci --vdev 'net_virtio_user1,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user1' -- -T -P -m "1.0"
 ```
+
+在第二个容器中运行testpmd，进行包转发4<->3：
+```
+
+
 
 
