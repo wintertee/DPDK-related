@@ -1,6 +1,8 @@
+---
 layout: page
 title: "F-stack install"
 permalink: /F-stack-install/
+---
 
 下载最新的 [f-stack release版本](https://github.com/F-Stack/f-stack/releases)并解压
 
