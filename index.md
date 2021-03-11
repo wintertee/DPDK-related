@@ -226,7 +226,7 @@ FROM ubuntu:18.04
 WORKDIR /usr/local/f-stack
 COPY . /usr/local/f-stack
 RUN apt-get update && apt-get install -y libnuma-dev libssl-dev vim libpcap-dev && \
-  echo "/usr/local/lib/x86_64-linux-gnu" >> /etc/ld.so.conf
+  echo "/usr/local/lib/x86_64-linux-gnu" >> /etc/ld.so.conf && ldconfig
 ENV PATH "$PATH:/usr/local/f-stack/dpdk/build/app/"
 ```
 
