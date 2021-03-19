@@ -258,24 +258,33 @@ make
 make install
 </code></pre><h2 id="&#x8FD0;&#x884C;ovs-dpdk">&#x8FD0;&#x884C;OVS-dpdk</h2>
 <p>&#x53C2;&#x8003;&#xFF1A;<a href="https://blog.csdn.net/cloudvtech/article/details/80492234" target="_blank">https://blog.csdn.net/cloudvtech/article/details/80492234</a></p>
-<pre><code>rm -rf /usr/local/etc/openvswitch/conf.db #&#x9700;&#x8981;&#x5220;&#x9664;&#x5417;&#xFF1F;&#x4E0D;&#x786E;&#x5B9A;
-export PATH=$PATH:/usr/local/share/openvswitch/scripts
+<pre><code>export PATH=$PATH:/usr/local/share/openvswitch/scripts
 export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
+
+ovsdb-tool create /usr/local/etc/openvswitch/conf.db /usr/local/share/openvswitch/vswitch.ovsschema
+
+# ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
+#                      --remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+#                      --private-key=db:Open_vSwitch,SSL,private_key \
+#                      --certificate=db:Open_vSwitch,SSL,certificate \
+#                      --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
+#                      --pidfile --detach
+# ovs-vsctl --no-wait init
+# ovs-vswitchd --pidfile --detach
 
 ovs-ctl --db-sock=&quot;$DB_SOCK&quot; start
 
 ovs-vsctl --no-wait init
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
-ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x20 # &#x5728;&#x7B2C;6&#x6838;&#x8FD0;&#x884C;
-ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x40 # &#x5728;&#x7B2C;7&#x6838;&#x8FD0;&#x884C;
+ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-lcore-mask=0x4
+ovs-vsctl --no-wait set Open_vSwitch . other_config:pmd-cpu-mask=0x4
 ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=1024
-export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
 
 # https://docs.openvswitch.org/en/latest/topics/dpdk/bridge/
 ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev
 ovs-vsctl show
 
-# &#x6DFB;&#x52A0;&#x56DB;&#x4E2A;vhost-user&#xFF0C;1-4&#x8FDE;&#x63A5;&#xFF0C;2-3&#x8FDE;&#x63A5;
+# &#x6DFB;&#x52A0;&#x56DB;&#x4E2A;vhost-user1-4&#x8FDE;&#x63A5;2-3&#x8FDE;&#x63A5;
 # https://docs.openvswitch.org/en/latest/topics/dpdk/vhost-user/#vhost-user-vs-vhost-user-client
 
 ovs-vsctl add-port br0 vhost-user1 -- set Interface vhost-user1 type=dpdkvhostuser
@@ -297,7 +306,6 @@ ovs-ofctl dump-ports br0
 </code></pre><h2 id="&#x5173;&#x95ED;ovs">&#x5173;&#x95ED;ovs</h2>
 <pre><code>ovs-appctl -t ovs-vswitchd exit
 ovs-appctl -t ovsdb-server exit
-ovs-vsctl del-br br0
 </code></pre>
                                 
                                 </section>
@@ -341,7 +349,7 @@ ovs-vsctl del-br br0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"OVS-dpdk","level":"1.8","depth":1,"next":{"title":"测试Docker+ovs-dpdk","level":"1.9","depth":1,"path":"8. 测试Docker+ovs-dpdk.md","ref":"8. 测试Docker+ovs-dpdk.md","articles":[]},"previous":{"title":"下载和安装pktgen","level":"1.7","depth":1,"path":"6. 下载和安装pktgen.md","ref":"6. 下载和安装pktgen.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"7. OVS-dpdk.md","mtime":"2021-03-15T01:26:58.624Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-15T01:27:33.799Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OVS-dpdk","level":"1.8","depth":1,"next":{"title":"测试Docker+ovs-dpdk","level":"1.9","depth":1,"path":"8. 测试Docker+ovs-dpdk.md","ref":"8. 测试Docker+ovs-dpdk.md","articles":[]},"previous":{"title":"下载和安装pktgen","level":"1.7","depth":1,"path":"6. 下载和安装pktgen.md","ref":"6. 下载和安装pktgen.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"7. OVS-dpdk.md","mtime":"2021-03-19T03:20:15.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-19T03:20:46.396Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
