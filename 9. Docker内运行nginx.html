@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>下载和安装pktgen · GitBook</title>
+        <title>Docker内运行nginx · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="7. OVS-dpdk.html" />
     
-    
-    <link rel="prev" href="5. 安装和测试nginx.html" />
+    <link rel="prev" href="8. 测试Docker+ovs-dpdk.html" />
     
 
     </head>
@@ -167,7 +165,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.7" data-path="6. 下载和安装pktgen.html">
+        <li class="chapter " data-level="1.7" data-path="6. 下载和安装pktgen.html">
             
                 <a href="6. 下载和安装pktgen.html">
             
@@ -206,7 +204,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="9. Docker内运行nginx.html">
+        <li class="chapter active" data-level="1.10" data-path="9. Docker内运行nginx.html">
             
                 <a href="9. Docker内运行nginx.html">
             
@@ -249,7 +247,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >下载和安装pktgen</a>
+        <a href="." >Docker内运行nginx</a>
     </h1>
 </div>
 
@@ -264,13 +262,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x4E0B;&#x8F7D;pktgen-21.02.0&#xFF0C;&#x89E3;&#x538B;&#x5230;f-stack&#x76EE;&#x5F55;&#x4E0B;&#x3002; <a href="https://git.dpdk.org/apps/pktgen-dpdk" target="_blank">https://git.dpdk.org/apps/pktgen-dpdk</a></p>
-<pre><code>cd pktgen-21.02.0
-meson build
-cd build
-ninja
-ninja install
-</code></pre>
+                                <p>nb_vdev=1                                                           </p>
+<p>[vdev0]<br>path=/usr/local/var/run/openvswitch/vhost-user1
+queues=1<br>queue_size=256<br>mac=00:00:00:00:00:01
+cq=0</p>
+
                                 
                                 </section>
                             
@@ -297,14 +293,10 @@ ninja install
 
             
                 
-                <a href="5. 安装和测试nginx.html" class="navigation navigation-prev " aria-label="Previous page: 安装和测试nginx">
+                <a href="8. 测试Docker+ovs-dpdk.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 测试Docker+ovs-dpdk">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="7. OVS-dpdk.html" class="navigation navigation-next " aria-label="Next page: OVS-dpdk">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -313,7 +305,7 @@ ninja install
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"下载和安装pktgen","level":"1.7","depth":1,"next":{"title":"OVS-dpdk","level":"1.8","depth":1,"path":"7. OVS-dpdk.md","ref":"7. OVS-dpdk.md","articles":[]},"previous":{"title":"安装和测试nginx","level":"1.6","depth":1,"path":"5. 安装和测试nginx.md","ref":"5. 安装和测试nginx.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"6. 下载和安装pktgen.md","mtime":"2021-03-22T13:25:04.784Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T13:25:32.622Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Docker内运行nginx","level":"1.10","depth":1,"previous":{"title":"测试Docker+ovs-dpdk","level":"1.9","depth":1,"path":"8. 测试Docker+ovs-dpdk.md","ref":"8. 测试Docker+ovs-dpdk.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"9. Docker内运行nginx.md","mtime":"2021-03-22T13:25:04.784Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T13:25:32.622Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
