@@ -60,6 +60,8 @@
     <link rel="next" href="Docker.html" />
     
     
+    <link rel="prev" href="apt.html" />
+    
 
     </head>
     <body>
@@ -114,7 +116,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1" data-path="kernel parameters.html">
+        <li class="chapter " data-level="1.2.1" data-path="apt.html">
+            
+                <a href="apt.html">
+            
+                    
+                    apt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.2" data-path="kernel parameters.html">
             
                 <a href="kernel parameters.html">
             
@@ -127,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" data-path="Docker.html">
+        <li class="chapter " data-level="1.2.3" data-path="Docker.html">
             
                 <a href="Docker.html">
             
@@ -314,15 +329,20 @@
                                 
                                 <p>&#x6587;&#x6863;&#xFF1A;<a href="https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html" target="_blank">https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html</a></p>
 <p>&#x4FEE;&#x6539; /etc/default/grub &#x6587;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;</p>
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=6 iommu=pt intel_iommu=on isolcpus=0-6&quot;
+<pre><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=12 iommu=pt intel_iommu=on isolcpus=0-6&quot;
 </code></pre><p>&#x66F4;&#x65B0;GRUB&#xFF1A;</p>
 <pre><code>sudo update-grub
 </code></pre><p>&#x6302;&#x8F7D;Hugepage&#xFF1A;<a href="http://doc.dpdk.org/guides/linux_gsg/sys_reqs.html?highlight=hugepages" target="_blank">http://doc.dpdk.org/guides/linux_gsg/sys_reqs.html?highlight=hugepages</a></p>
-<pre><code>mkdir -p /mnt/huge
+<pre><code>sudo mkdir -p /mnt/huge
 # mount -t hugetlbfs pagesize=1GB /mnt/huge # &#x4E34;&#x65F6;&#x6302;&#x8F7D;
-echo &quot;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&quot; &gt;&gt; /etc/fstab # &#x6C38;&#x4E45;&#x6302;&#x8F7D;
+sudo sh -c &quot;echo &apos;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&apos; &gt;&gt; /etc/fstab&quot; # &#x6C38;&#x4E45;&#x6302;&#x8F7D;
 </code></pre><p>&#x68C0;&#x67E5;Hugepage:</p>
 <pre><code>grep Huge /proc/meminfo
+</code></pre><h2 id="&#x5173;&#x95ED;swap">&#x5173;&#x95ED;Swap</h2>
+<p>&#x4E3A;k8s&#x505A;&#x51C6;&#x5907;</p>
+<pre><code>sudo swapoff -v /swapfile
+</code></pre><p>&#x5728;<code>/etc/fstab</code>&#x4E2D;&#x6CE8;&#x91CA;&#x6389;swap</p>
+<pre><code>sudo rm /swapfile
 </code></pre>
                                 
                                 </section>
@@ -350,8 +370,12 @@ echo &quot;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&quot; &gt;&gt; /etc/fstab 
 
             
                 
+                <a href="apt.html" class="navigation navigation-prev " aria-label="Previous page: apt">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="Docker.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Docker">
+                
+                <a href="Docker.html" class="navigation navigation-next " aria-label="Next page: Docker">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -362,7 +386,7 @@ echo &quot;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&quot; &gt;&gt; /etc/fstab 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kernel parameters","level":"1.2.1","depth":2,"next":{"title":"Docker","level":"1.2.2","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"previous":{"title":"prerequisite","level":"1.2","depth":1,"ref":"","articles":[{"title":"kernel parameters","level":"1.2.1","depth":2,"path":"prerequisite/kernel parameters.md","ref":"prerequisite/kernel parameters.md","articles":[]},{"title":"Docker","level":"1.2.2","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/kernel parameters.md","mtime":"2021-03-22T14:35:51.322Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T14:36:19.588Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"kernel parameters","level":"1.2.2","depth":2,"next":{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"previous":{"title":"apt","level":"1.2.1","depth":2,"path":"prerequisite/apt.md","ref":"prerequisite/apt.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/kernel parameters.md","mtime":"2021-03-22T15:10:53.295Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T15:11:23.938Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
