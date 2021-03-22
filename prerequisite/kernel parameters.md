@@ -10,7 +10,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash default_hugepagesz=1G hugepagesz=1G hug
 sudo update-grub
 ```
 
-挂载Hugepage：http://doc.dpdk.org/guides/linux_gsg/sys_reqs.html?highlight=hugepages
+挂载Hugepage：https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html
 ```
 sudo mkdir -p /mnt/huge
 # mount -t hugetlbfs pagesize=1GB /mnt/huge # 临时挂载
