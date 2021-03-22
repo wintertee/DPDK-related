@@ -314,7 +314,28 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <ol>
+<li><p>Update the <code>apt</code> package index and install packages to allow <code>apt</code> to use a repository over HTTPS:</p>
+<pre><code> sudo apt-get update
+ sudo apt-get install -y \
+     apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg \
+     lsb-release
+</code></pre></li>
+<li><p>Add Docker&#x2019;s official GPG key:</p>
+<pre><code> curl -fsSL https://mirror.sjtu.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add &#x2013;
+</code></pre></li>
+<li><p>Use the following command to set up the <strong>stable</strong> repository.</p>
+<pre><code> sudo add-apt-repository &quot;deb [arch=amd64] https://mirror.sjtu.edu.cn/docker-ce/linux/ubuntu/  $(lsb_release -cs)  stable&quot;
+</code></pre></li>
+<li><p>INSTALL DOCKER ENGINE</p>
+<pre><code> sudo apt-get update
+ sudo apt-get install docker-ce docker-ce-cli containerd.io
+</code></pre></li>
+</ol>
+
                                 
                                 </section>
                             
@@ -357,7 +378,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Docker","level":"1.2.2","depth":2,"next":{"title":"DPDK","level":"1.3","depth":1,"path":"DPDK/DPDK.md","ref":"DPDK/DPDK.md","articles":[{"title":"testpmd","level":"1.3.1","depth":2,"path":"DPDK/testpmd.md","ref":"DPDK/testpmd.md","articles":[]}]},"previous":{"title":"kernel parameters","level":"1.2.1","depth":2,"path":"prerequisite/kernel parameters.md","ref":"prerequisite/kernel parameters.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/Docker.md","mtime":"2021-03-22T14:12:40.516Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T14:13:11.683Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Docker","level":"1.2.2","depth":2,"next":{"title":"DPDK","level":"1.3","depth":1,"path":"DPDK/DPDK.md","ref":"DPDK/DPDK.md","articles":[{"title":"testpmd","level":"1.3.1","depth":2,"path":"DPDK/testpmd.md","ref":"DPDK/testpmd.md","articles":[]}]},"previous":{"title":"kernel parameters","level":"1.2.1","depth":2,"path":"prerequisite/kernel parameters.md","ref":"prerequisite/kernel parameters.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/Docker.md","mtime":"2021-03-22T14:35:51.322Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T14:36:19.588Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
