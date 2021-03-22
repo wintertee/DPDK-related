@@ -1,8 +1,6 @@
-下载 [f-stack](https://github.com/F-Stack/f-stack/releases)并解压
-
-安装pkt-config和zlib：
+安装pkt-config：
 ```
-apt install pkg-config zlib1g-dev
+apt install pkg-config
 ```
 
 安装meson和ninja：
