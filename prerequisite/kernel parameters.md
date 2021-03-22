@@ -1,3 +1,5 @@
+文档：https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html
+
 修改 /etc/default/grub 文件，添加
 
 ```
