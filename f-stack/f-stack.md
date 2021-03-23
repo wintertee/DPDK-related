@@ -1,4 +1,7 @@
-```
+# 安装f-stack
+
+```shell
+
 apt-get install libpcap-dev
 
 # Compile F-Stack
@@ -16,9 +19,11 @@ make install
 ```
 
 测试：
-```
+
+```shell
+
 cd f-stack/example
 make
 ```
 
-如果出现`undefined reference` 可在`Makefile` 文件中添加 `-lpcap`
+如果出现 `undefined reference` 可在 `Makefile` 文件中添加 `-lpcap`

@@ -1,14 +1,20 @@
+# OVS-DPDK
+
 ## 安装OVS-dpdk
+
 参考 https://docs.openvswitch.org/en/latest/intro/install/dpdk/ https://blog.csdn.net/me_blue/article/details/78589592
-```
+
+```shell
 ./configure --with-dpdk=/usr/local/f-stack/dpdk/build CFLAGS="-Ofast -msse4.2 -mpopcnt -mavx"
 make
 make install
 ```
 
 ## 运行OVS-dpdk
+
 参考：https://blog.csdn.net/cloudvtech/article/details/80492234
-```
+
+```shell
 export PATH=$PATH:/usr/local/share/openvswitch/scripts
 export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
 
@@ -53,7 +59,8 @@ ovs-ofctl add-flow br0 in_port=4,dl_type=0x800,idle_timeout=0,action=output:1
 ```
 
 检查配置：
-```
+
+```shell
 ovs-vsctl show 
 ovs-ofctl show br0
 ovs-ofctl dump-flows br0
@@ -62,7 +69,7 @@ ovs-ofctl dump-ports br0
 
 ## 关闭ovs
 
-```
+```shell
 ovs-appctl -t ovs-vswitchd exit
 ovs-appctl -t ovsdb-server exit
 ```

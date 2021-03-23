@@ -1,29 +1,37 @@
+# 安装DPDK
+
 从f-stack中安装：
-```
+
+```shell
 wget https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz
 tar xzf v1.21.tar.gz
 rm v1.21.tar.gz
 ```
 
 安装pkt-config：
-```
+
+```shell
 sudo apt install -y pkg-config python3-pip
 ```
 
 安装meson和ninja：
-```
+
+```shell
 pip3 install meson ninja
 echo "export PATH=$PATH:~/.local/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
+
 安装dpdk：
-```
+
+```shell
 cd dpdk
 meson -Dexamples=all -Denable_kmods=true build
 ```
 
 输出
-```
+
+```shell
 Message:                                                                                                                =================
 Libraries Enabled                                                                                                       =================
 kvargs, eal, ring, mempool, mbuf, net, meter, ethdev,pci, cmdline, metrics, hash, timer, acl, bbdev bitratestats,cfgfile, compressdev, cryptodev, distributor, efd, eventdev, gro, gso,ip_frag, jobstats, kni, latencystats, lpm, member, power, pdump,rawdev, rcu, rib, reorder, sched, security, stack, vhost,ipsec, fib, port, table, pipeline, flow_classify, pf,
@@ -89,11 +97,10 @@ drivers:
         compress/isal:  missing dependency, "libisal"
         compress/zlib:  missing dependency, "zlib"
 
-
 Build targets in project: 790
 ```
 
-```
+```shell
 cd build
 ninja
 ninja install
@@ -101,6 +108,7 @@ ldconfig
 ```
 
 检查pkt-config已成功配置：
-```
+
+```shell
 pkg-config --modversion libdpdk
 ```
