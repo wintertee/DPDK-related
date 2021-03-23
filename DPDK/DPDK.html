@@ -327,20 +327,101 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x5B89;&#x88C5;pkt-config&#xFF1A;</p>
-<pre><code>apt install pkg-config
-</code></pre><p>&#x5B89;&#x88C5;meson&#x548C;ninja&#xFF1A;</p>
-<pre><code>pip3 install meson ninja
-</code></pre><p>&#x5B89;&#x88C5;dpdk&#xFF1A;</p>
-<pre><code>cd dpdk
+                                <h1 id="&#x5B89;&#x88C5;dpdk">&#x5B89;&#x88C5;DPDK</h1>
+<p>&#x4ECE;f-stack&#x4E2D;&#x5B89;&#x88C5;&#xFF1A;</p>
+<pre><code class="lang-shell">wget https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz
+tar xzf v1.21.tar.gz
+rm v1.21.tar.gz
+</code></pre>
+<p>&#x5B89;&#x88C5;pkt-config&#xFF1A;</p>
+<pre><code class="lang-shell">sudo apt install -y pkg-config python3-pip
+</code></pre>
+<p>&#x5B89;&#x88C5;meson&#x548C;ninja&#xFF1A;</p>
+<pre><code class="lang-shell">pip3 install meson ninja
+echo &quot;export PATH=$PATH:~/.local/bin&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<p>&#x5B89;&#x88C5;dpdk&#xFF1A;</p>
+<pre><code class="lang-shell">cd dpdk
 meson -Dexamples=all -Denable_kmods=true build
-cd build
+</code></pre>
+<p>&#x8F93;&#x51FA;</p>
+<pre><code class="lang-shell">Message:                                                                                                                =================
+Libraries Enabled                                                                                                       =================
+kvargs, eal, ring, mempool, mbuf, net, meter, ethdev,pci, cmdline, metrics, hash, timer, acl, bbdev bitratestats,cfgfile, compressdev, cryptodev, distributor, efd, eventdev, gro, gso,ip_frag, jobstats, kni, latencystats, lpm, member, power, pdump,rawdev, rcu, rib, reorder, sched, security, stack, vhost,ipsec, fib, port, table, pipeline, flow_classify, pf,
+
+Message:
+===============
+Drivers Enabled
+===============
+common:
+    cpt, dpaax, octeontx, octeontx2,
+bus:
+    dpaa, fslmc, ifpga, pci, vdev, vmbus,
+mempool:
+    bucket, dpaa, dpaa2, octeontx, octeontx2, ring, stack,
+net:
+    af_packet, ark, atlantic, avp, axgbe, bond, bnxt, cxgbe,
+    dpaa, dpaa2, e1000, ena, enetc, enic, failsafe, fm10k,
+    i40e, hinic, hns3, iavf, ice, ifc, ixgbe, kni,
+    liquidio, memif, netvsc, nfp, null, octeontx, octeontx2, pfe,
+    qede, ring, sfc, softnic, tap, thunderx, vdev_netvsc, vhost,
+    virtio, vmxnet3,
+raw:
+    dpaa2_cmdif, dpaa2_qdma, ioat, ntb, octeontx2_dma, skeleton,
+crypto:
+    caam_jr, dpaa_sec, dpaa2_sec, nitrox, null_crypto, octeontx_crypto, octeontx2_crypto, crypto_scheduler,
+    virtio_crypto,
+compress:
+    octeontx_compress, qat,
+event:
+    dpaa, dpaa2, octeontx2, opdl, skeleton, sw, dsw, octeontx,
+
+baseband:
+    null, turbo_sw, fpga_lte_fec,                                               
+
+Message:
+=================
+Content Skipped                                                                                                         =================
+
+libs:
+        telemetry:      missing dependency &quot;jansson&quot;
+
+drivers:
+        common/mvep:    missing dependency, &quot;libmusdk&quot;
+        net/af_xdp:     missing dependency, &quot;libbpf&quot;
+        net/bnx2x:      missing dependency, &quot;zlib&quot;
+        net/ipn3ke:     missing dependency, &quot;libfdt&quot;
+        net/mlx4:       missing dependency, &quot;ibverbs&quot;
+        net/mlx5:       missing dependency, &quot;ibverbs&quot;
+        net/mvneta:     missing dependency, &quot;libmusdk&quot;
+        net/mvpp2:      missing dependency, &quot;libmusdk&quot;
+        net/nfb:        missing dependency, &quot;libnfb&quot;
+        net/pcap:       missing dependency, &quot;libpcap&quot;
+        net/szedata2:   missing dependency, &quot;libsze2&quot;
+        raw/ifpga:      missing dependency, &quot;libfdt&quot;
+        crypto/aesni_gcm:       missing dependency, &quot;libIPSec_MB&quot;
+        crypto/aesni_mb:        missing dependency, &quot;libIPSec_MB&quot;
+        crypto/ccp:     missing dependency, &quot;libcrypto&quot;
+        crypto/kasumi:  missing dependency, &quot;libsso_kasumi&quot;
+        crypto/mvsam:   missing dependency, &quot;libmusdk&quot;
+        crypto/openssl: missing dependency, &quot;libcrypto&quot;
+        crypto/snow3g:  missing dependency, &quot;libsso_snow3g&quot;
+        crypto/zuc:     missing dependency, &quot;libsso_zuc&quot;
+        compress/isal:  missing dependency, &quot;libisal&quot;
+        compress/zlib:  missing dependency, &quot;zlib&quot;
+
+Build targets in project: 790
+</code></pre>
+<pre><code class="lang-shell">cd build
 ninja
 ninja install
 ldconfig
-</code></pre><p>&#x68C0;&#x67E5;pkt-config&#x5DF2;&#x6210;&#x529F;&#x914D;&#x7F6E;&#xFF1A;</p>
-<pre><code>pkg-config --modversion libdpdk
 </code></pre>
+<p>&#x68C0;&#x67E5;pkt-config&#x5DF2;&#x6210;&#x529F;&#x914D;&#x7F6E;&#xFF1A;</p>
+<pre><code class="lang-shell">pkg-config --modversion libdpdk
+</code></pre>
+
                                 
                                 </section>
                             
@@ -383,7 +464,7 @@ ldconfig
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"DPDK","level":"1.3","depth":1,"next":{"title":"testpmd","level":"1.3.1","depth":2,"path":"DPDK/testpmd.md","ref":"DPDK/testpmd.md","articles":[]},"previous":{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"DPDK/DPDK.md","mtime":"2021-03-22T15:16:35.578Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T15:17:03.905Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"DPDK","level":"1.3","depth":1,"next":{"title":"testpmd","level":"1.3.1","depth":2,"path":"DPDK/testpmd.md","ref":"DPDK/testpmd.md","articles":[]},"previous":{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"DPDK/DPDK.md","mtime":"2021-03-23T01:24:51.676Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-23T01:25:14.772Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

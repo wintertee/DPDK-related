@@ -327,23 +327,29 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x6587;&#x6863;&#xFF1A;<a href="https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html" target="_blank">https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html</a></p>
+                                <h1 id="&#x5185;&#x6838;&#x914D;&#x7F6E;">&#x5185;&#x6838;&#x914D;&#x7F6E;</h1>
+<p>&#x6587;&#x6863;&#xFF1A;<a href="https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html" target="_blank">https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html</a></p>
 <p>&#x4FEE;&#x6539; /etc/default/grub &#x6587;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;</p>
-<pre><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=12 iommu=pt intel_iommu=on isolcpus=0-6&quot;
-</code></pre><p>&#x66F4;&#x65B0;GRUB&#xFF1A;</p>
-<pre><code>sudo update-grub
-</code></pre><p>&#x6302;&#x8F7D;Hugepage&#xFF1A;<a href="https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html" target="_blank">https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html</a></p>
+<pre><code class="lang-shell">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash default_hugepagesz=1G hugepagesz=1G hugepages=12 iommu=pt intel_iommu=on isolcpus=0-6&quot;
+</code></pre>
+<p>&#x66F4;&#x65B0;GRUB&#xFF1A;</p>
+<pre><code class="lang-shell">sudo update-grub
+</code></pre>
+<p>&#x6302;&#x8F7D;Hugepage&#xFF1A;<a href="https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html" target="_blank">https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html</a></p>
 <pre><code>sudo mkdir -p /mnt/huge
 # mount -t hugetlbfs pagesize=1GB /mnt/huge # &#x4E34;&#x65F6;&#x6302;&#x8F7D;
 sudo sh -c &quot;echo &apos;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&apos; &gt;&gt; /etc/fstab&quot; # &#x6C38;&#x4E45;&#x6302;&#x8F7D;
 </code></pre><p>&#x68C0;&#x67E5;Hugepage:</p>
-<pre><code>grep Huge /proc/meminfo
-</code></pre><h2 id="&#x5173;&#x95ED;swap">&#x5173;&#x95ED;Swap</h2>
-<p>&#x4E3A;k8s&#x505A;&#x51C6;&#x5907;</p>
-<pre><code>sudo swapoff -v /swapfile
-</code></pre><p>&#x5728;<code>/etc/fstab</code>&#x4E2D;&#x6CE8;&#x91CA;&#x6389;swap</p>
-<pre><code>sudo rm /swapfile
+<pre><code class="lang-shell">grep Huge /proc/meminfo
 </code></pre>
+<h2 id="&#x5173;&#x95ED;swap">&#x5173;&#x95ED;Swap</h2>
+<p>&#x4E3A;k8s&#x505A;&#x51C6;&#x5907;</p>
+<pre><code class="lang-shell">sudo swapoff -v /swapfile
+</code></pre>
+<p>&#x5728; <code>/etc/fstab</code> &#x4E2D;&#x6CE8;&#x91CA;&#x6389;swap</p>
+<pre><code class="lang-shell">sudo rm /swapfile
+</code></pre>
+
                                 
                                 </section>
                             
@@ -386,7 +392,7 @@ sudo sh -c &quot;echo &apos;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&apos; &gt
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kernel parameters","level":"1.2.2","depth":2,"next":{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"previous":{"title":"apt","level":"1.2.1","depth":2,"path":"prerequisite/apt.md","ref":"prerequisite/apt.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/kernel parameters.md","mtime":"2021-03-22T15:16:35.578Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T15:17:03.905Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"kernel parameters","level":"1.2.2","depth":2,"next":{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"previous":{"title":"apt","level":"1.2.1","depth":2,"path":"prerequisite/apt.md","ref":"prerequisite/apt.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/kernel parameters.md","mtime":"2021-03-23T01:24:51.676Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-23T01:25:14.772Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

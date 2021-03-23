@@ -327,10 +327,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x53C2;&#x8003;&#xFF1A;<a href="https://doc.dpdk.org/guides-20.05/linux_gsg/linux_drivers.html" target="_blank">https://doc.dpdk.org/guides-20.05/linux_gsg/linux_drivers.html</a></p>
+                                <h1 id="&#x6D4B;&#x8BD5;testpmd">&#x6D4B;&#x8BD5;testpmd</h1>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://doc.dpdk.org/guides-20.05/linux_gsg/linux_drivers.html" target="_blank">https://doc.dpdk.org/guides-20.05/linux_gsg/linux_drivers.html</a></p>
 <p>&#x5C06;&#x7535;&#x8111;&#x7684;&#x4E24;&#x4E2A;&#x7F51;&#x5361;&#x4E4B;&#x95F4;&#x8FDE;&#x63A5;&#x3002;&#x5728;&#x865A;&#x62DF;&#x673A;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x4E24;&#x4E2A;host-only&#x7684;&#x7F51;&#x5361;&#xFF0C;&#x5E76;&#x542F;&#x7528;&#x6DF7;&#x6742;&#x6A21;&#x5F0F;&#x3002;&#xFF08;VirtualBox&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BBE;&#x7F6E;&#x3002;VMWare&#x9700;&#x8981;&#x5728;vmx&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;ethernet%d.noPromisc = &quot;FALSE&quot;&#xFF09;</p>
 <p>&#x5C06;&#x4E24;&#x4E2A;&#x7F51;&#x5361;&#x7ED1;&#x5B9A;uio&#x9A71;&#x52A8;&#xFF1A;</p>
-<pre><code>dev1=&quot;ens35&quot;
+<pre><code class="lang-shell">dev1=&quot;ens35&quot;
 dev2=&quot;ens36&quot;
 
 modprobe uio
@@ -346,9 +347,11 @@ python dpdk/usertools/dpdk-devbind.py --bind=igb_uio $dev1
 python dpdk/usertools/dpdk-devbind.py --bind=igb_uio $dev2
 
 python dpdk/usertools/dpdk-devbind.py --status # &#x67E5;&#x770B;&#x5F53;&#x524D;&#x7F51;&#x5361;&#x7ED1;&#x5B9A;&#x7684;&#x9A71;&#x52A8;
-</code></pre><p>&#x8FD0;&#x884C;testpmd&#xFF1A;</p>
-<pre><code>dpdk/build/app/dpdk-testpmd
 </code></pre>
+<p>&#x8FD0;&#x884C;testpmd&#xFF1A;</p>
+<pre><code class="lang-shell">dpdk/build/app/dpdk-testpmd
+</code></pre>
+
                                 
                                 </section>
                             
@@ -391,7 +394,7 @@ python dpdk/usertools/dpdk-devbind.py --status # &#x67E5;&#x770B;&#x5F53;&#x524D
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"testpmd","level":"1.3.1","depth":2,"next":{"title":"f-stack","level":"1.4","depth":1,"path":"f-stack/f-stack.md","ref":"f-stack/f-stack.md","articles":[{"title":"nginx","level":"1.4.1","depth":2,"path":"f-stack/nginx.md","ref":"f-stack/nginx.md","articles":[]}]},"previous":{"title":"DPDK","level":"1.3","depth":1,"path":"DPDK/DPDK.md","ref":"DPDK/DPDK.md","articles":[{"title":"testpmd","level":"1.3.1","depth":2,"path":"DPDK/testpmd.md","ref":"DPDK/testpmd.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"DPDK/testpmd.md","mtime":"2021-03-22T15:16:35.578Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-22T15:17:03.905Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"testpmd","level":"1.3.1","depth":2,"next":{"title":"f-stack","level":"1.4","depth":1,"path":"f-stack/f-stack.md","ref":"f-stack/f-stack.md","articles":[{"title":"nginx","level":"1.4.1","depth":2,"path":"f-stack/nginx.md","ref":"f-stack/nginx.md","articles":[]}]},"previous":{"title":"DPDK","level":"1.3","depth":1,"path":"DPDK/DPDK.md","ref":"DPDK/DPDK.md","articles":[{"title":"testpmd","level":"1.3.1","depth":2,"path":"DPDK/testpmd.md","ref":"DPDK/testpmd.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"DPDK/testpmd.md","mtime":"2021-03-23T01:24:51.676Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-23T01:25:14.772Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
