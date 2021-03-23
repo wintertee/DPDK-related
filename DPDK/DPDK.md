@@ -37,9 +37,9 @@ sudo ldconfig
 
 输出log参见
 
-[meson build](DPDK/meson-build.log)
+[meson build](meson-build.log)
 
-[ninja install](DPDK/ninja-install.log)
+[ninja install](ninja-install.log)
 
 检查pkt-config已成功配置：
 
