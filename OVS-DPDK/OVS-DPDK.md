@@ -6,6 +6,7 @@
 
 ```shell
 ./configure --with-dpdk=/usr/local/f-stack/dpdk/build CFLAGS="-Ofast -msse4.2 -mpopcnt -mavx"
+// ./configure --with-dpdk=/home/z/f-stack-1.21/dpdk/x86_64-native-linuxapp-gcc CFLAGS="-Ofast -msse4.2 -mpopcnt -mavx"
 make
 make install
 ```
