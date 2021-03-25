@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>apt · GitBook</title>
+        <title>helloworld · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="kernel parameters.html" />
+    <link rel="next" href="nginx.html" />
     
+    
+    <link rel="prev" href="f-stack.html" />
     
 
     </head>
@@ -114,9 +116,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1" data-path="apt.html">
+        <li class="chapter " data-level="1.2.1" data-path="../prerequisite/apt.html">
             
-                <a href="apt.html">
+                <a href="../prerequisite/apt.html">
             
                     
                     apt
@@ -127,9 +129,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" data-path="kernel parameters.html">
+        <li class="chapter " data-level="1.2.2" data-path="../prerequisite/kernel parameters.html">
             
-                <a href="kernel parameters.html">
+                <a href="../prerequisite/kernel parameters.html">
             
                     
                     kernel parameters
@@ -140,9 +142,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="Docker.html">
+        <li class="chapter " data-level="1.2.3" data-path="../prerequisite/Docker.html">
             
-                <a href="Docker.html">
+                <a href="../prerequisite/Docker.html">
             
                     
                     Docker
@@ -190,9 +192,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
+        <li class="chapter " data-level="1.4" data-path="f-stack.html">
             
-                <a href="../f-stack/f-stack.html">
+                <a href="f-stack.html">
             
                     
                     f-stack
@@ -204,9 +206,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
+        <li class="chapter active" data-level="1.4.1" data-path="helloworld.html">
             
-                <a href="../f-stack/helloworld.html">
+                <a href="helloworld.html">
             
                     
                     helloworld
@@ -217,9 +219,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
+        <li class="chapter " data-level="1.4.2" data-path="nginx.html">
             
-                <a href="../f-stack/nginx.html">
+                <a href="nginx.html">
             
                     
                     nginx
@@ -323,7 +325,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >apt</a>
+        <a href=".." >helloworld</a>
     </h1>
 </div>
 
@@ -338,10 +340,55 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="apt">apt</h1>
-<pre><code class="lang-shell">sudo apt-get update
-sudo apt-get dist-upgrade -y
+                                <h1 id="&#x6D4B;&#x8BD5;helloworld">&#x6D4B;&#x8BD5;helloworld</h1>
+<h2 id="&#x914D;&#x7F6E;configini">&#x914D;&#x7F6E;config.ini</h2>
+<pre><code class="lang-shell">nb_vdev=2
 </code></pre>
+<pre><code class="lang-shell">[port0]
+addr=192.168.1.2
+netmask=255.255.225.0
+broadcast=192.168.1.255
+gateway=192.168.1.1
+[port1]
+addr=192.168.1.3
+netmask=255.255.225.0
+broadcast=192.168.1.255
+gateway=192.168.1.1
+</code></pre>
+<pre><code class="lang-shell">[vdev0]
+##iface=/usr/local/var/run/openvswitch/vhost-user0
+path=/var/run/openvswitch/vhost-user1
+queues=1
+queue_size=256
+mac=00:00:00:00:00:01
+#cq=0
+[vdev1]
+path=/var/run/openvswitch/vhost-user2
+queues=1
+queue_size=256
+mac=00:00:00:00:00:02
+</code></pre>
+<h2 id="&#x8FD0;&#x884C;helloworld">&#x8FD0;&#x884C;helloworld</h2>
+<pre><code class="lang-shell">example/helloworld --conf=config.ini
+</code></pre>
+<h2 id="&#x9519;&#x8BEF;&#x6392;&#x67E5;">&#x9519;&#x8BEF;&#x6392;&#x67E5;</h2>
+<pre><code class="lang-shell">f-stack -c1 -n1 --proc-type=auto --vdev=virtio_user0,path=/var/run/openvswitch/vhost-user1,queues=1,queue_size=256,mac=00:00:00:00:00:01 --no-pci --file-prefix=container EAL: Probing VFIO support...
+EAL: VFIO support initialized
+lcore: 0, port: 0, queue: 0
+create mbuf pool on socket 0
+create ring:dispatch_ring_p0_q0 success, 2047 ring entries are now free!
+Port 0 MAC: 00 00 00 00 00 01
+Port 0 modified RSS hash function based on hardware support,requested:0x3ffffc configured:0
+virtio_dev_configure(): Unsupported Rx multi queue mode 1
+Port0 dev_configure = -22
+EAL: Error - exiting with code: 1
+  Cause: init_port_start failed
+</code></pre>
+<p> &#x53C2;&#x8003;:
+ <a href="https://github.com/F-Stack/f-stack/issues/489" target="_blank">F-Stack/f-stack#489</a>
+ <a href="https://github.com/mtcp-stack/mtcp/issues/282" target="_blank">mtcp-stack/mtcp#282</a></p>
+<p> &#x4E34;&#x65F6;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;
+ &#x6CE8;&#x91CA;&#x6389;<a href="https://github.com/F-Stack/f-stack/blob/2df8fe233511da315136e8a64f0f63428b5cab73/dpdk/drivers/net/virtio/virtio_ethdev.c#L2080" target="_blank">dpdk/drivers/net/virtio/virtio_ethdev.c#L2080</a></p>
 
                                 
                                 </section>
@@ -369,8 +416,12 @@ sudo apt-get dist-upgrade -y
 
             
                 
+                <a href="f-stack.html" class="navigation navigation-prev " aria-label="Previous page: f-stack">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="kernel parameters.html" class="navigation navigation-next navigation-unique" aria-label="Next page: kernel parameters">
+                
+                <a href="nginx.html" class="navigation navigation-next " aria-label="Next page: nginx">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -381,7 +432,7 @@ sudo apt-get dist-upgrade -y
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"apt","level":"1.2.1","depth":2,"next":{"title":"kernel parameters","level":"1.2.2","depth":2,"path":"prerequisite/kernel parameters.md","ref":"prerequisite/kernel parameters.md","articles":[]},"previous":{"title":"prerequisite","level":"1.2","depth":1,"ref":"","articles":[{"title":"apt","level":"1.2.1","depth":2,"path":"prerequisite/apt.md","ref":"prerequisite/apt.md","articles":[]},{"title":"kernel parameters","level":"1.2.2","depth":2,"path":"prerequisite/kernel parameters.md","ref":"prerequisite/kernel parameters.md","articles":[]},{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/apt.md","mtime":"2021-03-25T13:53:22.516Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-25T13:53:54.010Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"helloworld","level":"1.4.1","depth":2,"next":{"title":"nginx","level":"1.4.2","depth":2,"path":"f-stack/nginx.md","ref":"f-stack/nginx.md","articles":[]},"previous":{"title":"f-stack","level":"1.4","depth":1,"path":"f-stack/f-stack.md","ref":"f-stack/f-stack.md","articles":[{"title":"helloworld","level":"1.4.1","depth":2,"path":"f-stack/helloworld.md","ref":"f-stack/helloworld.md","articles":[]},{"title":"nginx","level":"1.4.2","depth":2,"path":"f-stack/nginx.md","ref":"f-stack/nginx.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"f-stack/helloworld.md","mtime":"2021-03-25T13:53:22.516Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-25T13:53:54.010Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
