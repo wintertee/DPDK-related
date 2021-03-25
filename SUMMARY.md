@@ -2,7 +2,7 @@
 
 * [README](README.md)
 * [prerequisite]()
-    * [apt](prerequisite/apt.md)
+* [apt](prerequisite/apt.md)
     * [kernel parameters](prerequisite/kernel parameters.md)
     * [Docker](prerequisite/Docker.md)
 * [DPDK](DPDK/DPDK.md)
@@ -14,3 +14,4 @@
     * [pktgen](OVS-DPDK/pktgen.md)
     * [Docker+OVS-DPDK](OVS-DPDK/Docker+OVS-DPDK.md)
     * [Docker+nginx](OVS-DPDK/Docker+nginx.md)
+* [脚本](scripts/README.md)
