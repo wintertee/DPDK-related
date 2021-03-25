@@ -113,10 +113,9 @@
             
 
             
-            <ul class="articles">
-                
+        </li>
     
-        <li class="chapter " data-level="1.2.1" data-path="apt.html">
+        <li class="chapter " data-level="1.3" data-path="apt.html">
             
                 <a href="apt.html">
             
@@ -127,9 +126,10 @@
             
 
             
-        </li>
+            <ul class="articles">
+                
     
-        <li class="chapter active" data-level="1.2.2" data-path="kernel parameters.html">
+        <li class="chapter active" data-level="1.3.1" data-path="kernel parameters.html">
             
                 <a href="kernel parameters.html">
             
@@ -142,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="Docker.html">
+        <li class="chapter " data-level="1.3.2" data-path="Docker.html">
             
                 <a href="Docker.html">
             
@@ -160,7 +160,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../DPDK/DPDK.html">
+        <li class="chapter " data-level="1.4" data-path="../DPDK/DPDK.html">
             
                 <a href="../DPDK/DPDK.html">
             
@@ -174,7 +174,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="../DPDK/testpmd.html">
+        <li class="chapter " data-level="1.4.1" data-path="../DPDK/testpmd.html">
             
                 <a href="../DPDK/testpmd.html">
             
@@ -192,7 +192,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
+        <li class="chapter " data-level="1.5" data-path="../f-stack/f-stack.html">
             
                 <a href="../f-stack/f-stack.html">
             
@@ -206,7 +206,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
+        <li class="chapter " data-level="1.5.1" data-path="../f-stack/helloworld.html">
             
                 <a href="../f-stack/helloworld.html">
             
@@ -219,7 +219,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
+        <li class="chapter " data-level="1.5.2" data-path="../f-stack/nginx.html">
             
                 <a href="../f-stack/nginx.html">
             
@@ -237,7 +237,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../OVS-DPDK/OVS-DPDK.html">
+        <li class="chapter " data-level="1.6" data-path="../OVS-DPDK/OVS-DPDK.html">
             
                 <a href="../OVS-DPDK/OVS-DPDK.html">
             
@@ -251,7 +251,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../OVS-DPDK/pktgen.html">
+        <li class="chapter " data-level="1.6.1" data-path="../OVS-DPDK/pktgen.html">
             
                 <a href="../OVS-DPDK/pktgen.html">
             
@@ -264,7 +264,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="../OVS-DPDK/Docker+OVS-DPDK.html">
+        <li class="chapter " data-level="1.6.2" data-path="../OVS-DPDK/Docker+OVS-DPDK.html">
             
                 <a href="../OVS-DPDK/Docker+OVS-DPDK.html">
             
@@ -277,7 +277,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.3" data-path="../OVS-DPDK/Docker+nginx.html">
+        <li class="chapter " data-level="1.6.3" data-path="../OVS-DPDK/Docker+nginx.html">
             
                 <a href="../OVS-DPDK/Docker+nginx.html">
             
@@ -292,6 +292,19 @@
     
 
             </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../scripts/">
+            
+                <a href="../scripts/">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
             
         </li>
     
@@ -349,10 +362,11 @@
 <pre><code class="lang-shell">sudo update-grub
 </code></pre>
 <p>&#x6302;&#x8F7D;Hugepage&#xFF1A;<a href="https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html" target="_blank">https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html</a></p>
-<pre><code>sudo mkdir -p /mnt/huge
+<pre><code class="lang-shell">sudo mkdir -p /mnt/huge
 # mount -t hugetlbfs pagesize=1GB /mnt/huge # &#x4E34;&#x65F6;&#x6302;&#x8F7D;
 sudo sh -c &quot;echo &apos;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&apos; &gt;&gt; /etc/fstab&quot; # &#x6C38;&#x4E45;&#x6302;&#x8F7D;
-</code></pre><p>&#x68C0;&#x67E5;Hugepage:</p>
+</code></pre>
+<p>&#x68C0;&#x67E5;Hugepage:</p>
 <pre><code class="lang-shell">grep Huge /proc/meminfo
 </code></pre>
 <h2 id="&#x5173;&#x95ED;swap">&#x5173;&#x95ED;Swap</h2>
@@ -405,7 +419,7 @@ sudo sh -c &quot;echo &apos;nodev /mnt/huge hugetlbfs pagesize=1GB 0 0&apos; &gt
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kernel parameters","level":"1.2.2","depth":2,"next":{"title":"Docker","level":"1.2.3","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"previous":{"title":"apt","level":"1.2.1","depth":2,"path":"prerequisite/apt.md","ref":"prerequisite/apt.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/kernel parameters.md","mtime":"2021-03-25T14:23:16.039Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-25T14:23:42.762Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"kernel parameters","level":"1.3.1","depth":2,"next":{"title":"Docker","level":"1.3.2","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]},"previous":{"title":"apt","level":"1.3","depth":1,"path":"prerequisite/apt.md","ref":"prerequisite/apt.md","articles":[{"title":"kernel parameters","level":"1.3.1","depth":2,"path":"prerequisite/kernel parameters.md","ref":"prerequisite/kernel parameters.md","articles":[]},{"title":"Docker","level":"1.3.2","depth":2,"path":"prerequisite/Docker.md","ref":"prerequisite/Docker.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"prerequisite/kernel parameters.md","mtime":"2021-03-25T15:23:03.281Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-25T15:23:30.578Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
