@@ -1,0 +1,30 @@
+FROM ubuntu:18.04
+WORKDIR /root
+RUN apt-get update && \
+
+# for f-stack:
+    apt-get -y install \
+    libnuma-dev libssl-dev libpcap-dev gawk \
+
+# utils:
+    vim wget\
+# to compile DPDK kernel module:
+    linux-headers-$(uname -r) gawk && \
+
+# download source code:
+    wget -c --retry-connrefused --tries=5 --timeout=5 \
+         https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz && \
+    tar xzf v1.21.tar.gz && \
+    rm v1.21.tar.gz && \
+
+# build dpdk:
+    cd f-stack-1.21/dpdk/ && \
+    make defconfig O=x86_64-native-linuxapp-gcc && \
+    make -j8 O=x86_64-native-linuxapp-gcc && \
+
+# build f-stack:
+    export FF_PATH=/root/f-stack-1.21/
+    export FF_DPDK=/root/f-stack-1.21/dpdk/x86_64-native-linuxapp-gcc/
+    cd lib/
+    make -j8
+    make install
