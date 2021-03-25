@@ -7,7 +7,7 @@ RUN apt-get update && \
 # utils:
     vim wget build-essential\
 # to compile DPDK kernel module:
-    linux-headers-$(uname -r) gawk && \
+    linux-headers-$(uname -r) && \
 # download source code:
     wget -c --retry-connrefused --tries=5 --timeout=5 \
 #       https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz && \
