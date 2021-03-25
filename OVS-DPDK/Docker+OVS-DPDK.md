@@ -43,7 +43,7 @@ echo "/usr/local/lib/x86_64-linux-gnu" >> /etc/ld.so.conf && ldconfig
 
 参考：https://blog.csdn.net/me_blue/article/details/78589592
 
-![示意图](/images/pktgen.jpg)
+![示意图](../images/pktgen.jpg)
 
 ### 第一次测试
 
