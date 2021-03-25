@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get -y install \
     libnuma-dev libssl-dev libpcap-dev gawk \
 # utils:
-    vim wget\
+    vim wget build-essential\
 # to compile DPDK kernel module:
     linux-headers-$(uname -r) gawk && \
 # download source code:
@@ -16,11 +16,13 @@ RUN apt-get update && \
     rm v1.21.tar.gz && \
 # build dpdk:
     cd f-stack-1.21/dpdk/ && \
+    export RTE_SDK=/root/f-stack-1.21/dpdk && \
+    export RTE_TARGET=x86_64-native-linuxapp-gcc && \
     make defconfig O=x86_64-native-linuxapp-gcc && \
     make -j8 O=x86_64-native-linuxapp-gcc && \
 # build f-stack:
     export FF_PATH=/root/f-stack-1.21/ && \
     export FF_DPDK=/root/f-stack-1.21/dpdk/x86_64-native-linuxapp-gcc/ && \
-    cd lib/ && \
+    cd /root/f-stack-1.21/lib/ && \
     make -j8 && \
     make install

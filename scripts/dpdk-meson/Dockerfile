@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get -y install \
     libnuma-dev libssl-dev libpcap-dev gawk \
 # utils:
-    vim wget \
+    vim wget build-essential\
 # for DPDK:
    pkg-config \
 # to compile DPDK kernel module:
