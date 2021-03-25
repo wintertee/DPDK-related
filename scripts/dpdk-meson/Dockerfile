@@ -15,7 +15,8 @@ RUN apt-get update && \
     pip3 install meson ninja && \
 # download source code:
     wget -c --retry-connrefused --tries=5 --timeout=5 \
-         https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz && \
+#       https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz && \
+        https://gh.api.99988866.xyz/https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz && \
     tar xzf v1.21.tar.gz && \
     rm v1.21.tar.gz && \
     cd f-stack-1.21/dpdk/ && \
