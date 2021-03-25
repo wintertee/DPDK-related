@@ -13,5 +13,5 @@ RUN apt-get update && \
     cd f-stack-1.21/dpdk/ && \
     meson -Dexamples=all -Denable_kmods=true build && \
     ninja -C build && \
-    ninja install
+    ninja -C build install
     
