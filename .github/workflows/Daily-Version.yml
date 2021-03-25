@@ -1,3 +1,5 @@
+name: 'DailyVersion'
+
 on:
   schedule:
     - cron: '59 23 * * *'
