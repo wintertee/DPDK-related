@@ -71,6 +71,7 @@ ovs-ofctl dump-ports br0
 ## 关闭ovs
 
 ```shell
+ovs-vsctl --if-exists del-br br0
 ovs-appctl -t ovs-vswitchd exit
 ovs-appctl -t ovsdb-server exit
 ```
