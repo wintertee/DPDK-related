@@ -41,7 +41,7 @@ echo "/usr/local/lib/x86_64-linux-gnu" >> /etc/ld.so.conf && ldconfig
 
 ## 测试ovs-dpdk和docker
 
-参考：https://blog.csdn.net/me_blue/article/details/78589592
+参考：<https://blog.csdn.net/me_blue/article/details/78589592>
 
 ![示意图](../images/pktgen.jpg)
 

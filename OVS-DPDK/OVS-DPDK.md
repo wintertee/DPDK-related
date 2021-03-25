@@ -2,7 +2,7 @@
 
 ## 安装OVS-dpdk
 
-参考 https://docs.openvswitch.org/en/latest/intro/install/dpdk/ https://blog.csdn.net/me_blue/article/details/78589592
+参考 <https://docs.openvswitch.org/en/latest/intro/install/dpdk/> <https://blog.csdn.net/me_blue/article/details/78589592>
 
 ```shell
 ./configure --with-dpdk=/usr/local/f-stack/dpdk/build CFLAGS="-Ofast -msse4.2 -mpopcnt -mavx"
@@ -13,7 +13,7 @@ make install
 
 ## 运行OVS-dpdk
 
-参考：https://blog.csdn.net/cloudvtech/article/details/80492234
+参考：<https://blog.csdn.net/cloudvtech/article/details/80492234>
 
 ```shell
 export PATH=$PATH:/usr/local/share/openvswitch/scripts

@@ -1,6 +1,6 @@
 # 内核配置
 
-文档：https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html
+文档：<https://www.kernel.org/doc/html/v4.15/admin-guide/kernel-parameters.html>
 
 修改 /etc/default/grub 文件，添加
 
@@ -14,8 +14,9 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash default_hugepagesz=1G hugepagesz=1G hug
 sudo update-grub
 ```
 
-挂载Hugepage：https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html
-```
+挂载Hugepage：<https://doc.dpdk.org/guides-19.11/linux_gsg/sys_reqs.html>
+
+```shell
 sudo mkdir -p /mnt/huge
 # mount -t hugetlbfs pagesize=1GB /mnt/huge # 临时挂载
 sudo sh -c "echo 'nodev /mnt/huge hugetlbfs pagesize=1GB 0 0' >> /etc/fstab" # 永久挂载

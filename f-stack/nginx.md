@@ -12,7 +12,7 @@ make install
 
 ## 运行nginx
 
-参考：https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/
+参考：<https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/>
 
 首先记住网卡的网络信息，并写入f-stack配置文件中
 
