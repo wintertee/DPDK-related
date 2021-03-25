@@ -10,7 +10,7 @@ RUN apt-get update && \
 # for DPDK:
    pkg-config \
 # to compile DPDK kernel module:
-    linux-headers-$(uname -r) gawk && \
+    linux-headers-$(uname -r) && \
 # to build DPDK:
     pip3 install meson ninja && \
 # download source code:
