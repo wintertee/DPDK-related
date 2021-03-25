@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get -y install libnuma-dev libssl-dev \
                        vim wget\
                        libpcap-dev python3-pip pkg-config wget \
-                       linux-headers-$(uname -r) && \
+                       linux-headers-$(uname -r) gawk && \
     pip3 install meson ninja && \
     wget -c --retry-connrefused --tries=5 --timeout=5 \
          https://github.com/F-Stack/f-stack/archive/refs/tags/v1.21.tar.gz && \
