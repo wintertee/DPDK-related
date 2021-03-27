@@ -9,7 +9,7 @@ sudo docker run --net=none --privileged=true -it ovs-docker bash
 为容器添加网卡：
 
 ``` shell
-sudo ~/openvswitch-2.13.3/utilities/ovs-docker add-port br0 eth0 <container ID>
+sudo ~/openvswitch-2.13.3/utilities/ovs-docker add-port br0 eth0 <container ID>  --ipaddress=192.168.0.2/24
 ```
 
 设置网卡ip:
