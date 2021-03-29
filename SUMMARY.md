@@ -2,7 +2,7 @@
 
 * [README](README.md)
 * [prerequisite]()
-* [apt](prerequisite/apt.md)
+    * [apt](prerequisite/apt.md)
     * [kernel parameters](prerequisite/kernel parameters.md)
     * [Docker](prerequisite/Docker.md)
 * [DPDK](DPDK/DPDK.md)
