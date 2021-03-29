@@ -10,6 +10,6 @@
 - [**F-stack v1.21**](https://github.com/F-Stack/f-stack/tree/v1.21)
 - [**DPDK 19.11.06**](https://doc.dpdk.org/guides-19.11/)
 - [**OVS-DPDK 2.13.3**](https://ovs-2133.readthedocs.io/en/stable/topics/dpdk/index.html)
-- [**VPP 20.09](https://docs.fd.io/vpp/20.09/)
+- [**VPP 20.09**](https://docs.fd.io/vpp/20.09/)
 - **Ubuntu18.04**
 - 内核**4.15**
