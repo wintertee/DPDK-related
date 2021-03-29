@@ -1,6 +1,8 @@
+name: 'DailyVersion'
+
 on:
   schedule:
-    - cron: '59 23 * * *'
+    - cron: '59 15 * * *'
 
 jobs:
   Tag:
