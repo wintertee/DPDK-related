@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Docker+OVS-DPDK · GitBook</title>
+        <title>OVS-Docker · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Docker+nginx.html" />
+    <link rel="next" href="../scripts/" />
     
     
-    <link rel="prev" href="pktgen.html" />
+    <link rel="prev" href="Docker+nginx.html" />
     
 
     </head>
@@ -264,7 +264,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6.2" data-path="Docker+OVS-DPDK.html">
+        <li class="chapter " data-level="1.6.2" data-path="Docker+OVS-DPDK.html">
             
                 <a href="Docker+OVS-DPDK.html">
             
@@ -290,7 +290,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.4" data-path="Docker+ovs.html">
+        <li class="chapter active" data-level="1.6.4" data-path="Docker+ovs.html">
             
                 <a href="Docker+ovs.html">
             
@@ -351,7 +351,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Docker+OVS-DPDK</a>
+        <a href=".." >OVS-Docker</a>
     </h1>
 </div>
 
@@ -366,138 +366,18 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dockerovs-dpdk">Docker+OVS-DPDK</h1>
-<h2 id="&#x521B;&#x5EFA;&#x5BB9;&#x5668;">&#x521B;&#x5EFA;&#x5BB9;&#x5668;</h2>
-<p>&#x521B;&#x5EFA;Dockerfile&#xFF1A;</p>
-<pre><code class="lang-shell">FROM ubuntu:18.04
-WORKDIR /usr/local/f-stack
-COPY . /usr/local/f-stack
-RUN apt-get update &amp;&amp; apt-get install -y libnuma-dev libssl-dev vim libpcap-dev
-ENV PATH &quot;$PATH:/usr/local/f-stack/dpdk/build/app/&quot;
+                                <h1 id="&#x5728;docker&#x4E2D;&#x4F7F;&#x7528;ovs&#x7F51;&#x6865;">&#x5728;Docker&#x4E2D;&#x4F7F;&#x7528;OVS&#x7F51;&#x6865;</h1>
+<p>&#x521B;&#x5EFA;&#x65E0;&#x7F51;&#x7EDC;&#x5BB9;&#x5668;&#xFF1A;</p>
+<pre><code class="lang-shell">sudo docker run --net=none --privileged=true -it ovs-docker bash
 </code></pre>
-<p>&#x521B;&#x5EFA;&#x955C;&#x50CF;&#xFF1A;</p>
-<pre><code class="lang-shell">docker build -t f-stack .
+<p>&#x4E3A;&#x5BB9;&#x5668;&#x6DFB;&#x52A0;&#x7F51;&#x5361;&#xFF1A;</p>
+<pre><code class="lang-shell">sudo ~/openvswitch-2.13.3/utilities/ovs-docker add-port br0 eth0 &lt;container ID&gt;  --ipaddress=192.168.0.2/24
 </code></pre>
-<p>&#x8FD0;&#x884C;&#x5BB9;&#x5668;&#xFF1A;</p>
-<pre><code class="lang-shell">docker run -ti --privileged --name f-stack \
--v /mnt/huge:/mnt/huge \
--v /usr/local/var/run/openvswitch:/var/run/openvswitch \
--v /usr/local/lib:/usr/local/lib\
--v /usr/local/include \
-f-stack
-</code></pre>
-<pre><code class="lang-shell">docker exec -it &lt;ID&gt; bash
-</code></pre>
-<p>&#x94FE;&#x63A5;&#x52A8;&#x6001;&#x5E93;&#xFF1A;</p>
-<pre><code class="lang-shell">echo &quot;/usr/local/lib/x86_64-linux-gnu&quot; &gt;&gt; /etc/ld.so.conf &amp;&amp; ldconfig
-</code></pre>
-<h2 id="&#x6D4B;&#x8BD5;ovs-dpdk&#x548C;docker">&#x6D4B;&#x8BD5;ovs-dpdk&#x548C;docker</h2>
-<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://blog.csdn.net/me_blue/article/details/78589592" target="_blank">https://blog.csdn.net/me_blue/article/details/78589592</a></p>
-<p><img src="../images/pktgen.jpg" alt="&#x793A;&#x610F;&#x56FE;"></p>
-<h3 id="&#x7B2C;&#x4E00;&#x6B21;&#x6D4B;&#x8BD5;">&#x7B2C;&#x4E00;&#x6B21;&#x6D4B;&#x8BD5;</h3>
-<table>
-<thead>
-<tr>
-<th>thread</th>
-<th>cpu-mask</th>
-<th>0000</th>
-<th>&#x5907;&#x6CE8;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>dpdk-lcore-mask</td>
-<td>0x1</td>
-<td>0001</td>
-<td></td>
-</tr>
-<tr>
-<td>pmd-cpu-mask</td>
-<td>0x1</td>
-<td>0001</td>
-<td></td>
-</tr>
-<tr>
-<td>pktgen</td>
-<td>0x6</td>
-<td>0110</td>
-<td>master-lcore = 1</td>
-</tr>
-<tr>
-<td>testpmd</td>
-<td>0xA</td>
-<td>1010</td>
-<td>master-lcore = 1</td>
-</tr>
-</tbody>
-</table>
-<p>&#x5148;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#x4E2D;&#x8FD0;&#x884C;pktgen&#xFF0C;&#x5728;&#x7B2C;1&#x3001;2&#x7AEF;&#x53E3;&#x4E0A;&#x53D1;&#x5305;&#x548C;&#x6536;&#x5305;&#xFF1A;</p>
-<pre><code class="lang-shell">pktgen-21.02.0/build/app/pktgen -c 0x6 --master-lcore 1 -n 1 --socket-mem 1024 --no-pci --vdev &apos;net_virtio_user1,mac=00:00:00:00:00:01,path=/var/run/openvswitch/vhost-user1&apos; --vdev &apos;net_virtio_user2,mac=00:00:00:00:00:02,path=/var/run/openvswitch/vhost-user2&apos; -- -T -P -m &quot;2.0&#xFF0C;2.1&quot;
-</code></pre>
-<p>&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x5BB9;&#x5668;&#x4E2D;&#x8FD0;&#x884C;testpmd&#xFF0C;&#x8FDB;&#x884C;&#x5305;&#x8F6C;&#x53D1;4&lt;-&gt;3&#xFF1A;</p>
-<pre><code class="lang-shell">./dpdk/build/app/dpdk-testpmd -c 0xa --master-lcore 1 -n 1 --socket-mem 1024 --no-pci --vdev &apos;net_virtio_user3,mac=00:00:00:00:00:03,path=/var/run/openvswitch/vhost-user3&apos; --vdev &apos;net_virtio_user4,mac=00:00:00:00:00:04,path=/var/run/openvswitch/vhost-user4&apos;  --  -i
-</code></pre>
-<p>&#x8BBE;&#x7F6E;pktgen&#x4E2D;&#x7684;&#x53D1;&#x5305;&#x6570;&#x91CF;&#xFF1A;</p>
-<pre><code class="lang-shell">set 0 count 10000000
-set 1 count 10000000
-str
-</code></pre>
-<p>&#x7ED3;&#x679C;&#xFF1A;</p>
-<pre><code class="lang-shell">Total Rx Pkts       :              9998848              9998816                     
-      Tx Pkts       :             10000000             10000000
-</code></pre>
-<p>&#x4E22;&#x5305;&#x7387;&#x4E3A;0.01%</p>
-<h3 id="&#x7B2C;&#x4E8C;&#x6B21;&#x6D4B;&#x8BD5;&#xFF1A;&#x6D4B;&#x8BD5;pmd&#x7EBF;&#x7A0B;&#x516C;&#x7528;lcpu">&#x7B2C;&#x4E8C;&#x6B21;&#x6D4B;&#x8BD5;&#xFF1A;&#x6D4B;&#x8BD5;pmd&#x7EBF;&#x7A0B;&#x516C;&#x7528;lcpu</h3>
-<table>
-<thead>
-<tr>
-<th>thread</th>
-<th>cpu-mask</th>
-<th>0000</th>
-<th>&#x5907;&#x6CE8;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>dpdk-lcore-mask</td>
-<td>0x1</td>
-<td>0001</td>
-<td></td>
-</tr>
-<tr>
-<td>pmd-cpu-mask</td>
-<td>0x1</td>
-<td>0001</td>
-<td></td>
-</tr>
-<tr>
-<td>pktgen</td>
-<td>0x6</td>
-<td>0110</td>
-<td>master-lcore = 1</td>
-</tr>
-<tr>
-<td>testpmd</td>
-<td>0x6</td>
-<td>0110</td>
-<td>master-lcore = 1</td>
-</tr>
-</tbody>
-</table>
-<p>&#x7ED3;&#x679C;&#xFF1A;</p>
-<pre><code class="lang-shell">Total Rx Pkts       :               113152               113184 
-      Tx Pkts       :             10000000             10000000
-</code></pre>
-<p>&#x4E22;&#x5305;&#x7387;&#x4E3A;99%</p>
-<p>testpmd&#x7684;&#x7EDF;&#x8BA1;&#xFF1A;</p>
-<pre><code class="lang-shell">---------------------- Forward statistics for port 0  ----------------------
-RX-packets: 209440         RX-dropped: 0             RX-total: 209440
-TX-packets: 195840         TX-dropped: 10336         TX-total: 206176
----------------------- Forward statistics for port 1  ----------------------
-RX-packets: 206176         RX-dropped: 0             RX-total: 206176
-TX-packets: 200000         TX-dropped: 9440          TX-total: 209440
-----------------------------------------------------------------------------
-</code></pre>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;Docker&#x53EA;&#x80FD;&#x8FDE;&#x63A5;&#x5230;<code>datapath_type=system</code>&#x7684;&#x5185;&#x6838;&#x6001;&#x7F51;&#x6865;&#x3002;&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x5230;<code>netdev</code>&#x7684;&#x7528;&#x6237;&#x6001;&#x7F51;&#x6865;&#xFF0C;Docker&#x4F1A;&#x7F3A;&#x5C11;TCP/IP&#x534F;&#x8BAE;&#x6808;&#x3002;</p>
+<p>&#x6B64;&#x5916;&#xFF0C;OVS&#x4E0D;&#x652F;&#x6301;<code>system</code>&#x548C;<code>netdev</code>&#x4E24;&#x79CD;&#x7F51;&#x6865;&#x7684;&#x8FDE;&#x63A5;(patch)&#x3002;</p>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<p><a href="https://docs.openvswitch.org/en/latest/intro/install/userspace/" target="_blank">https://docs.openvswitch.org/en/latest/intro/install/userspace/</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/ovs-dpdk_end_to_end_troubleshooting_guide/index#confirming_compute_node_ovs_configuration" target="_blank">https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/ovs-dpdk_end_to_end_troubleshooting_guide/index#confirming_compute_node_ovs_configuration</a></p>
 
                                 
                                 </section>
@@ -525,12 +405,12 @@ TX-packets: 200000         TX-dropped: 9440          TX-total: 209440
 
             
                 
-                <a href="pktgen.html" class="navigation navigation-prev " aria-label="Previous page: pktgen">
+                <a href="Docker+nginx.html" class="navigation navigation-prev " aria-label="Previous page: Docker+nginx">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Docker+nginx.html" class="navigation navigation-next " aria-label="Next page: Docker+nginx">
+                <a href="../scripts/" class="navigation navigation-next " aria-label="Next page: 脚本">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -541,7 +421,7 @@ TX-packets: 200000         TX-dropped: 9440          TX-total: 209440
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Docker+OVS-DPDK","level":"1.6.2","depth":2,"next":{"title":"Docker+nginx","level":"1.6.3","depth":2,"path":"OVS-DPDK/Docker+nginx.md","ref":"OVS-DPDK/Docker+nginx.md","articles":[]},"previous":{"title":"pktgen","level":"1.6.1","depth":2,"path":"OVS-DPDK/pktgen.md","ref":"OVS-DPDK/pktgen.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"OVS-DPDK/Docker+OVS-DPDK.md","mtime":"2021-03-29T06:52:53.044Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-29T06:53:19.168Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OVS-Docker","level":"1.6.4","depth":2,"next":{"title":"脚本","level":"1.7","depth":1,"path":"scripts/README.md","ref":"scripts/README.md","articles":[]},"previous":{"title":"Docker+nginx","level":"1.6.3","depth":2,"path":"OVS-DPDK/Docker+nginx.md","ref":"OVS-DPDK/Docker+nginx.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"OVS-DPDK/Docker+ovs.md","mtime":"2021-03-29T06:52:53.044Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-29T06:53:19.168Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
