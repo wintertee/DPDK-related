@@ -13,7 +13,6 @@
 * [OVS-DPDK](OVS-DPDK/OVS-DPDK.md)
     * [pktgen](OVS-DPDK/pktgen.md)
     * [Docker+OVS-DPDK](OVS-DPDK/Docker+OVS-DPDK.md)
-    * [Docker+nginx](OVS-DPDK/Docker+nginx.md)
     * [OVS-Docker](OVS-DPDK/Docker+ovs.md)
 * [VPP]()
     * [部署k8s集群和Contiv-VPP CNI](VPP/Contiv-VPP.md)
