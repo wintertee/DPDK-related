@@ -17,3 +17,6 @@
 * [VPP]()
     * [部署k8s集群和Contiv-VPP CNI](VPP/Contiv-VPP.md)
 * [脚本](scripts/README.md)
+* [转载]()
+    * [Kubernetes网络原理](reproduce/Kubernetes网络原理.md)
+    * [浅谈 Kubernetes 中的服务发现.md](reproduce/浅谈 Kubernetes 中的服务发现.md)
