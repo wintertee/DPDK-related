@@ -522,11 +522,29 @@ done
 <pre><code class="lang-shell">kubectl label node ubuntu16 node-role.kubernetes.io/worker=worker
 </code></pre>
 </li>
+<li><p>worker node&#x7684;kubeproxy&#x4E00;&#x76F4;&#x5904;&#x5728;container creating&#x72B6;&#x6001;&#xFF0C;&#x67E5;&#x770B;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;</p>
+<pre><code class="lang-shell">kubectl describe pod kube-proxy-4ht98 --namespace=kube-system
+
+Failed to create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory
+</code></pre>
+<p>&#x76F4;&#x63A5;&#x5C06;master&#x7684;resolv.conf&#x6587;&#x4EF6;&#x590D;&#x5236;&#x4E00;&#x4EFD;&#xFF0C;kubeproxy&#x5F00;&#x59CB;running&#x3002;</p>
+</li>
 </ul>
 <h2 id="&#x90E8;&#x7F72;contiv-vpp">&#x90E8;&#x7F72;Contiv-VPP</h2>
-<pre><code>wget https://raw.githubusercontent.com/contiv/vpp/master/k8s/contiv-vpp.yaml
+<pre><code class="lang-shell">wget https://raw.githubusercontent.com/contiv/vpp/master/k8s/contiv-vpp.yaml
 kubectl apply -f ./contiv-vpp.yaml
-</code></pre><p>&#x76EE;&#x524D;&#x4E0D;&#x6210;&#x529F;&#xFF0C;contiv-vswitch&#x7684;&#x72B6;&#x6001;&#x662F;CrashLoopBackOff</p>
+</code></pre>
+<p>&#x76EE;&#x524D;&#x4E0D;&#x6210;&#x529F;&#xFF0C;contiv-vswitch&#x7684;&#x72B6;&#x6001;&#x662F;CrashLoopBackOff</p>
+<p>&#x67E5;&#x770B;log</p>
+<pre><code class="lang-shell">kubectl logs contiv-vswitch-lmjbb -n kube-system
+
+time=&quot;2021-04-09 08:20:16.99284&quot; level=debug msg=&quot;connection to VPP established (took 6ms)&quot; loc=&quot;govppmux/plugin_impl_govppmux.go(146)&quot; logger=govpp
+time=&quot;2021-04-09 08:20:16.99315&quot; level=debug msg=&quot;binapi version 19.04.2 core incompatible (214/362 messages)&quot; loc=&quot;logging/log_api.go(37)&quot; logger=defaultLogger
+time=&quot;2021-04-09 08:20:16.99341&quot; level=debug msg=&quot;binapi version 19.08.1 core incompatible (198/384 messages)&quot; loc=&quot;logging/log_api.go(37)&quot; logger=defaultLogger
+time=&quot;2021-04-09 08:20:16.99359&quot; level=debug msg=&quot;binapi version 20.01-rc2~11 core incompatible (70/364 messages)&quot; loc=&quot;logging/log_api.go(37)&quot; logger=defaultLogger
+time=&quot;2021-04-09 08:20:16.99370&quot; level=fatal msg=&quot;retrieving VPP info failed: no compatible binapi version found&quot; loc=&quot;contiv-agent/main.go(304)&quot; logger=defaultLogger
+</code></pre>
+<p>&#x6682;&#x65F6;&#x6CA1;&#x627E;&#x5230;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;</p>
 
                                 
                                 </section>
@@ -566,7 +584,7 @@ kubectl apply -f ./contiv-vpp.yaml
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"next":{"title":"脚本","level":"1.7","depth":1,"path":"scripts/README.md","ref":"scripts/README.md","articles":[]},"previous":{"title":"VPP","level":"1.6","depth":1,"ref":"","articles":[{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"path":"VPP/Contiv-VPP.md","ref":"VPP/Contiv-VPP.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"VPP/Contiv-VPP.md","mtime":"2021-04-09T13:52:05.872Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-09T13:52:29.845Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"next":{"title":"脚本","level":"1.7","depth":1,"path":"scripts/README.md","ref":"scripts/README.md","articles":[]},"previous":{"title":"VPP","level":"1.6","depth":1,"ref":"","articles":[{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"path":"VPP/Contiv-VPP.md","ref":"VPP/Contiv-VPP.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"VPP/Contiv-VPP.md","mtime":"2021-04-09T13:59:20.352Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-09T13:59:51.620Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
