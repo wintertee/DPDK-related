@@ -129,11 +129,35 @@
   kubectl label node ubuntu16 node-role.kubernetes.io/worker=worker
   ```
 
+- worker node的kubeproxy一直处在container creating状态，查看详细信息
+
+  ```shell
+  kubectl describe pod kube-proxy-4ht98 --namespace=kube-system
+  
+  Failed to create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory
+  ```
+
+  直接将master的resolv.conf文件复制一份，kubeproxy开始running。
+
 ## 部署Contiv-VPP
 
-```
+```shell
 wget https://raw.githubusercontent.com/contiv/vpp/master/k8s/contiv-vpp.yaml
 kubectl apply -f ./contiv-vpp.yaml
 ```
 
 目前不成功，contiv-vswitch的状态是CrashLoopBackOff
+
+查看log
+
+```shell
+kubectl logs contiv-vswitch-lmjbb -n kube-system
+
+time="2021-04-09 08:20:16.99284" level=debug msg="connection to VPP established (took 6ms)" loc="govppmux/plugin_impl_govppmux.go(146)" logger=govpp
+time="2021-04-09 08:20:16.99315" level=debug msg="binapi version 19.04.2 core incompatible (214/362 messages)" loc="logging/log_api.go(37)" logger=defaultLogger
+time="2021-04-09 08:20:16.99341" level=debug msg="binapi version 19.08.1 core incompatible (198/384 messages)" loc="logging/log_api.go(37)" logger=defaultLogger
+time="2021-04-09 08:20:16.99359" level=debug msg="binapi version 20.01-rc2~11 core incompatible (70/364 messages)" loc="logging/log_api.go(37)" logger=defaultLogger
+time="2021-04-09 08:20:16.99370" level=fatal msg="retrieving VPP info failed: no compatible binapi version found" loc="contiv-agent/main.go(304)" logger=defaultLogger
+```
+
+暂时没找到解决方法
