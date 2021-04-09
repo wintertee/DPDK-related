@@ -1,0 +1,963 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Kubernetes网络原理 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="浅谈 Kubernetes 中的服务发现.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    prerequisite
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../prerequisite/apt.html">
+            
+                <a href="../prerequisite/apt.html">
+            
+                    
+                    apt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../prerequisite/kernel parameters.html">
+            
+                <a href="../prerequisite/kernel parameters.html">
+            
+                    
+                    kernel parameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../prerequisite/Docker.html">
+            
+                <a href="../prerequisite/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DPDK/DPDK.html">
+            
+                <a href="../DPDK/DPDK.html">
+            
+                    
+                    DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../DPDK/testpmd.html">
+            
+                <a href="../DPDK/testpmd.html">
+            
+                    
+                    testpmd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
+            
+                <a href="../f-stack/f-stack.html">
+            
+                    
+                    f-stack
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
+            
+                <a href="../f-stack/helloworld.html">
+            
+                    
+                    helloworld
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
+            
+                <a href="../f-stack/nginx.html">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../OVS-DPDK/OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/OVS-DPDK.html">
+            
+                    
+                    OVS-DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../OVS-DPDK/pktgen.html">
+            
+                <a href="../OVS-DPDK/pktgen.html">
+            
+                    
+                    pktgen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                    
+                    Docker+OVS-DPDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../OVS-DPDK/Docker+ovs.html">
+            
+                <a href="../OVS-DPDK/Docker+ovs.html">
+            
+                    
+                    OVS-Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    VPP
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../VPP/Contiv-VPP.html">
+            
+                <a href="../VPP/Contiv-VPP.html">
+            
+                    
+                    部署k8s集群和Contiv-VPP CNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../scripts/">
+            
+                <a href="../scripts/">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    转载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.8.1" data-path="Kubernetes网络原理.html">
+            
+                <a href="Kubernetes网络原理.html">
+            
+                    
+                    Kubernetes网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="浅谈 Kubernetes 中的服务发现.html">
+            
+                <a href="浅谈 Kubernetes 中的服务发现.html">
+            
+                    
+                    浅谈 Kubernetes 中的服务发现
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Kubernetes网络原理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="kubernetes&#x7F51;&#x7EDC;&#x539F;&#x7406;">Kubernetes&#x7F51;&#x7EDC;&#x539F;&#x7406;</h1>
+<p>&#x6765;&#x81EA;&#x4E13;&#x680F; <a href="https://www.zhihu.com/column/c_1105070845327900672" target="_blank">&#x4EBA;&#x5DE5;&#x667A;&#x80FD;&#x6280;&#x672F;&#x6808;</a></p>
+<p>&#x6700;&#x8FD1;&#x5728;&#x5DE5;&#x4F5C;&#x4E2D;&#x9047;&#x5230;kubernetes&#x7F51;&#x7EDC;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x51B3;&#x5B9A;&#x597D;&#x597D;&#x7814;&#x7A76;&#x4E0B;kubernetes&#x7684;&#x7F51;&#x7EDC;&#x539F;&#x7406;&#x3002;&#x53C2;&#x89C1;&#x4E66;&#x7C4D;<kubernetes权威指南>&#x3002;</kubernetes权威指南></p>
+<p><strong>Kubernetes&#x7F51;&#x7EDC;&#x6A21;&#x578B;</strong></p>
+<p>&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;kubernetes&#x7684;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x3002;</p>
+<p>Kubernetes&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x8BBE;&#x8BA1;&#x7684;&#x57FA;&#x7840;&#x539F;&#x5219;&#xFF1A;<strong>&#x6BCF;&#x4E2A;Pod&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x800C;&#x4E14;&#x6240;&#x6709;Pod&#x90FD;&#x5728;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FDE;&#x901A;&#x3001;&#x6241;&#x5E73;&#x7684;&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x4E2D;</strong>&#x3002;&#x8FD9;&#x79CD;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x88AB;&#x79F0;&#x4E3A;<strong>IP-per-Pod&#x6A21;&#x578B;</strong>&#x3002;</p>
+<p>IP-per-Pod&#x6A21;&#x578B;&#x4F7F;&#x5F97;&#xFF1A;1. &#x6240;&#x6709;Pod&#x53CA;&#x5176;&#x5185;&#x90E8;container&#xFF08;&#x4E0D;&#x7BA1;&#x5728;&#x4E0D;&#x5728;&#x540C;&#x4E00;&#x4E2A;node&#x4E0A;&#xFF09;&#x90FD;&#x53EF;&#x4EE5;&#x5728;&#x4E0D;&#x7528;NAT&#x7684;&#x65B9;&#x5F0F;&#x76F4;&#x63A5;&#x76F8;&#x4E92;&#x8BBF;&#x95EE;&#xFF1B;2.Pod&#x5185;&#x90E8;&#x7684;&#x6240;&#x6709;container&#x5171;&#x4EAB;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x5806;&#x6808;&#xFF0C;&#x5305;&#x62EC;IP&#x5730;&#x5740;&#x3001;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#x3001;&#x914D;&#x7F6E;&#x7B49;&#xFF0C;&#x5373;&#x540C;&#x4E00;&#x4E2A;Pod&#x5185;&#x7684;&#x5BB9;&#x5668;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;localhost&#x6765;&#x8FDE;&#x63A5;&#x5BF9;&#x65B9;&#x7684;&#x7AEF;&#x53E3;&#x3002;</p>
+<p>Google&#x8BBE;&#x8BA1;&#x7684;&#x516C;&#x6709;&#x4E91;GCE&#x9ED8;&#x8BA4;&#x652F;&#x6301;Kubernetes&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#xFF0C;&#x4E9A;&#x9A6C;&#x900A;&#x63D0;&#x4F9B;&#x7684;&#x516C;&#x6709;&#x4E91;&#x4E5F;&#x652F;&#x6301;&#x8FD9;&#x79CD;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x90E8;&#x7F72;&#x79C1;&#x6709;&#x4E91;&#x6765;&#x8FD0;&#x884C;kubernetes+docker&#x96C6;&#x7FA4;&#x4E4B;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x642D;&#x5EFA;&#x51FA;&#x7B26;&#x5408;kubernetes&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x7684;&#x7F51;&#x7EDC;&#x73AF;&#x5883;&#x3002;</p>
+<p>Kubernetes&#x7F51;&#x7EDC;&#x4F9D;&#x8D56;&#x4E8E;Docker&#xFF0C;&#x800C;Docker&#x7684;&#x7F51;&#x7EDC;&#x53C8;&#x79BB;&#x4E0D;&#x5F00;Linux OS&#x5185;&#x6838;&#x7279;&#x6027;&#x7684;&#x652F;&#x6301;&#x3002;</p>
+<p><strong>Docker&#x7F51;&#x7EDC;&#x57FA;&#x7840;</strong></p>
+<p>&#x8FD9;&#x91CC;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;Docker&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x4E0E;Linux&#x7F51;&#x7EDC;&#x6709;&#x5173;&#x7684;&#x6280;&#x672F;&#xFF0C;&#x5305;&#x62EC;&#xFF1A;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;(Network Namespace)&#xFF0C;Veth&#x8BBE;&#x5907;&#x5BF9;&#xFF0C;&#x7F51;&#x6865;&#xFF0C;iptables&#x548C;&#x8DEF;&#x7531;&#x3002;</p>
+<ul>
+<li>&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;</li>
+</ul>
+<p>&#x4E3A;&#x4E86;&#x5728;&#x4E00;&#x4E2A;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x865A;&#x62DF;&#x591A;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x7F51;&#x7EDC;&#x73AF;&#x5883;&#xFF0C;&#x9700;&#x8981;&#x652F;&#x6301;&#x591A;&#x4E2A;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#xFF0C;Linux&#x5F15;&#x5165;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x6982;&#x5FF5;&#x3002;&#x4E0D;&#x540C;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x662F;&#x5B8C;&#x5168;&#x9694;&#x79BB;&#x7684;&#xFF0C;&#x4E4B;&#x95F4;&#x65E0;&#x6CD5;&#x901A;&#x4FE1;&#x3002;Docker&#x5229;&#x7528;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x6765;&#x5B9E;&#x73B0;&#x4E0D;&#x540C;&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x3002;</p>
+<p>Linux&#x5C06;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x6240;&#x6709;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x653E;&#x5165;Namespace&#x5B57;&#x6BB5;&#xFF0C;&#x800C;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x52A0;&#x5165;Namespace&#x53C2;&#x6570;&#x3002;&#x540C;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x540E;&#x5411;&#x517C;&#x5BB9;&#xFF0C;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x9690;&#x5F0F;&#x4F7F;&#x7528;Namespace&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#x3002;</p>
+<p><img src="https://pic2.zhimg.com/80/v2-c83c7060791e33026061d58c40da4371_1440w.jpg" alt="img"></p>
+<p>&#x65B0;&#x751F;&#x6210;&#x7684;&#x79C1;&#x6709;Namespace&#x4E2D;&#x53EA;&#x6709;&#x56DE;&#x73AF;&#x8BBE;&#x5907;(&#x540D;&#x4E3A;lo&#x4E14;&#x662F;&#x505C;&#x6B62;&#x72B6;&#x6001;)&#xFF0C;&#x5176;&#x4ED6;&#x8BBE;&#x5907;&#x9ED8;&#x8BA4;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x5DE5;&#x521B;&#x5EFA;&#x3002;Docker&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x5404;&#x7C7B;&#x7F51;&#x7EDC;&#x6808;&#x8BBE;&#x5907;&#x90FD;&#x662F;Docker Daemon&#x542F;&#x52A8;&#x65F6;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x548C;&#x914D;&#x7F6E;&#x7684;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#x90FD;&#x53EA;&#x80FD;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;Namespace&#xFF0C;&#x7269;&#x7406;&#x8BBE;&#x5907;&#x901A;&#x5E38;&#x53EA;&#x80FD;&#x5173;&#x8054;root namespace&#xFF0C;&#x865A;&#x62DF;&#x8BBE;&#x5907;&#x5219;&#x53EF;&#x5173;&#x8054;&#x7ED9;&#x5B9A;&#x7684;namespace&#x5E76;&#x53EF;&#x5728;&#x4E0D;&#x540C;namespace&#x4E4B;&#x95F4;&#x79FB;&#x52A8;&#xFF0C;&#x4F46;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#x662F;&#x5426;&#x80FD;&#x8F6C;&#x79FB;&#x9700;&#x8981;&#x67E5;&#x770B;&#x5176;NETIF_F_ETNS_LOCAL&#x5C5E;&#x6027;&#xFF0C;&#x82E5;&#x4E3A;on&#x5219;&#x4E0D;&#x80FD;&#x8F6C;&#x79FB;&#x3002;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;ethtool&#x6765;&#x67E5;&#x770B;&#x8BBE;&#x5907;&#x662F;&#x5426;&#x53EF;&#x8F6C;&#x79FB;&#x3002;</p>
+<pre><code class="lang-bash">&#xFF03; ethtool -k br0
+netns-local: on [fixed]
+</code></pre>
+<p>&#x5E38;&#x89C1;&#x7684;namespace&#x7684;&#x64CD;&#x4F5C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-bash">ip netns  // show all namespace
+ip netns del &lt;name&gt; &amp;&gt;/dev/null // delete namespace
+ip netns add &lt;name&gt;  // create namespace
+ip netns <span class="hljs-built_in">exec</span> &lt;name&gt; &lt;<span class="hljs-built_in">command</span>&gt;  // execute <span class="hljs-built_in">command</span> <span class="hljs-keyword">in</span> namespace
+ip netns <span class="hljs-built_in">exec</span> &lt;name&gt; bash  // enter namespace and execute <span class="hljs-built_in">command</span>
+ip link <span class="hljs-built_in">set</span> br0 netns ns1  //Put network device br0 into namespace ns1
+</code></pre>
+<ul>
+<li>Veth&#x8BBE;&#x5907;&#x5BF9;</li>
+</ul>
+<p>Namespace&#x4EE3;&#x8868;&#x72EC;&#x7ACB;&#x7684;&#x534F;&#x8BAE;&#x6808;&#xFF0C;&#x4E4B;&#x95F4;&#x662F;&#x9694;&#x79BB;&#x7684;&#xFF0C;&#x5F7C;&#x6B64;&#x4E0D;&#x80FD;&#x901A;&#x4FE1;&#x3002;Veth&#x7528;&#x6765;&#x8FDE;&#x901A;&#x4E0D;&#x540C;&#x7684;namespace&#xFF0C;&#x5BF9;&#x5E94;&#x7684;Veth&#x8BBE;&#x5907;&#x5BF9;&#x5206;&#x522B;&#x5904;&#x4E8E;2&#x4E2A;namespace&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-3e9d7bebfde51e2775a37d325bbe4bce_1440w.jpg" alt="img"></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x521B;&#x5EFA;Veth&#x8BBE;&#x5907;&#x5BF9;&#x7684;&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># ip link add veth0 type veth peer name veth1  //&#x521B;&#x5EFA;veth&#x8BBE;&#x5907;&#x5BF9;veth0&#x548C;veth1</span>
+<span class="hljs-comment"># ip link show //&#x67E5;&#x770B;&#x6240;&#x6709;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;</span>
+<span class="hljs-comment"># ip link set veth1 netns netns1 //&#x5C06;veth1&#x8FC1;&#x79FB;&#x5230;namespace netns1</span>
+<span class="hljs-comment"># ip netns exec netns1 ip link show  //&#x67E5;&#x770B;namespace netns1&#x4E2D;&#x7684;&#x6240;&#x6709;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;</span>
+<span class="hljs-comment"># ip netns exec netns1 ip addr add 10.1.1.1/24 dev veth1 //&#x4E3A;veth1&#x8BBE;&#x5907;&#x5206;&#x914D;ip&#x5730;&#x5740;</span>
+<span class="hljs-comment"># ip addr add 10.1.1.2/24 dev veth0  //&#x4E3A;veth0&#x8BBE;&#x5907;&#x5206;&#x914D;ip&#x5730;&#x5740;</span>
+<span class="hljs-comment"># ip netns exec netns1 ip link set dev veth1 up  //&#x542F;&#x52A8;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;veth1</span>
+<span class="hljs-comment"># ip link set dev veth0 up //&#x542F;&#x52A8;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;veth0</span>
+// &#x8FD9;&#x6837;&#x4E24;&#x4E2A;namespace&#x4E4B;&#x95F4;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x4FE1;&#x4E86;
+<span class="hljs-comment"># ping 10.1.1.1</span>
+PING 10.1.1.1 (10.1.1.1) 56(84) bytes of data.
+<span class="hljs-comment"># ip netns exec netns1 ping 10.1.1.2</span>
+PING 10.1.1.2 (10.1.1.2) 56(84) bytes of data.
+// &#x67E5;&#x627E;veth&#x8BBE;&#x5907;&#x7684;peer&#x5728;&#x4EC0;&#x4E48;namespace
+<span class="hljs-comment"># ip netns exec netns1 ethtool -S veth1 //&#x67E5;&#x770B;&#x8BBE;&#x5907;&#x5BF9;&#x7AEF;&#x63A5;&#x53E3;&#x5728;&#x8BBE;&#x5907;&#x5217;&#x8868;&#x4E2D;&#x5BF9;&#x5E8F;&#x5217;&#x53F7;&#x4E3A;5</span>
+NIC staticstics:
+    peer_ifindex: 5
+<span class="hljs-comment"># ip netns exec netns2 ip link | grep 5 //&#x5728;netns2&#x4E2D;&#x627E;&#x5230;&#x8BBE;&#x5907;&#x53F7;5&#x5BF9;veth0&#x4FBF;&#x662F;&#x5BF9;&#x7AEF;&#x8BBE;&#x5907;</span>
+</code></pre>
+<p>Docker&#x9664;&#x4E86;&#x5C06;Veth&#x653E;&#x5165;&#x5BB9;&#x5668;&#x5185;&#xFF0C;&#x8FD8;&#x5C06;&#x5176;&#x540D;&#x5B57;&#x6539;&#x6210;eth0&#x3002;Docker&#x4E2D;&#xFF0C;Veth&#x8BBE;&#x5907;&#x5BF9;&#x4E5F;&#x662F;&#x8FDE;&#x901A;&#x5BB9;&#x5668;&#x4E0E;&#x5BBF;&#x4E3B;&#x673A;&#x7684;&#x4E3B;&#x8981;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4F7F;&#x7528;namespace&#x548C;veth&#x8BBE;&#x5907;&#x7684;&#x793A;&#x4F8B;&#x3002;&#x6211;&#x4EEC;&#x5206;&#x522B;&#x521B;&#x5EFA;namespace ns0&#x548C;ns1&#x5E76;&#x5728;&#x5176;&#x4E2D;&#x5206;&#x522B;&#x521B;&#x5EFA;veth&#x8BBE;&#x5907;veth0&#x548C;veth1</p>
+<pre><code class="lang-bash">[root@tw-node3227 ~]<span class="hljs-comment"># ip netns add ns1</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns </span>
+ns1
+ns0
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip link add veth0 type veth peer name veth1</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip link show</span>
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN mode DEFAULT 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: veth1@veth0: &lt;BROADCAST,MULTICAST,M-DOWN&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether aa:e5:26:27:f8:d8 brd ff:ff:ff:ff:ff:ff
+3: veth0@veth1: &lt;BROADCAST,MULTICAST,M-DOWN&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether 3e:d2:dc:14:e4:7b brd ff:ff:ff:ff:ff:ff
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip link set veth1 netns ns1</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip link show</span>
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN mode DEFAULT 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+3: veth0@<span class="hljs-keyword">if</span>2: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether 3e:d2:dc:14:e4:7b brd ff:ff:ff:ff:ff:ff link-netnsid 0
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns1 ip link show</span>
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN mode DEFAULT 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: veth1@<span class="hljs-keyword">if</span>3: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether aa:e5:26:27:f8:d8 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip addr add 10.1.1.1/24 dev veth0</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip link show</span>
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN mode DEFAULT 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+3: veth0@<span class="hljs-keyword">if</span>2: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN mode DEFAULT qlen 1000
+    link/ether 3e:d2:dc:14:e4:7b brd ff:ff:ff:ff:ff:ff link-netnsid 0
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip addr show</span>
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+3: veth0@<span class="hljs-keyword">if</span>2: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000
+    link/ether 3e:d2:dc:14:e4:7b brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.1.1.1/24 scope global veth0
+       valid_lft forever preferred_lft forever
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns1 ip addr add 10.1.1.2/24 dev veth1</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns1 ip addr show</span>
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: veth1@<span class="hljs-keyword">if</span>3: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN qlen 1000
+    link/ether aa:e5:26:27:f8:d8 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.1.1.2/24 scope global veth1
+       valid_lft forever preferred_lft forever
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ip link set dev veth0 up</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns1 ip link set dev veth1 up</span>
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ping 10.1.1.2</span>
+PING 10.1.1.2 (10.1.1.2) 56(84) bytes of data.
+64 bytes from 10.1.1.2: icmp_seq=1 ttl=64 time=0.102 ms
+64 bytes from 10.1.1.2: icmp_seq=2 ttl=64 time=0.045 ms
+64 bytes from 10.1.1.2: icmp_seq=3 ttl=64 time=0.051 ms
+64 bytes from 10.1.1.2: icmp_seq=4 ttl=64 time=0.044 ms
+64 bytes from 10.1.1.2: icmp_seq=5 ttl=64 time=0.048 ms
+64 bytes from 10.1.1.2: icmp_seq=6 ttl=64 time=0.073 ms
+64 bytes from 10.1.1.2: icmp_seq=7 ttl=64 time=0.041 ms
+64 bytes from 10.1.1.2: icmp_seq=8 ttl=64 time=0.044 ms
+64 bytes from 10.1.1.2: icmp_seq=9 ttl=64 time=0.042 ms
+^C
+--- 10.1.1.2 ping statistics ---
+9 packets transmitted, 9 received, 0% packet loss, time 7999ms
+rtt min/avg/max/mdev = 0.041/0.054/0.102/0.020 ms
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns1 ping 10.1.1.1</span>
+PING 10.1.1.1 (10.1.1.1) 56(84) bytes of data.
+64 bytes from 10.1.1.1: icmp_seq=1 ttl=64 time=0.073 ms
+64 bytes from 10.1.1.1: icmp_seq=2 ttl=64 time=0.045 ms
+64 bytes from 10.1.1.1: icmp_seq=3 ttl=64 time=0.064 ms
+64 bytes from 10.1.1.1: icmp_seq=4 ttl=64 time=0.066 ms
+^C
+--- 10.1.1.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3000ms
+rtt min/avg/max/mdev = 0.045/0.062/0.073/0.010 ms
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns0 ethtool -S veth0</span>
+NIC statistics:
+     peer_ifindex: 2
+[root@tw-node3227 ~]<span class="hljs-comment"># ip netns exec ns1 ip link | grep 2</span>
+2: veth1@<span class="hljs-keyword">if</span>3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000
+    link/ether aa:e5:26:27:f8:d8 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+</code></pre>
+<ul>
+<li>&#x7F51;&#x6865;</li>
+</ul>
+<p>&#x7F51;&#x6865;&#x7528;&#x4E8E;&#x4E0D;&#x540C;&#x7F51;&#x7EDC;&#x4E2D;&#x4E3B;&#x673A;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4E92;&#x901A;&#x4FE1;&#xFF0C;&#x4E8C;&#x5C42;&#x7684;&#x865A;&#x62DF;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#xFF0C;&#x5C06;&#x82E5;&#x5E72;&#x4E2A;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x8FDE;&#x63A5;&#x8D77;&#x6765;&#x4F7F;&#x5176;&#x80FD;&#x76F8;&#x4E92;&#x95F4;&#x8F6C;&#x53D1;&#x62A5;&#x6587;&#x3002;</p>
+<p>&#x7F51;&#x6865;&#x8BFB;&#x53D6;&#x62A5;&#x6587;&#x4E2D;&#x7684;&#x76EE;&#x6807;MAC&#x5730;&#x5740;&#x5E76;&#x4E0E;&#x81EA;&#x5DF1;&#x8BB0;&#x5F55;&#x7684;MAC&#x5730;&#x5740;&#x8868;&#x7ED3;&#x5408;&#x6765;&#x51B3;&#x5B9A;&#x62A5;&#x6587;&#x8F6C;&#x53D1;&#x7684;&#x76EE;&#x6807;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#xFF0C;&#x5F53;&#x4E0D;&#x77E5;&#x9053;&#x600E;&#x4E48;&#x8F6C;&#x53D1;&#x65F6;&#xFF0C;&#x5E7F;&#x64AD;&#x62A5;&#x6587;&#x3002;&#x7F51;&#x6865;&#x7684;MAC&#x5730;&#x5740;&#x8868;&#x4F1A;&#x8BBE;&#x7F6E;&#x8D85;&#x65F6;&#x65F6;&#x95F4;,&#x9ED8;&#x8BA4;5min&#xFF0C;&#x82E5;&#x6536;&#x5230;&#x5BF9;&#x5E94;&#x7AEF;&#x53E3;MAC&#x5730;&#x5740;&#x56DE;&#x53D1;&#x7684;&#x5305;&#xFF0C;&#x5219;&#x91CD;&#x7F6E;&#x8D85;&#x5E02;&#x65F6;&#x95F4;&#xFF0C;&#x5426;&#x5219;&#xFF0C;MAC&#x5730;&#x5740;&#x5931;&#x6548;&#xFF0C;&#x8FDB;&#x884C;&#x5E7F;&#x64AD;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x4EA4;&#x6362;&#x673A;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x4E8C;&#x5C42;&#x8BBE;&#x5907;&#xFF0C;&#x63A5;&#x6536;&#x5230;&#x7684;&#x62A5;&#x6587;&#x8981;&#x4E48;&#x8F6C;&#x53D1;&#xFF0C;&#x8981;&#x4E48;&#x4E22;&#x5F03;&#x3002;&#x800C;&#x7F51;&#x6865;&#x63A5;&#x6536;&#x7684;&#x62A5;&#x6587;&#x9664;&#x4E86;&#x8F6C;&#x53D1;&#x548C;&#x4E22;&#x5F03;&#x5916;&#xFF0C;&#x8FD8;&#x53EF;&#x80FD;&#x88AB;&#x9001;&#x5230;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x7684;&#x4E0A;&#x5C42;&#xFF08;&#x7F51;&#x7EDC;&#x5C42;&#xFF09;&#xFF0C;&#x4ECE;&#x800C;&#x88AB;&#x81EA;&#x5DF1;&#x6D88;&#x5316;&#xFF0C;&#x6240;&#x4EE5;&#x7F51;&#x6865;&#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x4F5C;&#x4E8C;&#x5C42;&#x8BBE;&#x5907;&#x6216;&#x4E09;&#x5C42;&#x8BBE;&#x5907;&#x3002;</p>
+<p>Linux&#x5185;&#x6838;&#x901A;&#x8FC7;&#x7F51;&#x6865;&#x8BBE;&#x5907;&#x7ED1;&#x5B9A;&#x591A;&#x4E2A;&#x4EE5;&#x592A;&#x7F51;&#x63A5;&#x53E3;&#x8BBE;&#x5907;&#xFF0C;&#x4ECE;&#x800C;&#x5C06;&#x5B83;&#x4EEC;&#x6865;&#x63A5;&#x8D77;&#x6765;&#x3002;&#x7F51;&#x6865;&#x8BBE;&#x5907;&#x6709;IP&#x5730;&#x5740;&#x3002;&#x4E0B;&#x56FE;&#x4E2D;&#xFF0C;&#x7F51;&#x6865;br0&#x7ED1;&#x5B9A;&#x4E86;eth0&#x548C;eth1&#x3002;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x7684;&#x4E0A;&#x5C42;&#x53EA;&#x770B;&#x5F97;&#x5230;br0&#xFF0C;&#x4E0A;&#x5C42;&#x5C06;&#x62A5;&#x6587;&#x53D1;&#x9001;&#x5230;br0&#xFF0C;br0&#x51B3;&#x5B9A;&#x8F6C;&#x53D1;&#x7ED9;eth0&#xFF0C;eth1&#x8FD8;&#x662F;&#x5E7F;&#x64AD;&#xFF1B;&#x540C;&#x65F6;&#xFF0C;&#x4ECE;eth0&#x548C;eth1&#x63A5;&#x6536;&#x7684;&#x62A5;&#x6587;&#x88AB;&#x63D0;&#x4EA4;&#x5230;br0&#xFF0C;&#x8FDB;&#x800C;&#x5224;&#x65AD;&#x62A5;&#x6587;&#x88AB;&#x8F6C;&#x53D1;&#x3001;&#x4E22;&#x5F03;&#x8FD8;&#x662F;&#x63D0;&#x4EA4;&#x5230;&#x4E0A;&#x5C42;&#x3002;&#x6709;&#x65F6;&#xFF0C;&#x4EE5;&#x592A;&#x7F51;&#x63A5;&#x53E3;eth2&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x62A5;&#x6587;&#x7684;&#x6E90;&#x5730;&#x5740;&#x6216;&#x76EE;&#x6807;&#x5730;&#x5740;&#xFF0C;&#x7ED5;&#x8FC7;&#x7F51;&#x6865;&#xFF0C;&#x76F4;&#x63A5;&#x53C2;&#x4E0E;&#x62A5;&#x6587;&#x53D1;&#x9001;&#x548C;&#x63A5;&#x6536;&#x3002;</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b825a7a6acac25e3be55a206fe2bb7fd_1440w.jpg" alt="img"></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x7F51;&#x6865;&#x64CD;&#x4F5C;&#x7684;&#x4E00;&#x4E9B;&#x547D;&#x4EE4;&#x3002;</p>
+<pre><code class="lang-text"># brctl show //&#x67E5;&#x770B;&#x5F53;&#x524D;&#x7684;&#x6240;&#x6709;&#x7F51;&#x6865;&#x8BBE;&#x5907;
+# brctl addbr &lt;name&gt;   // &#x65B0;&#x589E;&#x7F51;&#x6865;&#x8BBE;&#x5907;
+# brctl delbr &lt;name&gt;   // &#x5220;&#x9664;&#x7F51;&#x6865;&#x8BBE;&#x5907;
+# brctl showbr br0 //&#x67E5;&#x770B;&#x7F51;&#x6865;&#x7ED1;&#x5B9A;&#x7684;&#x7F51;&#x53E3;
+# brctl addif &lt;name&gt; ethx //&#x4E3A;&#x7F51;&#x6865;&#x8BBE;&#x5907;&#x589E;&#x52A0;&#x7F51;&#x53E3;&#xFF0C;&#x5728;Linux&#x4E2D;&#xFF0C;&#x7F51;&#x53E3;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x7269;&#x7406;&#x7F51;&#x5361;
+# brctl delif &lt;brname&gt; &lt;ifname&gt; //&#x5220;&#x9664;&#x7F51;&#x53E3;&#x8BBE;&#x5907;
+# ifconfig ethx 0.0.0.0  //&#x7F51;&#x53E3;&#x5728;&#x94FE;&#x8DEF;&#x5C42;&#x5DE5;&#x4F5C;&#x4E0D;&#x9700;&#x8981;IP&#x5730;&#x5740;
+# ifconfig brx xxx.xxx.xxx.xxx  //&#x4E3A;&#x7F51;&#x6865;&#x914D;&#x7F6E;IP&#x5730;&#x5740;
+</code></pre>
+<ul>
+<li>iptables&#x548C;Netfilter</li>
+</ul>
+<p>Linux&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x4E2D;&#x6709;&#x4E00;&#x7EC4;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x6302;&#x63A5;&#x70B9;&#xFF0C;&#x901A;&#x8FC7;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x6302;&#x63A5;&#x70B9;&#x7684;&#x94A9;&#x5B50;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x5728;&#x5904;&#x7406;&#x6570;&#x636E;&#x5305;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#xFF0C;&#x5305;&#x62EC;&#x8FC7;&#x6EE4;&#x3001;&#x4FEE;&#x6539;&#x3001;&#x4E22;&#x5F03;&#x7B49;&#x3002;&#x6302;&#x63A5;&#x70B9;&#x6280;&#x672F;&#x7531;Netfilter&#x548C;iptables&#x5B9E;&#x73B0;&#x3002;</p>
+<p>Netfilter&#x8FD0;&#x884C;&#x5728;&#x5185;&#x6838;&#x6A21;&#x5F0F;&#xFF0C;&#x8D1F;&#x8D23;&#x6267;&#x884C;&#x6302;&#x63A5;&#x89C4;&#x5219;&#xFF1B;iptables&#x4E3A;&#x8FD0;&#x884C;&#x5728;&#x7528;&#x6237;&#x6A21;&#x5F0F;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x8D1F;&#x8D23;&#x534F;&#x52A9;&#x548C;&#x7EF4;&#x62A4;&#x5185;&#x6838;&#x4E2D;Netfilter&#x7684;&#x5404;&#x79CD;&#x89C4;&#x5219;&#x8868;&#x3002;</p>
+<p>Netfilter&#x53EF;&#x4EE5;&#x6302;&#x63A5;&#x7684;&#x89C4;&#x5219;&#x70B9;&#x6709;&#x5982;&#x4E0B;5&#x4E2A;&#x3002;&#x652F;&#x6301;&#x7684;&#x8868;&#x7C7B;&#x578B;&#x6709;RAW, MANGLE, NAT, FILTER,&#x4F18;&#x5148;&#x7EA7;&#x4F9D;&#x6B21;&#x964D;&#x4F4E;&#x3002;</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b1a32a192084e55d4d4724c4b86053d5_1440w.jpg" alt="img"></p>
+<p>&#x540C;&#x65F6;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x6302;&#x63A5;&#x70B9;&#x53EA;&#x80FD;&#x4F7F;&#x7528;&#x76F8;&#x5E94;&#x7C7B;&#x578B;&#x7684;table&#x3002;&#x6570;&#x636E;&#x5904;&#x7406;&#x65F6;&#xFF0C;&#x4F9D;&#x6B21;&#x8C03;&#x7528;&#x6302;&#x63A5;&#x70B9;&#x4E0A;&#x7684;&#x6240;&#x6709;&#x6302;&#x94A9;&#x51FD;&#x6570;&#xFF0C;&#x76F4;&#x5230;&#x6570;&#x636E;&#x5305;&#x88AB;&#x660E;&#x786E;&#x62D2;&#x7EDD;&#x6216;&#x63A5;&#x6536;&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-dd1a41038bff37325ceeef30997bc2ba_1440w.jpg" alt="img"></p>
+<p>&#x6BCF;&#x4E2A;&#x89C4;&#x5219;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;&#x8868;&#x7C7B;&#x578B;&#xFF0C;&#x6302;&#x63A5;&#x70B9;&#x7C7B;&#x578B;&#xFF0C;&#x5339;&#x914D;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x5339;&#x914D;&#x540E;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x5339;&#x914D;&#x7684;&#x53C2;&#x6570;&#x53EF;&#x80FD;&#x662F;&#x6E90;&#x3001;&#x76EE;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x3001;&#x5730;&#x5740;&#x3001;&#x7AEF;&#x53E3;&#xFF0C;&#x534F;&#x8BAE;&#x7C7B;&#x578B;&#x7B49;&#x3002;</p>
+<p>iptables&#x547D;&#x4EE4;&#x7528;&#x4E8E;&#x534F;&#x52A9;&#x7528;&#x6237;&#x7EF4;&#x62A4;&#x5404;&#x79CD;&#x89C4;&#x5219;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x8BE5;&#x547D;&#x4EE4;&#x7684;&#x4F7F;&#x7528;&#x793A;&#x4F8B;&#x3002;</p>
+<pre><code class="lang-bash">iptables-save //&#x547D;&#x4EE4;&#x65B9;&#x5F0F;&#x6253;&#x5370;iptables&#x7684;&#x5185;&#x5BB9;
+iptables-vnL //&#x4EE5;&#x53E6;&#x4E00;&#x79CD;&#x683C;&#x5F0F;&#x663E;&#x793A;Netfilter&#x7684;&#x5185;&#x5BB9;
+// iptables&#x547D;&#x4EE4;
+Usage: iptables -[ACD] chain rule-specification [options]
+       iptables -I chain [rulenum] rule-specification [options]
+       iptables -R chain rulenum rule-specification [options]
+       iptables -D chain rulenum [options]
+       iptables -[LS] [chain [rulenum]] [options]
+       iptables -[FZ] [chain] [options]
+       iptables -[NX] chain
+       iptables -E old-chain-name new-chain-name
+       iptables -P chain target [options]
+       iptables -h (<span class="hljs-built_in">print</span> this <span class="hljs-built_in">help</span> information)
+
+Commands:
+Either long or short options are allowed.
+  --append  -A chain        Append to chain
+  --check   -C chain        Check <span class="hljs-keyword">for</span> the existence of a rule
+  --delete  -D chain        Delete matching rule from chain
+  --delete  -D chain rulenum
+                Delete rule rulenum (1 = first) from chain
+  --insert  -I chain [rulenum]
+                Insert <span class="hljs-keyword">in</span> chain as rulenum (default 1=first)
+  --replace -R chain rulenum
+                Replace rule rulenum (1 = first) <span class="hljs-keyword">in</span> chain
+  --list    -L [chain [rulenum]]
+                List the rules <span class="hljs-keyword">in</span> a chain or all chains
+  --list-rules -S [chain [rulenum]]
+                Print the rules <span class="hljs-keyword">in</span> a chain or all chains
+  --flush   -F [chain]        Delete all rules <span class="hljs-keyword">in</span>  chain or all chains
+  --zero    -Z [chain [rulenum]]
+                Zero counters <span class="hljs-keyword">in</span> chain or all chains
+  --new     -N chain        Create a new user-defined chain
+  --delete-chain
+            -X [chain]        Delete a user-defined chain
+  --policy  -P chain target
+                Change policy on chain to target
+  --rename-chain
+            -E old-chain new-chain
+                Change chain name, (moving any references)
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x662F;iptables-save&#x7684;&#x8F93;&#x51FA;&#x89E3;&#x91CA;&#xFF0C;&#x56FE;&#x7247;&#x6765;&#x6E90;&#x4E8E;<a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/sixloop/p/iptables-save-help.html" target="_blank">iptables-save-help</a>&#xFF1A;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-7ce05edb1b9c5e77e078839d283d9d27_1440w.jpg" alt="img"></p>
+<ul>
+<li>&#x8DEF;&#x7531;</li>
+</ul>
+<p>&#x8DEF;&#x7531;&#x529F;&#x80FD;&#x7531;IP&#x5C42;&#x7EF4;&#x62A4;&#x7684;&#x8DEF;&#x7531;&#x8868;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5148;&#x5224;&#x65AD;&#x62A5;&#x6587;IP&#x662F;&#x5426;&#x4E0E;&#x672C;&#x4E3B;&#x673A;IP&#x76F8;&#x540C;&#xFF0C;&#x82E5;&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x5C06;&#x62A5;&#x6587;&#x53D1;&#x9001;&#x5230;&#x4F20;&#x8F93;&#x5C42;&#xFF1B;&#x5426;&#x5219;&#xFF0C;&#x6839;&#x636E;&#x8DEF;&#x7531;&#x8868;&#x5C06;&#x62A5;&#x6587;&#x8F6C;&#x53D1;&#xFF0C;&#x82E5;&#x8DEF;&#x7531;&#x8868;&#x4E2D;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x76EE;&#x6807;&#x5730;&#x5740;&#xFF0C;&#x8F6C;&#x53D1;&#x5230;&#x9ED8;&#x8BA4;&#x8DEF;&#x7531;&#x5668;&#xFF0C;&#x82E5;&#x9ED8;&#x8BA4;&#x8DEF;&#x7531;&#x5668;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5C06;&#x751F;&#x6210;ICMP&#x4E3B;&#x673A;&#x4E0D;&#x53EF;&#x8FBE;&#x7684;&#x9519;&#x8BEF;&#x5E76;&#x8FD4;&#x56DE;&#x7ED9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</p>
+<p>&#x8DEF;&#x7531;&#x8868;&#x4E2D;&#x7684;&#x6761;&#x76EE;&#x5305;&#x62EC;&#xFF1A;&#x76EE;&#x6807;IP&#x5730;&#x5740;&#xFF0C;&#x4E0B;&#x4E00;&#x8DF3;IP&#x5730;&#x5740;&#xFF0C;&#x6807;&#x5FD7;(&#x76EE;&#x6807;IP&#x5730;&#x5740;&#x662F;&#x4E3B;&#x673A;&#x5730;&#x5740;&#x8FD8;&#x662F;&#x7F51;&#x7EDC;&#x5730;&#x5740;)&#xFF0C;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x89C4;&#x8303;&#x3002;&#x8DEF;&#x7531;&#x8868;&#x81F3;&#x5C11;&#x5305;&#x542B;2&#x4E2A;&#x8868;&#xFF0C;LOCAL&#x548C;MAIN&#x3002;LOCAL&#x8DEF;&#x7531;&#x8868;&#x5728;&#x914D;&#x7F6E;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#x5730;&#x5740;&#x65F6;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#xFF0C;&#x5305;&#x542B;&#x6240;&#x6709;&#x672C;&#x5730;&#x8BBE;&#x5907;&#x5730;&#x5740;&#xFF1B;MAIN&#x8DEF;&#x7531;&#x8868;&#x53EF;&#x4EE5;&#x9759;&#x6001;&#x914D;&#x7F6E;&#x751F;&#x6210;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x8DEF;&#x7531;&#x53D1;&#x73B0;&#x534F;&#x8BAE;&#x751F;&#x6210;&#xFF0C;&#x7528;&#x4E8E;&#x7F51;&#x7EDC;IP&#x5730;&#x5740;&#x7684;&#x8F6C;&#x53D1;&#x3002;</p>
+<p>&#x52A8;&#x6001;&#x8DEF;&#x7531;&#x53D1;&#x73B0;&#x534F;&#x8BAE;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#x7EC4;&#x64AD;&#x529F;&#x80FD;&#x53D1;&#x9001;&#x8DEF;&#x7531;&#x53D1;&#x73B0;&#x6570;&#x636E;&#xFF0C;&#x52A8;&#x6001;&#x4EA4;&#x6362;&#x548C;&#x83B7;&#x53D6;&#x7F51;&#x7EDC;&#x7684;&#x8DEF;&#x7531;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x66F4;&#x65B0;&#x5230;&#x8DEF;&#x7531;&#x8868;&#x4E2D;&#x3002;Linux&#x4E0B;&#x652F;&#x6301;&#x8DEF;&#x7531;&#x53D1;&#x73B0;&#x534F;&#x8BAE;&#x7684;&#x5F00;&#x6E90;&#x8F6F;&#x4EF6;&#x6709;Quagga&#x548C;Zebra&#x3002;</p>
+<p>&#x5E38;&#x89C1;&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre><code class="lang-text"># ip route show table local type local  //&#x67E5;&#x770B;local&#x8DEF;&#x7531;&#x8868;&#x7684;&#x5185;&#x5BB9;
+10.10.10.245 dev kube-ipvs0  proto kernel  scope host  src 10.10.10.245 
+10.10.10.246 dev kube-ipvs0  proto kernel  scope host  src 10.10.10.246 
+10.11.25.0 dev fl1  proto kernel  scope host  src 10.11.25.0 
+10.11.25.1 dev brfl1  proto kernel  scope host  src 10.11.25.1 
+127.0.0.0/8 dev lo  proto kernel  scope host  src 127.0.0.1 
+127.0.0.1 dev lo  proto kernel  scope host  src 127.0.0.1 
+172.16.3.127 dev eth1  proto kernel  scope host  src 172.16.3.127 
+
+# ip route list //&#x67E5;&#x770B;&#x5F53;&#x524D;&#x8DEF;&#x7531;&#x8868;
+default via 172.16.0.1 dev eth1  proto static  metric 100 
+10.11.9.0/24 via 10.11.9.0 dev fl1 onlink 
+10.11.25.0/24 dev brfl1  proto kernel  scope link  src 10.11.25.1 
+10.11.76.0/24 via 10.11.76.0 dev fl1 onlink 
+10.11.91.0/24 via 10.11.91.0 dev fl1 onlink 
+172.16.0.0/22 dev eth1  proto kernel  scope link  src 172.16.3.127  metric 100
+</code></pre>
+<p>---------------------&gt; nc command</p>
+<p>&#x4F7F;&#x7528;nc command&#x53EF;&#x4EE5;&#x642D;&#x5EFA;&#x804A;&#x5929;&#x5DE5;&#x5177;&#xFF0C;&#x5982;&#x5728;&#x4E3B;&#x673A;172.16.1.127&#x4E0A;&#x76D1;&#x542C;&#x7AEF;&#x53E3;20000&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5176;&#x4ED6;&#x4E3B;&#x673A;&#x4E0A;&#x8FDE;&#x63A5;&#x5230;172.16.1.127:20000,&#x5219;&#x4E00;&#x65B9;&#x6253;&#x5370;&#x7684;&#x6D88;&#x606F;&#x4F1A;&#x663E;&#x793A;&#x5728;&#x4E24;&#x4E2A;&#x7EC8;&#x7AEF;&#x4E0A;&#x3002;</p>
+<pre><code class="lang-bash">//&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x547D;&#x4EE4;&#x6765;&#x83B7;&#x53D6;&#x4E3B;&#x673A;&#x7684;&#x5C40;&#x57DF;&#x7F51;IP&#x5730;&#x5740;
+ifconfig | grep <span class="hljs-string">&quot;inet &quot;</span> | grep -v 127.0.0.1
+
+//172.16.1.127&#x4E0A;&#x76D1;&#x542C;20000&#x7AEF;&#x53E3;
+<span class="hljs-comment"># nc -l 20000 </span>
+hello 128
+hello 127
+
+//172.16.1.128&#x4E0A;&#x8FDE;&#x63A5;172.16.1.127:20000
+<span class="hljs-comment"># nc 172.16.1.127 20000</span>
+hello 128
+hello 127
+</code></pre>
+<p>&lt;--------------------</p>
+<p><strong>Docker&#x7F51;&#x7EDC;&#x5B9E;&#x73B0;</strong></p>
+<p>Docker&#x652F;&#x6301;4&#x7C7B;&#x7F51;&#x7EDC;&#x6A21;&#x5F0F;&#xFF0C;Kubernetes&#x901A;&#x5E38;&#x53EA;&#x4F1A;&#x4F7F;&#x7528;bridge&#x6A21;&#x5F0F;&#x3002;</p>
+<ul>
+<li>host&#x6A21;&#x5F0F; --net=host&#x6307;&#x5B9A;</li>
+<li>container&#x6A21;&#x5F0F; --net=container:NAME_or_ID&#x6307;&#x5B9A;</li>
+<li>none&#x6A21;&#x5F0F; --net=none&#x6307;&#x5B9A;</li>
+<li>bridge&#x6A21;&#x5F0F; --net=bridge&#x6307;&#x5B9A;&#xFF0C;&#x4E3A;&#x9ED8;&#x8BA4;&#x8BBE;&#x7F6E;</li>
+</ul>
+<p>bridge&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;Docker Daemon&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x65F6;&#x4F1A;&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x7F51;&#x6865;&#xFF0C;&#x9ED8;&#x8BA4;&#x540D;&#x79F0;&#x4E3A;docker0&#xFF0C;&#x5E76;&#x6309;&#x7167;RPC1918&#x5728;&#x79C1;&#x6709;&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x4E2D;&#x4E3A;&#x7F51;&#x6865;&#x5206;&#x914D;&#x5B50;&#x7F51;&#x3002;Docker&#x521B;&#x5EFA;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;container&#xFF0C;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;Veth&#x8BBE;&#x5907;&#x5BF9;&#x6765;&#x8FDE;&#x63A5;&#x7F51;&#x6865;&#x548C;container&#x5185;&#x7684;eth0&#x8BBE;&#x5907;&#xFF0C;eth0&#x7684;IP&#x5730;&#x5740;&#x4ECE;&#x7F51;&#x6865;&#x7684;&#x5730;&#x5740;&#x6BB5;&#x5185;&#x5206;&#x914D;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-471aac423d2f00df8d94a5b11cf694f3_1440w.jpg" alt="img"></p>
+<p>&#x4E0A;&#x56FE;&#x4E2D;&#xFF0C;&#x7F51;&#x6865;&#x7684;ip&#x5730;&#x5740;&#x4E3A;ip1&#xFF0C;&#x5BB9;&#x5668;2&#x7684;IP&#x5730;&#x5740;&#x4E3A;ip2&#xFF0C;&#x4ECE;&#x5730;&#x5740;&#x6BB5;&#x4E2D;&#x9009;&#x62E9;&#xFF0C;&#x76F8;&#x5E94;&#x7684;MAC&#x5730;&#x5740;&#x6839;&#x636E;IP&#x5730;&#x5740;&#x5728;02:42:ac:11:00:00-02:42:ac:11:ff:ff&#x7684;&#x8303;&#x56F4;&#x5185;&#x751F;&#x6210;&#xFF0C;&#x786E;&#x4FDD;&#x4E0D;&#x4F1A;ARP&#x51B2;&#x7A81;&#x3002;&#x542F;&#x52A8;&#x540E;&#xFF0C;Docker&#x8FD8;&#x5C06;Veth&#x5BF9;&#x7684;&#x540D;&#x79F0;&#x6620;&#x5C04;&#x5230;eth0&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#xFF0C;ip3&#x4E3A;&#x4E3B;&#x673A;&#x7684;&#x7F51;&#x5361;&#x5730;&#x5740;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x76F8;&#x540C;&#x4E3B;&#x673A;&#x5185;&#x7684;&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x76F8;&#x4E92;&#x901A;&#x4FE1;&#xFF0C;&#x4F46;&#x4E0D;&#x540C;&#x4E3B;&#x673A;&#x4E0A;&#x7684;&#x5BB9;&#x5668;&#x4E0D;&#x80FD;&#x76F8;&#x4E92;&#x901A;&#x4FE1;(&#x4E0D;&#x540C;&#x4E3B;&#x673A;&#x4E0A;&#x7684;docker0&#x5730;&#x5740;&#x6BB5;&#x53EF;&#x80FD;&#x662F;&#x4E00;&#x6837;&#x7684;)&#x3002;&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x8DE8;&#x8282;&#x70B9;&#x901A;&#x4FE1;&#xFF0C;&#x5FC5;&#x987B;&#x5728;&#x4E3B;&#x673A;&#x7684;&#x5730;&#x5740;&#x4E0A;&#x5206;&#x914D;&#x7AEF;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x7AEF;&#x53E3;&#x8DEF;&#x7531;&#x6216;&#x4EE3;&#x7406;&#x5230;&#x5BB9;&#x5668;&#x3002;&#x4F46;&#x534F;&#x8C03;&#x7AEF;&#x53E3;&#x5206;&#x914D;&#x5341;&#x5206;&#x56F0;&#x96BE;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C06;&#x5C55;&#x793A;&#x4E0D;&#x540C;&#x9636;&#x6BB5;&#x7684;&#x7F51;&#x7EDC;&#x60C5;&#x51B5;&#x3002;</p>
+<ul>
+<li>Docker&#x542F;&#x52A8;&#x540E;</li>
+</ul>
+<p>&#x5728;bridge&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;Docker Daemon&#x542F;&#x52A8;&#x65F6;&#x521B;&#x5EFA;docker0&#x7F51;&#x6865;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x542F;&#x52A8;Docker Daemon&#x4F46;&#x6CA1;&#x542F;&#x52A8;&#x4EFB;&#x4F55;&#x5BB9;&#x5668;&#x7684;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x6808;&#x7684;&#x914D;&#x7F6E;&#x60C5;&#x51B5;&#x3002;</p>
+<p>Docker&#x521B;&#x5EFA;&#x4E86;docker0&#x7F51;&#x6865;&#x5E76;&#x6DFB;&#x52A0;&#x4E86;iptables&#x89C4;&#x5219;&#xFF0C;&#x90FD;&#x5904;&#x4E8E;root&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;&#x3002;NAT&#x8868;&#x4E2D;3&#x4E2A;&#x89C4;&#x5219;&#xFF0C;&#x524D;2&#x4E2A;&#x89C4;&#x5219;&#x76EE;&#x7684;&#x5730;&#x5740;&#x4E3A;local&#x7C7B;&#x578B;&#x4E14;&#x5206;&#x522B;&#x4E3A;PREROUTING&#x548C;OUTPUT&#x94FE;&#x90FD;&#x4F1A;&#x88AB;&#x8DEF;&#x7531;&#x5230;DOCKER&#x94FE;&#xFF0C;&#x7B2C;3&#x4E2A;&#x89C4;&#x5219;&#x8868;&#x793A;&#x76EE;&#x7684;&#x5730;&#x5740;&#x4E0D;&#x662F;docker0&#x4E14;&#x6E90;&#x5730;&#x5740;&#x4E3A;172.17.0.0/16&#x7684;&#x90FD;&#x7ECF;&#x8FC7;MASQUERADE&#x5C06;&#x6E90;&#x5730;&#x5740;&#x4ECE;&#x5BB9;&#x5668;&#x5730;&#x5740;&#x4FEE;&#x6539;&#x4E3A;&#x5BBF;&#x4E3B;&#x673A;&#x7684;&#x7F51;&#x5361;IP&#x5730;&#x5740;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-7c491d1765fc9c2fe3c618fa29a73c53_1440w.jpg" alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-02333aa68ce9dee65b4a15ef5cbe9a2d_1440w.jpg" alt="img"></p>
+<ul>
+<li>&#x542F;&#x52A8;Docker&#x5BB9;&#x5668;</li>
+</ul>
+<p>-&#x542F;&#x52A8;&#x4E0D;&#x5E26;&#x7AEF;&#x53E3;&#x7684;&#x5BB9;&#x5668;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x533A;&#x522B;&#x7684;&#x5730;&#x65B9;&#x3002;&#x5BBF;&#x4E3B;&#x673A;&#x7684;Netfilter&#x548C;&#x8DEF;&#x7531;&#x8868;&#x90FD;&#x6CA1;&#x6709;&#x53D8;&#x5316;&#x3002;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x7684;Veth&#x5BF9;&#x521B;&#x5EFA;&#x5E76;&#x8FDE;&#x63A5;&#x5230;&#x5BB9;&#x5668;&#x5185;&#x3002;</p>
+<p><img src="https://pic2.zhimg.com/80/v2-327f44f80535b4527b12e35c1ae1f641_1440w.jpg" alt="img"></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5BB9;&#x5668;&#x5185;&#x7684;ip&#x5730;&#x5740;&#x548C;&#x8DEF;&#x7531;&#x3002;&#x9ED8;&#x8BA4;&#x505C;&#x6B62;&#x7684;&#x56DE;&#x73AF;&#x8BBE;&#x5907;lo&#x5DF2;&#x7ECF;&#x542F;&#x52A8;&#xFF0C;&#x800C;&#x4E14;&#x5916;&#x9762;&#x5BBF;&#x4E3B;&#x673A;&#x8FDE;&#x63A5;&#x8FDB;&#x6765;&#x7684;Veth&#x8BBE;&#x5907;&#x4E5F;&#x88AB;&#x547D;&#x540D;&#x4E3A;eth0&#x5E76;&#x8BBE;&#x7F6E;IP&#x5730;&#x5740;&#x4E3A;172.17.0.10.</p>
+<p><img src="https://pic2.zhimg.com/80/v2-1b6d973574ca7a30321c86738d82cae5_1440w.jpg" alt="img"></p>
+<p>-&#x542F;&#x52A8;&#x5E26;&#x7AEF;&#x53E3;&#x7684;&#x5BB9;&#x5668;</p>
+<pre><code class="lang-text">docker run --name register -d -p 1180:5000 registry
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x662F;&#x533A;&#x522B;&#x7684;&#x5730;&#x65B9;&#x3002;Docker&#x670D;&#x52A1;&#x5728;NAT&#x548C;FILTER&#x8868;&#x6DFB;&#x52A0;&#x7684;DOCKER&#x94FE;&#x89C4;&#x5219;&#x662F;&#x4E3A;&#x4E86;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#xFF0C;&#x5C06;&#x5BBF;&#x4E3B;&#x673A;&#x7684;1180&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x5230;&#x5BB9;&#x5668;&#x7684;5000&#x7AEF;&#x53E3;&#x3002;</p>
+<pre><code class="lang-text"># iptables-save
+*nat
+-A POSTROUTING -s 172.17.0.19/32 -d 172.17.0.19/32 -p tcp -m tcp --dport 5000 -j MASQUERADE
+-A DOCKER ! -i docker0 -p tcp -m tcp --dport 1180 -j DNAT --to-destination 172.17.0.19:5000
+
+*filter
+-A DOCKER -d 172.17.0.19/32 ! -i docker0 -o docker0 -p tcp -m tcp --dport 5000 -j ACCEPT
+</code></pre>
+<p>Docker&#x7F51;&#x7EDC;&#x5C40;&#x9650;</p>
+<p>Docker&#x4E00;&#x5F00;&#x59CB;&#x5E76;&#x6CA1;&#x6709;&#x8003;&#x8651;&#x591A;&#x4E3B;&#x673A;&#x4E92;&#x8054;&#x7684;&#x7F51;&#x7EDC;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x3002;&#x865A;&#x62DF;&#x5316;&#x6280;&#x672F;&#x4E2D;&#x6700;&#x590D;&#x6742;&#x7684;&#x5C31;&#x662F;&#x865A;&#x62DF;&#x5316;&#x7F51;&#x7EDC;&#x6280;&#x672F;&#xFF0C;&#x95E8;&#x69DB;&#x5F88;&#x9AD8;&#xFF0C;Docker&#x907F;&#x5F00;&#x8BE5;&#x96F7;&#x533A;&#xFF0C;&#x8BA9;&#x5176;&#x4ED6;&#x4E13;&#x4E1A;&#x4EBA;&#x5458;&#x7528;&#x73B0;&#x6709;&#x7684;&#x865A;&#x62DF;&#x5316;&#x7F51;&#x7EDC;&#x6280;&#x672F;&#x89E3;&#x51B3;Docker&#x4E3B;&#x673A;&#x7684;&#x4E92;&#x8054;&#x95EE;&#x9898;&#x3002;</p>
+<p>Docker&#x6536;&#x8D2D;Socketplane&#x516C;&#x53F8;&#x6765;&#x63D0;&#x4F9B;&#x7F51;&#x7EDC;&#x89E3;&#x51B3;&#x65B9;&#x6848;Libnetwork&#x3002;</p>
+<p><img src="https://pic2.zhimg.com/80/v2-23aed3c484d4f5ce722e4dec0d5215c1_1440w.jpg" alt="img"></p>
+<p><strong>Kubernetes&#x7684;&#x7F51;&#x7EDC;&#x5B9E;&#x73B0;</strong></p>
+<p>Kubernetes&#x7684;&#x7F51;&#x7EDC;&#x8BBE;&#x8BA1;&#x4E3B;&#x8981;&#x89E3;&#x51B3;&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x76F4;&#x63A5;&#x901A;&#x4FE1;</li>
+</ul>
+<p>Pod&#x5185;&#x7684;&#x6240;&#x6709;&#x5BB9;&#x5668;&#x5171;&#x4EAB;&#x76F8;&#x540C;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x548C;Linux&#x534F;&#x8BAE;&#x6808;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;localhost&#x8BBF;&#x95EE;&#x5F7C;&#x6B64;&#x7684;&#x7AEF;&#x53E3;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-2382527de6630c625c2e22c218c3dcaf_1440w.jpg" alt="img"></p>
+<ul>
+<li>Pod&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;</li>
+</ul>
+<p>Pod&#x5177;&#x6709;&#x771F;&#x5B9E;&#x7684;&#x5168;&#x5C40;IP&#x5730;&#x5740;&#xFF0C;&#x76F8;&#x540C;Node&#x5185;&#x7684;&#x4E0D;&#x540C;Pod&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x91C7;&#x7528;&#x5BF9;&#x65B9;Pod&#x7684;IP&#x5730;&#x5740;&#x901A;&#x4FE1;&#x3002;Pod&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x5206;&#x4E3A;<strong>&#x76F8;&#x540C;Node&#x4E0A;Pod&#x7684;&#x901A;&#x4FE1;</strong>&#x548C;<strong>&#x4E0D;&#x540C;Node&#x4E0A;Pod&#x7684;&#x901A;&#x4FE1;</strong>&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x56FE;&#x793A;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;Pod1&#x548C;Pod2&#x901A;&#x8FC7;Veth&#x8FDE;&#x63A5;&#x5230;docker0&#x7F51;&#x6865;&#xFF0C;IP1/IP2/IP3&#x90FD;&#x662F;&#x4ECE;docker0&#x7F51;&#x6BB5;&#x4E0A;&#x83B7;&#x53D6;&#xFF0C;&#x5C5E;&#x4E8E;&#x76F8;&#x540C;&#x7F51;&#x6BB5;&#x3002;Pod1&#x548C;Pod2&#x7684;Linux&#x534F;&#x8BAE;&#x6808;&#x4E0A;&#xFF0C;&#x9ED8;&#x8BA4;&#x8DEF;&#x7531;&#x90FD;&#x662F;docker0&#x5730;&#x5740;&#xFF0C;&#x5373;&#x6240;&#x6709;&#x975E;&#x672C;&#x5730;&#x5730;&#x5740;&#x7684;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x90FD;&#x9ED8;&#x8BA4;&#x7531;docker0&#x8F6C;&#x53D1;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x4FE1;&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-a5c4641dbafacdcd4a6d06b3a2c4340e_1440w.jpg" alt="img"></p>
+<p>Kubernetes&#x4F1A;&#x5728;etcd&#x4E2D;&#x8BB0;&#x5F55;&#x6240;&#x6709;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;Pod&#x7684;IP&#x5206;&#x914D;&#x4FE1;&#x606F;&#xFF08;&#x4F5C;&#x4E3A;service&#x7684;endpoint&#xFF09;&#x3002;&#x652F;&#x6301;&#x4E0D;&#x540C;Node&#x4E0A;Pod&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x9700;&#x8981;&#x6EE1;&#x8DB3;&#x4E0B;&#x9762;2&#x4E2A;&#x6761;&#x4EF6;&#xFF1A;1.&#x6574;&#x4E2A;k8s&#x96C6;&#x7FA4;&#x4E2D;&#x5BF9;Pod&#x7684;IP&#x5206;&#x914D;&#x8FDB;&#x884C;&#x89C4;&#x5212;&#xFF0C;&#x4E0D;&#x80FD;&#x51B2;&#x7A81;&#xFF1B;2.&#x627E;&#x5230;&#x65B9;&#x6CD5;&#x5C06;Pod&#x7684;IP&#x548C;Node&#x7684;IP&#x5173;&#x8054;&#xFF0C;&#x901A;&#x8FC7;&#x5173;&#x8054;&#x8BA9;Pod&#x53EF;&#x4EE5;&#x76F8;&#x4E92;&#x8BBF;&#x95EE;&#x3002;</p>
+<p>&#x5B9E;&#x73B0;&#x6761;&#x4EF6;1&#xFF0C;&#x9700;&#x8981;&#x5728;&#x90E8;&#x7F72;k8s&#x65F6;&#x5BF9;docker0&#x7684;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x6BB5;&#x8FDB;&#x884C;&#x89C4;&#x5212;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E0D;&#x540C;Node&#x7684;docker0&#x5730;&#x5740;&#x6BB5;&#x4E0D;&#x51B2;&#x7A81;&#xFF0C;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x914D;&#x7F6E;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7531;Flannel&#x7BA1;&#x7406;&#x8D44;&#x6E90;&#x6C60;&#x7684;&#x5206;&#x914D;&#x3002;</p>
+<p>&#x5B9E;&#x73B0;&#x6761;&#x4EF6;2&#xFF0C;&#x8981;&#x6C42;&#x77E5;&#x9053;&#x76EE;&#x6807;Pod&#x7684;IP&#x5730;&#x5740;&#x6302;&#x5728;&#x54EA;&#x4E2A;Node&#x4E0A;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x5148;&#x53D1;&#x9001;&#x5230;Node&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x8F6C;&#x53D1;&#x7ED9;docker0&#x3002;&#x8C37;&#x6B4C;&#x7684;GCE&#x652F;&#x6301;&#x8BE5;&#x6761;&#x4EF6;&#xFF0C;&#x800C;K8s&#x4E5F;&#x5047;&#x8BBE;&#x5E95;&#x5C42;&#x5DF2;&#x7ECF;&#x652F;&#x6301;&#x8BE5;&#x6761;&#x4EF6;&#x3002;<strong>&#x5728;&#x4E0D;&#x4F7F;&#x7528;GCE&#x7684;&#x79C1;&#x6709;&#x4E91;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x7F51;&#x7EDC;&#x914D;&#x7F6E;&#x6765;&#x5B9E;&#x73B0;k8s&#x5BF9;&#x7F51;&#x7EDC;&#x7684;&#x8981;&#x6C42;&#x3002;</strong>&#x6709;&#x4E0D;&#x5C11;&#x5F00;&#x6E90;&#x8F6F;&#x4EF6;&#x652F;&#x6301;k8s&#x5BF9;&#x7F51;&#x7EDC;&#x7684;&#x8981;&#x6C42;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8eafdf82a68e24526fa1da77ea81693f_1440w.jpg" alt="img"></p>
+<ul>
+<li>Pod&#x4E0E;Service&#x7684;&#x901A;&#x4FE1;</li>
+<li>&#x96C6;&#x7FA4;&#x5916;&#x90E8;&#x4E0E;&#x5185;&#x90E8;&#x7EC4;&#x4EF6;&#x7684;&#x901A;&#x4FE1;</li>
+</ul>
+<p><strong>Pod&#x548C;Service&#x7F51;&#x7EDC;&#x5B9E;&#x6218;</strong></p>
+<p>&#x672C;&#x8282;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x5B9E;&#x6218;&#x6765;&#x4E86;&#x89E3;k8s&#x7684;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x3002;&#x5B9E;&#x9A8C;&#x73AF;&#x5883;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fa2b57f8666446dfb062ffb710300f68_1440w.jpg" alt="img"></p>
+<p>K8S&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x6240;&#x6709;Pod&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x7684;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x5728;Node&#x4E0A;&#x505A;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5728;&#x7F51;&#x7EDC;&#x5C42;&#x53EF;&#x4EE5;&#x5C06;Node&#x770B;&#x4F5C;&#x662F;&#x8DEF;&#x7531;&#x5668;&#xFF0C;&#x901A;&#x8FC7;&#x5728;&#x6BCF;&#x4E2A;Node&#x4E0A;&#x914D;&#x7F6E;&#x76F8;&#x5E94;&#x9759;&#x6001;&#x8DEF;&#x7531;&#x9879;&#x6765;&#x5B9E;&#x73B0;&#x3002;192.168.1.129&#x8282;&#x70B9;&#x4E0A;&#x914D;&#x7F6E;&#x7684;&#x8DEF;&#x7531;&#x9879;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># route add -net 10.1.20.0 netmask 255.255.255.0 gw 192.168.1.130</span>
+<span class="hljs-comment"># route add -net 10.1.30.0 netmask 255.255.255.0 gw 192.168.1.131</span>
+</code></pre>
+<p>&#x8FD9;&#x6837;&#xFF0C;&#x5B9E;&#x9A8C;&#x73AF;&#x5883;&#x7684;&#x7F51;&#x7EDC;&#x56FE;&#x5982;&#x4E0B;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c3a055899df9a3ac2f78a9658e34acf3_1440w.jpg" alt="img"></p>
+<p>-&#x90E8;&#x7F72;Pod</p>
+<p>&#x4E3A;&#x4E86;&#x4FBF;&#x4E8E;&#x89C2;&#x5BDF;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x7A7A;&#x7684;k8s&#x4E0A;&#x90E8;&#x7F72;Pod&#x3002;Node1&#x4E0A;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x5982;&#x4E0B;,&#x53EA;&#x6709;docker0&#x7F51;&#x6865;&#x548C;&#x672C;&#x5730;&#x5730;&#x5740;&#x7684;&#x7F51;&#x7EDC;&#x7AEF;&#x53E3;&#x3002;</p>
+<pre><code class="lang-text"># ifconfig
+docker0: flags=4099&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500
+      inet 10.1.10.1 netmask 255.255.255.0 broadcast 10.1.10.255
+eno16777736: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500
+      inet 192.168.1.129 netmask 255.255.255.0 broadcast 192.168.1.255
+lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536
+      inet 127.0.0.1 netmask 255.0.0.0
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x521B;&#x5EFA;K8S ReplicationController&#xFF0C;&#x5176;&#x5305;&#x542B;1&#x4E2A;replica&#xFF0C;&#x4F7F;&#x7528;&#x7AEF;&#x53E3;80&#xFF0C;&#x90E8;&#x5206;&#x4FE1;&#x606F;&#x5982;&#x4E0B;&#x3002;</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fd2f1da08b7a3ce90759181e21c69998_1440w.jpg" alt="img"></p>
+<p>&#x4F7F;&#x7528;kubectl create&#x6765;&#x521B;&#x5EFA;&#xFF0C;&#x5176;&#x88AB;&#x5206;&#x914D;&#x5230;Node2&#x3002;&#x5728;Node2&#x4E0A;&#x67E5;&#x770B;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x5230;container,&#x53D1;&#x73B0;&#x6709;2&#x4E2A;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x6211;&#x4EEC;&#x542F;&#x52A8;&#x5230;&#x5BB9;&#x5668;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x662F;pause&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-473c717701ccb0156c544fe75fb609fb_1440w.jpg" alt="img"></p>
+<p>&#x67E5;&#x770B;2&#x4E2A;container&#x5230;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#xFF1A;pause&#x5BB9;&#x5668;&#x7684;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x4E3A;Docker&#x9ED8;&#x8BA4;&#x7684;bridge&#xFF0C;&#x800C;&#x6211;&#x4EEC;&#x7684;&#x5BB9;&#x5668;&#x4F7F;&#x7528;&#x6620;&#x5C04;&#x5BB9;&#x5668;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x800C;&#x4E14;&#x6620;&#x5C04;&#x76EE;&#x6807;&#x5BB9;&#x5668;&#x4E3A;pause&#x5BB9;&#x5668;&#x3002;Pod&#x4E2D;&#x7684;&#x6240;&#x6709;&#x5BB9;&#x5668;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x5230;&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x548C;IP&#x5730;&#x5740;&#xFF0C;&#x90FD;&#x4F1A;&#x88AB;&#x6620;&#x5C04;&#x5230;pause&#x5BB9;&#x5668;&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;pause&#x5BB9;&#x5668;&#x6267;&#x884C;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x89C4;&#x5219;&#xFF0C;&#x7B80;&#x5316;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p><img src="https://pic1.zhimg.com/80/v2-b91ccdb6abb4965a24e83c5c05a4078c_1440w.jpg" alt="img"></p>
+<p>Pod&#x5230;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x7C7B;&#x4F3C;&#x4E8E;&#x4E0B;&#x56FE;&#x3002;&#x56FE;&#x4E2D;&#x663E;&#x793A;pause&#x5BB9;&#x5668;&#x5C06;&#x7AEF;&#x53E3;80&#x5230;&#x6D41;&#x91CF;&#x8F6C;&#x53D1;&#x5230;&#x76F8;&#x5173;&#x5BB9;&#x5668;&#x3002;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5E94;&#x7528;&#x5BB9;&#x5668;&#x76F4;&#x63A5;&#x76D1;&#x542C;&#x8FD9;&#x4E9B;&#x7AEF;&#x53E3;&#xFF0C;&#x4E0D;&#x7528;pause&#x5BB9;&#x5668;&#x8F6C;&#x53D1;&#x3002;Pod&#x5185;&#x90E8;&#x5B9E;&#x9645;&#x5BB9;&#x5668;&#x5230;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x90FD;&#x663E;&#x793A;&#x5230;pause&#x5BB9;&#x5668;&#xFF0C;&#x8D1F;&#x8D23;&#x63A5;&#x7BA1;Pod&#x5230;Endpoint&#xFF0C;&#x4F7F;&#x7528;docker port&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x3002;&#x6B64;&#x65F6;&#xFF0C;Node&#x4E0A;&#x6CA1;&#x6709;&#x589E;&#x52A0;iptables&#x89C4;&#x5219;&#x6765;&#x5904;&#x7406;&#x5230;Pod&#x5230;&#x8BF7;&#x6C42;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-67ccaf797cfbd5c092f5e3ca553cce97_1440w.jpg" alt="img"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-99f4fb18c696b048183e6b35ce6459eb_1440w.jpg" alt="img"></p>
+<p>-&#x90E8;&#x7F72;service</p>
+<p>&#x6E05;&#x7406;k8s&#x73AF;&#x5883;&#x540E;&#x521B;&#x5EFA;&#x5982;&#x4E0B;service&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-479f4cb93d823c460babeddbab6cff8a_1440w.jpg" alt="img"></p>
+<p>&#x521B;&#x5EFA;&#x4E4B;&#x540E;&#xFF0C;service&#x88AB;&#x5206;&#x914D;20.1.244.75&#x7684;IP&#x5730;&#x5740;&#x3002;</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9381b7bbb1459d22744c09850d73f89c_1440w.jpg" alt="img"></p>
+<p>&#x67E5;&#x770B;iptables&#x7684;&#x53D8;&#x5316;&#x3002;&#x7B2C;&#x4E00;&#x6761;&#x662F;PREROUTING&#x94FE;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x6240;&#x6709;&#x8BBF;&#x95EE;20.1.244.75:80&#x7684;&#x6D41;&#x91CF;&#x88AB;&#x91CD;&#x5B9A;&#x5411;&#x5230;59528&#x7AEF;&#x53E3;&#x3002;&#x7B2C;&#x4E8C;&#x884C;&#x662F;OUTPUT&#x94FE;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x7C7B;&#x4F3C;&#x7B2C;&#x4E00;&#x6761;&#x3002;kube-proxy&#x4E3A;&#x6BCF;&#x4E2A;&#x65B0;&#x5EFA;&#x670D;&#x52A1;&#x5173;&#x8054;&#x968F;&#x673A;&#x7AEF;&#x53E3;&#xFF0C;&#x5982;&#x8FD9;&#x91CC;&#x7684;59528&#xFF0C;&#x5E76;&#x76D1;&#x542C;&#x8BE5;&#x7AEF;&#x53E3;&#x4E3A;&#x670D;&#x52A1;&#x521B;&#x5EFA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x5BF9;&#x8C61;&#x3002;&#x6240;&#x6709;&#x6D41;&#x91CF;&#x90FD;&#x88AB;&#x5BFC;&#x5165;kube-proxy&#x4E2D;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-2c92f1f570d62f6025984271bb69d377_1440w.jpg" alt="img"></p>
+<p>&#x4E0B;&#x9762;&#x521B;&#x5EFA;ReplicationController&#x3002;</p>
+<p><img src="https://pic1.zhimg.com/80/v2-1d2ce0d1297ba2a6d734dcd7a7fa4c0c_1440w.jpg" alt="img"></p>
+<p>&#x521B;&#x5EFA;&#x4E4B;&#x540E;&#x7684;pod&#x5206;&#x914D;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-8f48304a958707f68d83694eafaf2a76_1440w.jpg" alt="img"></p>
+<p>&#x73B0;&#x5728;&#x7684;&#x5B9E;&#x9A8C;&#x73AF;&#x5883;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-42a0a5181850e36c2f510a7dd87135b7_1440w.jpg" alt="img"></p>
+<p>&#x4E0A;&#x9762;&#x91CD;&#x5B9A;&#x5411;&#x89C4;&#x5219;&#x7684;&#x7ED3;&#x679C;&#x5C31;&#x662F;&#x9488;&#x5BF9;&#x76EE;&#x6807;&#x5730;&#x5740;&#x4E3A;&#x670D;&#x52A1;IP&#x7684;&#x6D41;&#x91CF;&#xFF0C;&#x5C06;kube-proxy&#x53D8;&#x6210;&#x4E2D;&#x95F4;&#x5939;&#x5C42;&#x3002;</p>
+<p>&#x5F53;&#x5728;node1&#x4E0A;&#x7684;&#x5BB9;&#x5668;&#x4E2D;&#x8BBF;&#x95EE;service&#x65F6;&#xFF0C;&#x6B64;&#x6B21;&#x8BBF;&#x95EE;&#x8C03;&#x7528;Node3&#x4E0A;&#x7684;Pod&#xFF0C;&#x5176;&#x7F51;&#x7EDC;&#x8BBF;&#x95EE;&#x5982;&#x4E0B;&#x6240;&#x793A;&#x3002;&#x5728;Node1&#x4E0A;&#x7684;&#x5BB9;&#x5668;&#x8BBF;&#x95EE;&#x76F8;&#x540C;&#x8282;&#x70B9;&#x7684;kube-proxy&#xFF0C;&#x7136;&#x540E;&#x8BE5;kube-proxy&#x76F4;&#x63A5;&#x5C06;&#x8BBF;&#x95EE;&#x4EE3;&#x7406;&#x5230;Node3&#x4E0A;&#x7684;Pod&#xFF0C;&#x7ED5;&#x8FC7;Node3&#x4E0A;&#x7684;kube-proxy&#x3002;kube-proxy&#x4F5C;&#x4E3A;&#x5168;&#x529F;&#x80FD;&#x7684;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x7BA1;&#x7406;&#x4E86;2&#x4E2A;TCP&#x8FDE;&#x63A5;&#xFF1A;&#x4ECE;&#x5BB9;&#x5668;&#x5230;kube-proxy; &#x4ECE;kube-proxy&#x5230;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x5230;&#x76EE;&#x6807;Pod&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-4404842f3932ebabb3a8cf08eb184fa6_1440w.jpg" alt="img"></p>
+<p><strong>CNI&#x7F51;&#x7EDC;&#x6A21;&#x578B;</strong></p>
+<p>&#x76EE;&#x524D;&#x4E3B;&#x6D41;&#x7684;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x5305;&#x62EC;Docker&#x63D0;&#x51FA;&#x7684;Container Network Model(CNM)&#x6A21;&#x578B;&#x548C;CoreOS&#x63D0;&#x51FA;&#x7684;Container Network Interface(CNI)&#x6A21;&#x578B;&#x3002;</p>
+<p>-CNM&#x6A21;&#x578B;</p>
+<p>CNM&#x6A21;&#x578B;&#x4E3B;&#x8981;&#x901A;&#x8FC7;Network Sandbox, Endpoint, Network&#x8FD9;3&#x4E2A;&#x7EC4;&#x4EF6;&#x5B9E;&#x73B0;&#x3002;</p>
+<ul>
+<li>Network Sandbox &#x5BB9;&#x5668;&#x5185;&#x90E8;&#x7684;&#x7F51;&#x7EDC;&#x6808;&#xFF0C;&#x5305;&#x62EC;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x3001;&#x8DEF;&#x7531;&#x8868;&#x3001;DNS&#x7B49;&#x914D;&#x7F6E;&#x7684;&#x7BA1;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Linux&#x7684;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5B9E;&#x73B0;&#x3002;&#x4E00;&#x4E2A;Sandbox&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x591A;&#x4E2A;Endpoint&#x3002;</li>
+<li>Endpoint &#x7528;&#x4E8E;&#x5C06;&#x5BB9;&#x5668;&#x5185;&#x7684;Sandbox&#x4E0E;&#x5916;&#x90E8;&#x7F51;&#x7EDC;&#x76F8;&#x8FDE;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Veth&#x5BF9;&#x5B9E;&#x73B0;&#x3002;&#x4E00;&#x4E2A;Endpoint&#x4EC5;&#x80FD;&#x591F;&#x52A0;&#x5165;&#x4E00;&#x4E2A;Network&#x3002;</li>
+<li>Network &#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4E92;&#x8054;&#x7684;Endpoint&#x96C6;&#x5408;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;Linux&#x7F51;&#x6865;&#x5B9E;&#x73B0;&#xFF0C;&#x4E00;&#x4E2A;Network&#x5305;&#x542B;&#x591A;&#x4E2A;Endpoint&#x3002;</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-d474f7b45b9fa2df347f2ab931697aa3_1440w.jpg" alt="img"></p>
+<p>-CNI&#x6A21;&#x578B;</p>
+<p>&#x4E0B;&#x9762;&#x662F;CNI&#x6A21;&#x578B;&#x3002;CNI&#x5B9A;&#x4E49;&#x5BB9;&#x5668;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x4E0E;&#x7F51;&#x7EDC;&#x63D2;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x7B80;&#x5355;&#x63A5;&#x53E3;&#x89C4;&#x8303;&#xFF0C;&#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x5E94;&#x7528;&#x5BB9;&#x5668;&#x7684;&#x63D2;&#x4EF6;&#x5316;&#x7F51;&#x7EDC;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x3002;</p>
+<p><img src="https://pic1.zhimg.com/80/v2-97bf696169c5e1962f80cfb9b19b4ed0_1440w.jpg" alt="img"></p>
+<p>CNI&#x6A21;&#x578B;&#x4E2D;&#x53EA;&#x6D89;&#x53CA;2&#x4E2A;&#x6982;&#x5FF5;&#xFF1A;&#x5BB9;&#x5668;&#x548C;&#x7F51;&#x7EDC;&#x3002;&#x5BB9;&#x5668;&#x662F;&#x62E5;&#x6709;&#x72EC;&#x7ACB;Linux&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x73AF;&#x5883;&#xFF1B;&#x7F51;&#x7EDC;&#x8868;&#x793A;&#x4E92;&#x8FDE;&#x7684;&#x4E00;&#x7EC4;&#x5B9E;&#x4F53;&#xFF0C;&#x5B9E;&#x4F53;&#x62E5;&#x6709;&#x5404;&#x81EA;&#x72EC;&#x7ACB;&#x3001;&#x552F;&#x4E00;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x5BB9;&#x5668;&#x3001;&#x7269;&#x7406;&#x673A;&#x6216;&#x5176;&#x4ED6;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;&#x3002;</p>
+<p>&#x5BF9;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x7684;&#x8BBE;&#x7F6E;&#x548C;&#x64CD;&#x4F5C;&#x90FD;&#x901A;&#x8FC7;&#x63D2;&#x4EF6;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;CNI&#x63D2;&#x4EF6;&#x5305;&#x62EC;2&#x7C7B;&#xFF1A;CNI Plugin&#x548C;IPAM(IP Address Management) Plugin.&#x524D;&#x8005;&#x8D1F;&#x8D23;&#x4E3A;&#x5BB9;&#x5668;&#x914D;&#x7F6E;&#x7F51;&#x7EDC;&#x8D44;&#x6E90;&#xFF0C;&#x540E;&#x8005;&#x8D1F;&#x8D23;&#x5BF9;&#x5BB9;&#x5668;&#x7684;IP&#x5730;&#x5740;&#x8FDB;&#x884C;&#x5206;&#x914D;&#x548C;&#x7BA1;&#x7406;&#x3002;</p>
+<p><strong>Kubernetes&#x7F51;&#x7EDC;&#x7B56;&#x7565;</strong></p>
+<p>&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x7EC6;&#x7C92;&#x5EA6;&#x7684;&#x5BB9;&#x5668;&#x95F4;&#x7F51;&#x7EDC;&#x8BBF;&#x95EE;&#x9694;&#x79BB;&#x7B56;&#x7565;&#xFF0C;k8s&#x4ECE;1.3&#x7248;&#x672C;&#x5F15;&#x5165;<strong>Network Policy</strong>&#x673A;&#x5236;&#x3002;&#x8BE5;&#x673A;&#x5236;&#x5BF9;<strong>Pod&#x95F4;&#x7684;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x8FDB;&#x884C;&#x9650;&#x5236;&#x63A7;&#x5236;</strong>&#xFF0C;&#x4F7F;&#x7528;Pod&#x7684;label&#x4F5C;&#x4E3A;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x6765;&#x8BBE;&#x7F6E;&#x5141;&#x8BB8;&#x8BBF;&#x95EE;&#x6216;&#x7981;&#x6B62;&#x8BBF;&#x95EE;&#x7684;&#x5BA2;&#x6237;&#x7AEF;Pod&#x5217;&#x8868;&#x3002;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x53EF;&#x4F5C;&#x7528;&#x4E8E;Pod&#x548C;Namespace&#x4E24;&#x4E2A;&#x7EA7;&#x522B;&#x3002;</p>
+<p>K8s&#x901A;&#x8FC7;&#x5B9A;&#x4E49;&#x8D44;&#x6E90;&#x5BF9;&#x8C61;NetworkPolicy&#x6765;&#x5B9A;&#x4E49;&#x7F51;&#x7EDC;&#x7B56;&#x7565;&#xFF0C;&#x7B56;&#x7565;&#x63A7;&#x5236;&#x5668;Policy Controller&#x76D1;&#x542C;&#x7528;&#x6237;&#x8BBE;&#x7F6E;&#x7684;NetworkPolicy&#xFF0C;&#x901A;&#x8FC7;&#x5404;Node&#x7684;Agent&#x8FDB;&#x884C;&#x5B9E;&#x9645;&#x8BBE;&#x7F6E;&#x3002;<strong>&#x7B56;&#x7565;&#x63A7;&#x5236;&#x5668;&#x7531;&#x7B2C;&#x4E09;&#x65B9;&#x7F51;&#x7EDC;&#x7EC4;&#x4EF6;&#x63D0;&#x4F9B;</strong>&#xFF0C;&#x76EE;&#x524D;Calico, Cilium, Kube-router,Romana, Weave Net&#x7B49;&#x5F00;&#x6E90;&#x9879;&#x76EE;&#x5747;&#x652F;&#x6301;&#x3002;</p>
+<p><img src="https://pic4.zhimg.com/80/v2-e46f21e7fbf02ebf0ac9a5372f8da0db_1440w.jpg" alt="img"></p>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5BF9;&#x6240;&#x6709;Pod&#x90FD;&#x662F;&#x5141;&#x8BB8;&#x8BBF;&#x95EE;&#x7684;&#x3002;&#x8BBE;&#x7F6E;NetworkPolicy&#x7528;&#x4E8E;&#x9650;&#x5236;&#x5BF9;&#x76EE;&#x6807;Pod&#x7684;&#x8BBF;&#x95EE;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x793A;&#x4F8B;&#x3002;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.k8s.io/v1
+<span class="hljs-attr">kind:</span> NetworkPolicy
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> test-network-policy
+<span class="hljs-attr">  namespace:</span> default
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  podSelector:</span>
+<span class="hljs-attr">    matchLabels:</span>
+<span class="hljs-attr">      role:</span> db
+<span class="hljs-attr">  policyTypes:</span>
+<span class="hljs-bullet">  -</span> Ingress
+<span class="hljs-bullet">  -</span> Egress
+<span class="hljs-attr">  ingress:</span>
+<span class="hljs-attr">  - from:</span>
+<span class="hljs-attr">    - ipBlock:</span>
+<span class="hljs-attr">        cidr:</span> <span class="hljs-number">172.17</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>/<span class="hljs-number">16</span>
+<span class="hljs-attr">        except:</span>
+<span class="hljs-bullet">        -</span> <span class="hljs-number">172.17</span><span class="hljs-number">.1</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span>
+<span class="hljs-attr">    - namespaceSelector:</span>
+<span class="hljs-attr">        matchLabels:</span>
+<span class="hljs-attr">          project:</span> myproject
+<span class="hljs-attr">    - podSelector:</span>
+<span class="hljs-attr">        matchLabels:</span>
+<span class="hljs-attr">          role:</span> frontend
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-attr">    - protocol:</span> TCP
+<span class="hljs-attr">      port:</span> <span class="hljs-number">6379</span>
+<span class="hljs-attr">  egress:</span>
+<span class="hljs-attr">  - to:</span>
+<span class="hljs-attr">    - ipBlock:</span>
+<span class="hljs-attr">        cidr:</span> <span class="hljs-number">10.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span>
+<span class="hljs-attr">    ports:</span>
+<span class="hljs-attr">    - protocol:</span> TCP
+<span class="hljs-attr">      port:</span> <span class="hljs-number">5978</span>
+</code></pre>
+<p>podSelector&#x9009;&#x5B9A;&#x7F51;&#x7EDC;&#x7B56;&#x7565;&#x4F5C;&#x7528;&#x7684;<strong>&#x76EE;&#x6807;Pods</strong>&#xFF0C;&#x8BE5;&#x4F8B;&#x4E2D;&#x9009;&#x62E9;&#x5E26;&#x6709;&#x6807;&#x7B7E;role=db&#x7684;Pod&#x3002;policytypes&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x7F51;&#x7EDC;&#x7B56;&#x7565;&#x7C7B;&#x578B;&#xFF0C;&#x5305;&#x62EC;ingress&#x548C;egress&#xFF0C;&#x5206;&#x522B;&#x9650;&#x5236;&#x76EE;&#x6807;Pod&#x5165;&#x7AD9;&#x548C;&#x51FA;&#x7AD9;&#x7684;&#x7F51;&#x7EDC;&#x9650;&#x5236;&#x3002;<strong>ingress&#x5B9A;&#x4E49;&#x8BBF;&#x95EE;&#x76EE;&#x6807;Pod&#x7684;&#x767D;&#x540D;&#x5355;</strong>&#xFF0C;&#x6EE1;&#x8DB3;from&#x6761;&#x4EF6;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x624D;&#x80FD;&#x8BBF;&#x95EE;&#x76EE;&#x6807;Pod&#x7684;ports&#x6307;&#x5B9A;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x3002;<strong>egress&#x5B9A;&#x4E49;&#x76EE;&#x6807;Pod&#x80FD;&#x591F;&#x8BBF;&#x95EE;&#x7684;&#x51FA;&#x7AD9;&#x767D;&#x540D;&#x5355;</strong>&#xFF0C;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;&#x6EE1;&#x8DB3;to&#x6761;&#x4EF6;&#x7684;IP&#x548C;ports&#x5B9A;&#x4E49;&#x7684;Pod&#x3002;</p>
+<p>namespaceSelector&#x548C;podSelector&#x53EF;&#x4EE5;&#x5355;&#x72EC;&#x8BBE;&#x7F6E;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x8BBE;&#x7F6E;&#x3002;&#x82E5;&#x4EC5;&#x914D;&#x7F6E;podSelector&#xFF0C;&#x8868;&#x793A;&#x4E0E;&#x76EE;&#x6807;Pod&#x5C5E;&#x4E8E;&#x76F8;&#x540C;Namespace&#xFF0C;&#x800C;&#x7EC4;&#x5408;&#x8BBE;&#x7F6E;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;Pod&#x6240;&#x5C5E;Namespace. &#x4E0B;&#x9762;&#x662F;&#x7EC4;&#x5408;&#x8BBE;&#x7F6E;&#x7684;&#x793A;&#x4F8B;&#xFF0C;&#x8868;&#x793A;&#x6765;&#x6E90;Pod&#x5C5E;&#x4E8E;&#x6709;label project=myproject&#x7684;namespace&#x5E76;&#x4E14;&#x6709;role=frontend&#x6807;&#x7B7E;&#x3002;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">- from:</span>
+<span class="hljs-attr">  - namespaceSelector:</span>
+<span class="hljs-attr">      matchLabels:</span>
+<span class="hljs-attr">        project:</span> myproject
+<span class="hljs-attr">    podSelector:</span>
+<span class="hljs-attr">      matchLabels:</span>
+<span class="hljs-attr">        role:</span> frontend
+</code></pre>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x5728;namespace&#x7EA7;&#x522B;&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x7684;&#x7F51;&#x7EDC;&#x7B56;&#x7565;&#x3002;</p>
+<pre><code class="lang-yaml">//&#x9ED8;&#x8BA4;&#x7981;&#x6B62;&#x4EFB;&#x4F55;&#x5BA2;&#x6237;&#x7AEF;&#x8BBF;&#x95EE;&#x8BE5;namespace&#x4E2D;&#x7684;&#x6240;&#x6709;pod
+<span class="hljs-attr">apiVersion:</span> networking.k8s.io/v1
+<span class="hljs-attr">kind:</span> NetworkPolicy
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> default-deny
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  podSelector:</span> {}
+<span class="hljs-attr">  policyTypes:</span>
+<span class="hljs-bullet">  -</span> Ingress
+
+//&#x5141;&#x8BB8;&#x4EFB;&#x4F55;&#x5BA2;&#x6237;&#x7AEF;&#x8BBF;&#x95EE;&#x8BE5;namespace&#x4E2D;&#x7684;&#x6240;&#x6709;Pod
+<span class="hljs-attr">apiVersion:</span> networking.k8s.io/v1
+<span class="hljs-attr">kind:</span> NetworkPolicy
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> allow-all
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  podSelector:</span> {}
+<span class="hljs-attr">  ingress:</span>
+<span class="hljs-bullet">  -</span> {}
+<span class="hljs-attr">  policyTypes:</span>
+<span class="hljs-bullet">  -</span> Ingress
+</code></pre>
+<p><strong>&#x5F00;&#x6E90;&#x7684;&#x7F51;&#x7EDC;&#x7EC4;&#x4EF6;</strong></p>
+<p>K8S&#x7684;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x5047;&#x5B9A;&#x6240;&#x6709;Pod&#x90FD;&#x5728;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FDE;&#x901A;&#x7684;&#x6241;&#x5E73;&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x4E2D;&#x3002;GCE&#x4E2D;&#xFF0C;&#x8BE5;&#x6761;&#x4EF6;&#x5929;&#x7136;&#x6EE1;&#x8DB3;&#xFF0C;&#x4F46;&#x5728;&#x79C1;&#x6709;&#x4E91;&#x4E2D;&#x642D;&#x5EFA;k8s&#xFF0C;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x7F51;&#x7EDC;&#x5047;&#x8BBE;&#xFF0C;&#x5C06;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x4E0A;&#x7684;Docker&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x4E92;&#x76F8;&#x8BBF;&#x95EE;&#x5148;&#x6253;&#x901A;&#xFF0C;&#x7136;&#x540E;&#x8FD0;&#x884C;k8s&#x3002;&#x76EE;&#x524D;&#x591A;&#x4E2A;&#x5F00;&#x6E90;&#x7EC4;&#x4EF6;&#x652F;&#x6301;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#xFF0C;&#x5305;&#x62EC;Flannel, Open vSwitch, &#x76F4;&#x63A5;&#x8DEF;&#x7531;&#x548C;Calico&#x3002;</p>
+<ul>
+<li>Flannel</li>
+</ul>
+<p>Flannel&#x901A;&#x8FC7;2&#x4E2A;&#x529F;&#x80FD;&#x6765;&#x652F;&#x6301;k8s&#x7F51;&#x7EDC;&#x6A21;&#x578B;&#x7684;&#x5047;&#x8BBE;&#xFF1A;1. &#x4E3A;&#x6BCF;&#x4E2A;Node&#x4E0A;&#x7684;Docker&#x5BB9;&#x5668;&#x5206;&#x914D;&#x4E0D;&#x51B2;&#x7A81;&#x7684;IP&#x5730;&#x5740;&#xFF1B;2.&#x5728;&#x8FD9;&#x4E9B;IP&#x5730;&#x5740;&#x4E4B;&#x95F4;&#x5EFA;&#x7ACB;<strong>&#x8986;&#x76D6;&#x7F51;&#x7EDC;</strong>(Overlay Network)&#xFF0C;&#x901A;&#x8FC7;&#x8986;&#x76D6;&#x7F51;&#x7EDC;&#x5C06;&#x6570;&#x636E;&#x5305;&#x539F;&#x5C01;&#x4E0D;&#x52A8;&#x5730;&#x4F20;&#x9012;&#x7ED9;&#x76EE;&#x6807;&#x5BB9;&#x5668;&#x3002;</p>
+<p>&#x4E0B;&#x56FE;&#x5C55;&#x793A;Flannel&#x7684;&#x5B9E;&#x73B0;&#x3002;<strong>Flannel&#x521B;&#x5EFA;flannel0&#x7F51;&#x6865;&#xFF0C;&#x4E00;&#x7AEF;&#x8FDE;&#x63A5;docker0&#x7F51;&#x6865;&#xFF0C;&#x53E6;&#x4E00;&#x7AEF;&#x8FDE;&#x63A5;flanneld&#x670D;&#x52A1;&#x8FDB;&#x7A0B;</strong>&#x3002;flanneld&#x670D;&#x52A1;&#x8FDB;&#x7A0B;&#x8FDE;&#x63A5;<strong>etcd</strong>&#xFF0C;&#x5229;&#x7528;etcd&#x6765;&#x7BA1;&#x7406;&#x53EF;&#x5206;&#x914D;&#x7684;IP&#x5730;&#x5740;&#x6BB5;&#x8D44;&#x6E90;&#xFF0C;&#x540C;&#x65F6;&#x76D1;&#x63A7;etcd&#x4E2D;&#x6BCF;&#x4E2A;Pod&#x7684;&#x5B9E;&#x9645;&#x5730;&#x5740;&#xFF0C;&#x5E76;&#x5728;<strong>&#x5185;&#x5B58;&#x4E2D;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;Pod&#x8282;&#x70B9;&#x8DEF;&#x7531;&#x8868;</strong>&#x3002;&#x63A5;&#x6536;&#x5230;docker0&#x53D1;&#x51FA;&#x7684;&#x6570;&#x636E;&#x5305;&#xFF0C;flanneld&#x5229;&#x7528;&#x5185;&#x5B58;&#x4E2D;&#x7684;Pod&#x8282;&#x70B9;&#x8DEF;&#x7531;&#x8868;&#x5C06;&#x8BE5;&#x6570;&#x636E;&#x5305;&#x5305;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x5229;&#x7528;&#x7269;&#x7406;&#x7F51;&#x7EDC;&#x7684;&#x8FDE;&#x63A5;&#x5C06;&#x6570;&#x636E;&#x5305;&#x6295;&#x9012;&#x5230;&#x76EE;&#x6807;flanneld&#x4E0A;&#xFF0C;&#x4ECE;&#x800C;&#x5B8C;&#x6210;Pod&#x4E4B;&#x95F4;&#x7684;&#x76F4;&#x63A5;&#x5730;&#x5740;&#x901A;&#x4FE1;&#x3002;</p>
+<p>Flannel&#x7684;&#x5E95;&#x5C42;&#x901A;&#x4FE1;&#x534F;&#x8BAE;&#x53EF;&#x9009;UDP, VxLan, AWS VPC&#x7B49;&#xFF0C;&#x901A;&#x8FC7;&#x6E90;flanneld&#x5C01;&#x5305;&#xFF0C;&#x76EE;&#x6807;flanneld&#x89E3;&#x5305;&#xFF0C;&#x6700;&#x7EC8;docker0&#x6536;&#x5230;&#x7684;&#x5C31;&#x662F;&#x539F;&#x59CB;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5BF9;&#x5BB9;&#x5668;&#x5E94;&#x7528;&#x6765;&#x8BF4;&#x662F;&#x900F;&#x660E;&#x7684;&#x3002;</p>
+<p><img src="https://pic3.zhimg.com/80/v2-d6e57625970328322122a4150514b4a6_1440w.jpg" alt="img"></p>
+<p>Flannel&#x4F7F;&#x7528;&#x96C6;&#x4E2D;&#x7684;etcd&#x5B58;&#x50A8;&#xFF0C;&#x6BCF;&#x6B21;&#x4ECE;&#x540C;&#x4E00;&#x4E2A;&#x516C;&#x5171;&#x533A;&#x57DF;&#x83B7;&#x53D6;&#x5730;&#x5740;&#x6BB5;&#x5E76;&#x5206;&#x914D;&#x7ED9;Node&#x4E0A;&#x7684;docker0&#xFF0C;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x6240;&#x6709;Pod&#x7684;IP&#x5730;&#x5740;&#x5728;&#x540C;&#x4E00;&#x6C34;&#x5E73;&#x7F51;&#x7EDC;&#x4E14;&#x4E0D;&#x51B2;&#x7A81;&#x3002;Flannel&#x5206;&#x914D;&#x597D;&#x5730;&#x5740;&#x6BB5;&#x540E;&#xFF0C;&#x901A;&#x8FC7;docker&#x7684;&#x542F;&#x52A8;&#x53C2;&#x6570;--bip&#x5C06;&#x5206;&#x914D;&#x7684;&#x5730;&#x5740;&#x6BB5;&#x4F20;&#x9012;&#x7ED9;docker&#x3002;&#x540E;&#x9762;&#x7684;&#x4E8B;&#x60C5;&#x7531;docker&#x5B8C;&#x6210;&#x3002;</p>
+<pre><code class="lang-text">--bip=172.17.18.1/24
+</code></pre>
+<p>Flannel&#x5F15;&#x5165;&#x591A;&#x4E2A;&#x7F51;&#x7EDC;&#x63D2;&#x4EF6;&#xFF0C;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x4E2D;&#x5148;&#x8D5A;&#x5230;flannel0&#xFF0C;&#x518D;&#x8F6C;&#x5230;&#x7528;&#x6237;&#x6001;&#x7684;flanneld&#x7A0B;&#x5E8F;&#xFF0C;&#x5230;&#x5BF9;&#x7AEF;&#x540E;&#x6267;&#x884C;&#x53CD;&#x64CD;&#x4F5C;&#xFF0C;&#x5F15;&#x5165;&#x4E00;&#x4E9B;&#x7F51;&#x7EDC;&#x7684;&#x65F6;&#x5EF6;&#x635F;&#x8017;&#x3002;&#x53E6;&#x5916;&#xFF0C;Flannel&#x9ED8;&#x8BA4;&#x91C7;&#x7528; UDP&#x4F5C;&#x4E3A;&#x5E95;&#x5C42;&#x4F20;&#x8F93;&#x534F;&#x8BAE;&#xFF0C;&#x4E0D;&#x53EF;&#x9760;&#x3002;&#x867D;&#x7136;&#x4E24;&#x7AEF;&#x7684;TCP&#x5B9E;&#x73B0;&#x53EF;&#x9760;&#x4F20;&#x8F93;&#xFF0C;&#x4F46;&#x5728;&#x5927;&#x6D41;&#x91CF;&#x3001;&#x9AD8;&#x5E76;&#x53D1;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#x4E0B;&#x9700;&#x8981;&#x53CD;&#x590D;&#x6D4B;&#x8BD5;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="浅谈 Kubernetes 中的服务发现.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 浅谈 Kubernetes 中的服务发现">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Kubernetes网络原理","level":"1.8.1","depth":2,"next":{"title":"浅谈 Kubernetes 中的服务发现","level":"1.8.2","depth":2,"path":"reproduce/浅谈 Kubernetes 中的服务发现.md","ref":"reproduce/浅谈 Kubernetes 中的服务发现.md","articles":[]},"previous":{"title":"转载","level":"1.8","depth":1,"ref":"","articles":[{"title":"Kubernetes网络原理","level":"1.8.1","depth":2,"path":"reproduce/Kubernetes网络原理.md","ref":"reproduce/Kubernetes网络原理.md","articles":[]},{"title":"浅谈 Kubernetes 中的服务发现","level":"1.8.2","depth":2,"path":"reproduce/浅谈 Kubernetes 中的服务发现.md","ref":"reproduce/浅谈 Kubernetes 中的服务发现.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"reproduce/Kubernetes网络原理.md","mtime":"2021-04-09T13:48:16.599Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-09T13:48:47.350Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

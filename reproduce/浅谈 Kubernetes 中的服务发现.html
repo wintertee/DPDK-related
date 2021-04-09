@@ -1,0 +1,620 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>浅谈 Kubernetes 中的服务发现 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="Kubernetes网络原理.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    prerequisite
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../prerequisite/apt.html">
+            
+                <a href="../prerequisite/apt.html">
+            
+                    
+                    apt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../prerequisite/kernel parameters.html">
+            
+                <a href="../prerequisite/kernel parameters.html">
+            
+                    
+                    kernel parameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../prerequisite/Docker.html">
+            
+                <a href="../prerequisite/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DPDK/DPDK.html">
+            
+                <a href="../DPDK/DPDK.html">
+            
+                    
+                    DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../DPDK/testpmd.html">
+            
+                <a href="../DPDK/testpmd.html">
+            
+                    
+                    testpmd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
+            
+                <a href="../f-stack/f-stack.html">
+            
+                    
+                    f-stack
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
+            
+                <a href="../f-stack/helloworld.html">
+            
+                    
+                    helloworld
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
+            
+                <a href="../f-stack/nginx.html">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../OVS-DPDK/OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/OVS-DPDK.html">
+            
+                    
+                    OVS-DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../OVS-DPDK/pktgen.html">
+            
+                <a href="../OVS-DPDK/pktgen.html">
+            
+                    
+                    pktgen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                    
+                    Docker+OVS-DPDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../OVS-DPDK/Docker+ovs.html">
+            
+                <a href="../OVS-DPDK/Docker+ovs.html">
+            
+                    
+                    OVS-Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    VPP
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../VPP/Contiv-VPP.html">
+            
+                <a href="../VPP/Contiv-VPP.html">
+            
+                    
+                    部署k8s集群和Contiv-VPP CNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../scripts/">
+            
+                <a href="../scripts/">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    转载
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="Kubernetes网络原理.html">
+            
+                <a href="Kubernetes网络原理.html">
+            
+                    
+                    Kubernetes网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8.2" data-path="浅谈 Kubernetes 中的服务发现.html">
+            
+                <a href="浅谈 Kubernetes 中的服务发现.html">
+            
+                    
+                    浅谈 Kubernetes 中的服务发现
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >浅谈 Kubernetes 中的服务发现</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x6D45;&#x8C08;-kubernetes-&#x4E2D;&#x7684;&#x670D;&#x52A1;&#x53D1;&#x73B0;">&#x6D45;&#x8C08; Kubernetes &#x4E2D;&#x7684;&#x670D;&#x52A1;&#x53D1;&#x73B0;</h1>
+<p>&#x6700;&#x8FD1;&#x66F4;&#x65B0;&#x4E8E; 2020 &#x5E74; 1 &#x6708; 29 &#x65E5; 8 &#x5206;&#x949F;&#x9605;&#x8BFB;&#x65F6;&#x957F; <a href="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/#disqus_thread" target="_blank">1 Comment</a> <a href="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/" target="_blank">&#x8BD1;&#x6587;</a></p>
+<p>&#x539F;&#x6587;&#xFF1A;<a href="https://nigelpoulton.com/blog/f/demystifying-kubernetes-service-discovery" target="_blank">Demystifying Kubernetes service discovery</a></p>
+<p>&#x4F5C;&#x8005;&#xFF1A;<a href="https://twitter.com/nigel_poulton" target="_blank">Nigel Poulton</a></p>
+<p>Kubernetes &#x670D;&#x52A1;&#x53D1;&#x73B0;&#x662F;&#x4E00;&#x4E2A;&#x7ECF;&#x5E38;&#x8BA9;&#x6211;&#x4EA7;&#x751F;&#x56F0;&#x60D1;&#x7684;&#x4E3B;&#x9898;&#x4E4B;&#x4E00;&#x3002;&#x672C;&#x6587;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li>&#x7F51;&#x7EDC;&#x65B9;&#x9762;&#x7684;&#x80CC;&#x666F;&#x77E5;&#x8BC6;</li>
+<li>&#x6DF1;&#x5165;&#x4E86;&#x89E3; Kubernetes &#x670D;&#x52A1;&#x53D1;&#x73B0;</li>
+</ul>
+<p>&#x8981;&#x4E86;&#x89E3;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#xFF0C;&#x9996;&#x5148;&#x8981;&#x4E86;&#x89E3;&#x80CC;&#x540E;&#x7684;&#x7F51;&#x7EDC;&#x77E5;&#x8BC6;&#x3002;&#x8FD9;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x76F8;&#x5BF9;&#x6D45;&#x663E;&#xFF0C;&#x5982;&#x679C;&#x8BFB;&#x8005;&#x719F;&#x77E5;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x8DF3;&#x8FC7;&#xFF0C;&#x76F4;&#x63A5;&#x9605;&#x8BFB;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x63D0;&#x9192;&#x7684;&#x4E8B;&#x60C5;&#x5C31;&#x662F;&#xFF0C;&#x4E3A;&#x4E86;&#x8BE6;&#x7EC6;&#x63CF;&#x8FF0;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#xFF0C;&#x672C;&#x6587;&#x7565;&#x957F;&#x3002;</p>
+<h2 id="kubernetes-&#x7F51;&#x7EDC;&#x57FA;&#x7840;">Kubernetes &#x7F51;&#x7EDC;&#x57FA;&#x7840;</h2>
+<p>&#x8981;&#x5F00;&#x59CB;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x7684;&#x63A2;&#x7D22;&#x4E4B;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x7406;&#x89E3;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<ol>
+<li>Kubernetes &#x5E94;&#x7528;&#x8FD0;&#x884C;&#x5728;&#x5BB9;&#x5668;&#x4E4B;&#x4E2D;&#xFF0C;&#x5BB9;&#x5668;&#x5904;&#x4E8E; Pod &#x4E4B;&#x5185;&#x3002;</li>
+<li>&#x6BCF;&#x4E2A; Pod &#x90FD;&#x4F1A;&#x9644;&#x7740;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x5927;&#x7684;&#x6241;&#x5E73;&#x7684; IP &#x7F51;&#x7EDC;&#x4E4B;&#x4E2D;&#xFF0C;&#x88AB;&#x79F0;&#x4E3A; Pod &#x7F51;&#x7EDC;&#xFF08;&#x901A;&#x5E38;&#x662F; VXLAN &#x53E0;&#x52A0;&#x7F51;&#x7EDC;&#xFF09;&#x3002;</li>
+<li>&#x6BCF;&#x4E2A; Pod &#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x552F;&#x4E00;&#x7684; IP &#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x4E2A; IP &#x5730;&#x5740;&#x5728; Pod &#x7F51;&#x7EDC;&#x4E2D;&#x662F;&#x53EF;&#x8DEF;&#x7531;&#x7684;&#x3002;</li>
+</ol>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/pod-network2.png" alt="Pod Network"></p>
+<p>&#x4E0A;&#x8FF0;&#x4E09;&#x4E2A;&#x56E0;&#x7D20;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#xFF0C;&#x8BA9;&#x6BCF;&#x4E2A;&#x5E94;&#x7528;&#xFF08;&#x5E94;&#x7528;&#x7684;&#x7EC4;&#x4EF6;&#x548C;&#x670D;&#x52A1;&#xFF09;&#x65E0;&#x9700;&#x901A;&#x8FC7; NAT &#x4E4B;&#x7C7B;&#x7684;&#x7F51;&#x7EDC;&#x8FC7;&#x7A0B;&#xFF0C;&#x5C31;&#x80FD;&#x591F;&#x76F4;&#x63A5;&#x901A;&#x4FE1;&#x3002;</p>
+<h3 id="&#x52A8;&#x6001;&#x7F51;&#x7EDC;">&#x52A8;&#x6001;&#x7F51;&#x7EDC;</h3>
+<p>&#x5728;&#x5BF9;&#x5E94;&#x7528;&#x8FDB;&#x884C;&#x6A2A;&#x5411;&#x6269;&#x5BB9;&#x65F6;&#xFF0C;&#x4F1A;&#x5728; Pod &#x7F51;&#x7EDC;&#x4E2D;&#x52A0;&#x5165;&#x65B0;&#x7684; Pod&#xFF0C;&#x65B0; Pod &#x81EA;&#x7136;&#x4E5F;&#x4F34;&#x968F;&#x7740;&#x65B0;&#x7684; IP &#x5730;&#x5740;&#xFF1B;&#x5982;&#x679C;&#x5BF9;&#x5E94;&#x7528;&#x8FDB;&#x884C;&#x7F29;&#x5BB9;&#xFF0C;&#x65E7;&#x7684; Pod &#x53CA;&#x5176; IP &#x4F1A;&#x88AB;&#x5220;&#x9664;&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x770B;&#x8D77;&#x6765;&#x5F88;&#x662F;&#x6DF7;&#x4E71;&#x3002;</p>
+<p>&#x5E94;&#x7528;&#x7684;&#x6EDA;&#x52A8;&#x66F4;&#x65B0;&#x548C;&#x64A4;&#x56DE;&#x4E5F;&#x5B58;&#x5728;&#x540C;&#x6837;&#x7684;&#x60C5;&#x5F62;&#x2014;&#x2014;&#x52A0;&#x5165;&#x65B0;&#x7248;&#x672C;&#x7684;&#x65B0; Pod&#xFF0C;&#x6216;&#x8005;&#x79FB;&#x9664;&#x65E7;&#x7248;&#x672C;&#x7684;&#x65E7; Pod&#x3002;&#x65B0; Pod &#x4F1A;&#x52A0;&#x5165;&#x65B0; IP &#x5230; Pod &#x7F51;&#x7EDC;&#x4E2D;&#xFF0C;&#x88AB;&#x7EC8;&#x7ED3;&#x7684;&#x65E7; Pod &#x4F1A;&#x5220;&#x9664;&#x5176;&#x73B0;&#x5B58; IP&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5176;&#x5B83;&#x56E0;&#x7D20;&#xFF0C;&#x6BCF;&#x4E2A;&#x5E94;&#x7528;&#x670D;&#x52A1;&#x90FD;&#x9700;&#x8981;&#x5BF9;&#x7F51;&#x7EDC;&#x8FDB;&#x884C;&#x76D1;&#x63A7;&#xFF0C;&#x5E76;&#x7BA1;&#x7406;&#x4E00;&#x4E2A;&#x5065;&#x5EB7; Pod &#x7684;&#x5217;&#x8868;&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4F1A;&#x975E;&#x5E38;&#x75DB;&#x82E6;&#xFF0C;&#x53E6;&#x5916;&#x5728;&#x6BCF;&#x4E2A;&#x5E94;&#x7528;&#x4E2D;&#x7F16;&#x5199;&#x8FD9;&#x4E2A;&#x903B;&#x8F91;&#x4E5F;&#x662F;&#x5F88;&#x4F4E;&#x6548;&#x7684;&#x3002;&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;Kubernetes &#x7528;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5B8C;&#x6210;&#x4E86;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x2014;&#x2014;Service&#x3002;</p>
+<blockquote>
+<p>&#x628A;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x53EB;&#x505A; Service &#x662F;&#x4E2A;&#x574F;&#x4E3B;&#x610F;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x7528;&#x8FD9;&#x4E2A;&#x5355;&#x8BCD;&#x6765;&#x5F62;&#x5BB9;&#x5E94;&#x7528;&#x7684;&#x8FDB;&#x7A0B;&#x6216;&#x7EC4;&#x4EF6;&#x4E86;&#x3002;</p>
+</blockquote>
+<p>&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x4E8B;&#x60C5;&#xFF1A;Kubernetes &#x6267;&#x884C; IP &#x5730;&#x5740;&#x7BA1;&#x7406;&#xFF08;IPAM&#xFF09;&#x804C;&#x8D23;&#xFF0C;&#x5BF9; Pod &#x7F51;&#x7EDC;&#x4E0A;&#x5DF2;&#x4F7F;&#x7528;&#x548C;&#x53EF;&#x7528;&#x7684; IP &#x5730;&#x5740;&#x8FDB;&#x884C;&#x8DDF;&#x8E2A;&#x3002;</p>
+<h3 id="service-&#x5E26;&#x6765;&#x7A33;&#x5B9A;&#x6027;">Service &#x5E26;&#x6765;&#x7A33;&#x5B9A;&#x6027;</h3>
+<p>Kubernetes Service &#x5BF9;&#x8C61;&#x5728;&#x4E00;&#x7EC4;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x7684; Pod &#x4E4B;&#x524D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7A33;&#x5B9A;&#x7684;&#x7F51;&#x7EDC;&#x7AEF;&#x70B9;&#xFF0C;&#x5E76;&#x4E3A;&#x8FD9;&#x4E9B; Pod &#x8FDB;&#x884C;&#x8D1F;&#x8F7D;&#x5206;&#x914D;&#x3002;</p>
+<p>&#x4E00;&#x822C;&#x4F1A;&#x5728;&#x4E00;&#x7EC4;&#x5B8C;&#x6210;&#x540C;&#x6837;&#x5DE5;&#x4F5C;&#x7684; Pod &#x4E4B;&#x524D;&#x653E;&#x7F6E;&#x4E00;&#x4E2A; Service &#x5BF9;&#x8C61;&#x3002;&#x4F8B;&#x5982;&#x53EF;&#x4EE5;&#x5728;&#x4F60;&#x7684; Web &#x524D;&#x7AEF; Pod &#x524D;&#x65B9;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A; Service&#xFF0C;&#x5728;&#x8BA4;&#x8BC1;&#x670D;&#x52A1; Pod &#x4E4B;&#x524D;&#x63D0;&#x4F9B;&#x53E6;&#x4E00;&#x4E2A;&#x3002;&#x884C;&#x4F7F;&#x4E0D;&#x540C;&#x804C;&#x8D23;&#x7684; Pod &#x4E4B;&#x524D;&#x5C31;&#x4E0D;&#x5E94;&#x8BE5;&#x7528;&#x5355;&#x4E00;&#x7684; Service &#x4E86;&#x3002;</p>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x548C; Service &#x901A;&#x4FE1;&#xFF0C;Service &#x8D1F;&#x8D23;&#x628A;&#x6D41;&#x91CF;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7ED9; Pod&#x3002;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/service-101.png" alt="Service 101"></p>
+<p>&#x5728;&#x4E0A;&#x56FE;&#x4E2D;&#xFF0C;&#x5E95;&#x90E8;&#x7684; Pod &#x4F1A;&#x56E0;&#x4E3A;&#x4F38;&#x7F29;&#x3001;&#x66F4;&#x65B0;&#x3001;&#x6545;&#x969C;&#x7B49;&#x60C5;&#x51B5;&#x53D1;&#x751F;&#x53D8;&#x5316;&#xFF0C;&#x800C; Service &#x4F1A;&#x5BF9;&#x8FD9;&#x4E9B;&#x53D8;&#x5316;&#x8FDB;&#x884C;&#x8DDF;&#x8E2A;&#x3002;&#x540C;&#x65F6; Service &#x7684;&#x540D;&#x5B57;&#x3001;IP &#x548C;&#x7AEF;&#x53E3;&#x90FD;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x3002;</p>
+<h3 id="kubernetes-service-&#x89E3;&#x6790;">Kubernetes Service &#x89E3;&#x6790;</h3>
+<p>&#x53EF;&#x4EE5;&#x628A; Kubernetes Service &#x7406;&#x89E3;&#x4E3A;&#x524D;&#x7AEF;&#x548C;&#x540E;&#x7AEF;&#x4E24;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li>&#x524D;&#x7AEF;&#xFF1A;&#x540D;&#x79F0;&#x3001;IP &#x548C;&#x7AEF;&#x53E3;&#x7B49;&#x4E0D;&#x53D8;&#x7684;&#x90E8;&#x5206;&#x3002;</li>
+<li>&#x540E;&#x7AEF;&#xFF1A;&#x7B26;&#x5408;&#x7279;&#x5B9A;&#x6807;&#x7B7E;&#x9009;&#x62E9;&#x6761;&#x4EF6;&#x7684; Pod &#x96C6;&#x5408;&#x3002;</li>
+</ul>
+<p>&#x524D;&#x7AEF;&#x662F;&#x7A33;&#x5B9A;&#x53EF;&#x9760;&#x7684;&#xFF0C;&#x5B83;&#x7684;&#x540D;&#x79F0;&#x3001;IP &#x548C;&#x7AEF;&#x53E3;&#x5728; Service &#x7684;&#x6574;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x90FD;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x3002;&#x524D;&#x7AEF;&#x7684;&#x7A33;&#x5B9A;&#x6027;&#x610F;&#x5473;&#x7740;&#x65E0;&#x9700;&#x62C5;&#x5FC3;&#x5BA2;&#x6237;&#x7AEF; DNS &#x7F13;&#x5B58;&#x8D85;&#x65F6;&#x7B49;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x540E;&#x7AEF;&#x662F;&#x9AD8;&#x5EA6;&#x52A8;&#x6001;&#x7684;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x62EC;&#x4E00;&#x7EC4;&#x7B26;&#x5408;&#x6807;&#x7B7E;&#x9009;&#x62E9;&#x6761;&#x4EF6;&#x7684; Pod&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#x3002;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/service-anatomy3.png" alt="Service Anatomy"></p>
+<p>&#x8FD9;&#x91CC;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; 4 &#x5C42;&#x8F6E;&#x8BE2;&#x3002;&#x5B83;&#x5DE5;&#x4F5C;&#x5728;&#x8FDE;&#x63A5;&#x5C42;&#x9762;&#xFF0C;&#x6240;&#x4EE5;&#x540C;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x91CC;&#x53D1;&#x8D77;&#x7684;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x90FD;&#x4F1A;&#x8FDB;&#x5165;&#x540C;&#x4E00;&#x4E2A; Pod&#x3002;&#x56E0;&#x4E3A;&#x5728; 4 &#x5C42;&#x5DE5;&#x4F5C;&#xFF0C;&#x6240;&#x4EE5;&#x5BF9;&#x4E8E; 7 &#x5C42;&#x7684; HTTP &#x5934;&#x6216;&#x8005; Cookie &#x4E4B;&#x7C7B;&#x7684;&#x4E1C;&#x897F;&#x662F;&#x65E0;&#x6CD5;&#x611F;&#x77E5;&#x7684;&#x3002;</p>
+<h3 id="&#x5C0F;&#x7ED3;">&#x5C0F;&#x7ED3;</h3>
+<p>&#x5E94;&#x7528;&#x5728;&#x5BB9;&#x5668;&#x4E2D;&#x8FD0;&#x884C;&#xFF0C;&#x5728; Kubernetes &#x4E2D;&#x4F53;&#x73B0;&#x4E3A; Pod &#x7684;&#x5F62;&#x5F0F;&#x3002;Kubernetes &#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x6240;&#x6709; Pod &#x90FD;&#x5904;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x5E73;&#x9762;&#x7684; Pod &#x7F51;&#x7EDC;&#xFF0C;&#x6709;&#x81EA;&#x5DF1;&#x7684; IP &#x5730;&#x5740;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x6240;&#x6709;&#x7684; Pod &#x4E4B;&#x95F4;&#x90FD;&#x80FD;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;&#x3002;&#x7136;&#x800C; Pod &#x662F;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x56E0;&#x4E3A;&#x5404;&#x79CD;&#x56E0;&#x7D20;&#x521B;&#x5EFA;&#x548C;&#x9500;&#x6BC1;&#x3002;Kubernetes &#x63D0;&#x4F9B;&#x4E86;&#x7A33;&#x5B9A;&#x7684;&#x7F51;&#x7EDC;&#x7AEF;&#x70B9;&#xFF0C;&#x79F0;&#x4E3A; Service&#xFF0C;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5904;&#x4E8E;&#x4E00;&#x7EC4;&#x76F8;&#x4F3C;&#x7684; Pod &#x524D;&#x65B9;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x7A33;&#x5B9A;&#x7684;&#x540D;&#x79F0;&#x3001;IP &#x548C;&#x7AEF;&#x53E3;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x5230; Service&#xFF0C;Service &#x628A;&#x6D41;&#x91CF;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7ED9; Pod&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x804A;&#x804A;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x3002;</p>
+<h2 id="&#x6DF1;&#x5165;&#x4E86;&#x89E3;-kubernetes-&#x670D;&#x52A1;&#x53D1;&#x73B0;">&#x6DF1;&#x5165;&#x4E86;&#x89E3; Kubernetes &#x670D;&#x52A1;&#x53D1;&#x73B0;</h2>
+<p>&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x5B9E;&#x9645;&#x4E0A;&#x5305;&#x542B;&#x4E24;&#x4E2A;&#x529F;&#x80FD;&#x70B9;&#xFF1A;</p>
+<ol>
+<li>&#x670D;&#x52A1;&#x6CE8;&#x518C;</li>
+<li>&#x670D;&#x52A1;&#x53D1;&#x73B0;</li>
+</ol>
+<h3 id="&#x670D;&#x52A1;&#x6CE8;&#x518C;">&#x670D;&#x52A1;&#x6CE8;&#x518C;</h3>
+<p>&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x8FC7;&#x7A0B;&#x6307;&#x7684;&#x662F;&#x5728;&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x8868;&#x4E2D;&#x767B;&#x8BB0;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#xFF0C;&#x4EE5;&#x4FBF;&#x8BA9;&#x5176;&#x5B83;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x3002;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/service-registration.png" alt="service-registration.png"></p>
+<p>Kubernetes &#x4F7F;&#x7528; DNS &#x4F5C;&#x4E3A;&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x8868;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x6EE1;&#x8DB3;&#x8FD9;&#x4E00;&#x9700;&#x8981;&#xFF0C;&#x6BCF;&#x4E2A; Kubernetes &#x96C6;&#x7FA4;&#x90FD;&#x4F1A;&#x5728; <code>kube-system</code> &#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;&#x7528; Pod &#x7684;&#x5F62;&#x5F0F;&#x8FD0;&#x884C;&#x4E00;&#x4E2A; DNS &#x670D;&#x52A1;&#xFF0C;&#x901A;&#x5E38;&#x79F0;&#x4E4B;&#x4E3A;&#x96C6;&#x7FA4; DNS&#x3002;</p>
+<p>&#x6BCF;&#x4E2A; Kubernetes &#x670D;&#x52A1;&#x90FD;&#x4F1A;&#x81EA;&#x52A8;&#x6CE8;&#x518C;&#x5230;&#x96C6;&#x7FA4; DNS &#x4E4B;&#x4E2D;&#x3002;</p>
+<p>&#x6CE8;&#x518C;&#x8FC7;&#x7A0B;&#x5927;&#x81F4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x5411; API Server &#x7528; POST &#x65B9;&#x5F0F;&#x63D0;&#x4EA4;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Service &#x5B9A;&#x4E49;&#xFF1B;</li>
+<li>&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#x9700;&#x8981;&#x7ECF;&#x8FC7;&#x8BA4;&#x8BC1;&#x3001;&#x9274;&#x6743;&#x4EE5;&#x53CA;&#x5176;&#x5B83;&#x7684;&#x51C6;&#x5165;&#x7B56;&#x7565;&#x68C0;&#x67E5;&#x8FC7;&#x7A0B;&#x4E4B;&#x540E;&#x624D;&#x4F1A;&#x653E;&#x884C;&#xFF1B;</li>
+<li>Service &#x5F97;&#x5230;&#x4E00;&#x4E2A; <code>ClusterIP</code>&#xFF08;&#x865A;&#x62DF; IP &#x5730;&#x5740;&#xFF09;&#xFF0C;&#x5E76;&#x4FDD;&#x5B58;&#x5230;&#x96C6;&#x7FA4;&#x6570;&#x636E;&#x4ED3;&#x5E93;&#xFF1B;</li>
+<li>&#x5728;&#x96C6;&#x7FA4;&#x8303;&#x56F4;&#x5185;&#x4F20;&#x64AD; Service &#x914D;&#x7F6E;&#xFF1B;</li>
+<li>&#x96C6;&#x7FA4; DNS &#x670D;&#x52A1;&#x5F97;&#x77E5;&#x8BE5; Service &#x7684;&#x521B;&#x5EFA;&#xFF0C;&#x636E;&#x6B64;&#x521B;&#x5EFA;&#x5FC5;&#x8981;&#x7684; DNS A &#x8BB0;&#x5F55;&#x3002;</li>
+</ol>
+<p>&#x4E0A;&#x9762;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7B2C; 5 &#x4E2A;&#x6B65;&#x9AA4;&#x662F;&#x5173;&#x952E;&#x73AF;&#x8282;&#x3002;&#x96C6;&#x7FA4; DNS &#x4F7F;&#x7528;&#x7684;&#x662F; CoreDNS&#xFF0C;&#x4EE5; Kubernetes &#x539F;&#x751F;&#x5E94;&#x7528;&#x7684;&#x5F62;&#x5F0F;&#x8FD0;&#x884C;&#x3002;CoreDNS &#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x63A7;&#x5236;&#x5668;&#xFF0C;&#x4F1A;&#x5BF9; API Server &#x8FDB;&#x884C;&#x76D1;&#x542C;&#xFF0C;&#x4E00;&#x65E6;&#x53D1;&#x73B0;&#x6709;&#x65B0;&#x5EFA;&#x7684; Service &#x5BF9;&#x8C61;&#xFF0C;&#x5C31;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4ECE; Service &#x540D;&#x79F0;&#x6620;&#x5C04;&#x5230; ClusterIP &#x7684;&#x57DF;&#x540D;&#x8BB0;&#x5F55;&#x3002;&#x8FD9;&#x6837; Service &#x5C31;&#x4E0D;&#x5FC5;&#x81EA;&#x884C;&#x5411; DNS &#x8FDB;&#x884C;&#x6CE8;&#x518C;&#xFF0C;CoreDNS &#x63A7;&#x5236;&#x5668;&#x4F1A;&#x5173;&#x6CE8;&#x65B0;&#x521B;&#x5EFA;&#x7684; Service &#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5B9E;&#x73B0;&#x540E;&#x7EED;&#x7684; DNS &#x8FC7;&#x7A0B;&#x3002;</p>
+<p>DNS &#x4E2D;&#x6CE8;&#x518C;&#x7684;&#x540D;&#x79F0;&#x5C31;&#x662F; <code>metadata.name</code>&#xFF0C;&#x800C; ClusterIP &#x5219;&#x7531; Kubernetes &#x81EA;&#x884C;&#x5206;&#x914D;&#x3002;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/svc-yaml2.png" alt="svc-yaml2"></p>
+<p>Service &#x5BF9;&#x8C61;&#x6CE8;&#x518C;&#x5230;&#x96C6;&#x7FA4; DNS &#x4E4B;&#x4E2D;&#x540E;&#xFF0C;&#x5C31;&#x80FD;&#x591F;&#x88AB;&#x8FD0;&#x884C;&#x5728;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x5176;&#x5B83; Pod &#x53D1;&#x73B0;&#x4E86;&#x3002;</p>
+<h4 id="endpoint-&#x5BF9;&#x8C61;">Endpoint &#x5BF9;&#x8C61;</h4>
+<p>Service &#x7684;&#x524D;&#x7AEF;&#x521B;&#x5EFA;&#x6210;&#x529F;&#x5E76;&#x6CE8;&#x518C;&#x5230;&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x8868;&#xFF08;DNS&#xFF09;&#x4E4B;&#x540E;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x5C31;&#x662F;&#x540E;&#x7AEF;&#x7684;&#x5DE5;&#x4F5C;&#x4E86;&#x3002;&#x540E;&#x7AEF;&#x5305;&#x542B;&#x4E00;&#x4E2A; Pod &#x5217;&#x8868;&#xFF0C;Service &#x5BF9;&#x8C61;&#x4F1A;&#x628A;&#x6D41;&#x91CF;&#x5206;&#x53D1;&#x7ED9;&#x8FD9;&#x4E9B; Pod&#x3002;</p>
+<p>&#x6BEB;&#x65E0;&#x7591;&#x95EE;&#xFF0C;&#x8FD9;&#x4E2A; Pod &#x5217;&#x8868;&#x9700;&#x8981;&#x662F;&#x6700;&#x65B0;&#x7684;&#x3002;</p>
+<p>Service &#x5BF9;&#x8C61;&#x6709;&#x4E00;&#x4E2A; Label Selector &#x5B57;&#x6BB5;&#xFF0C;&#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#x662F;&#x4E00;&#x4E2A;&#x6807;&#x7B7E;&#x5217;&#x8868;&#xFF0C;&#x7B26;&#x5408;&#x5217;&#x8868;&#x6761;&#x4EF6;&#x7684; Pod &#x5C31;&#x4F1A;&#x88AB;&#x670D;&#x52A1;&#x7EB3;&#x5165;&#x5230;&#x670D;&#x52A1;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x8303;&#x56F4;&#x4E4B;&#x4E2D;&#x3002;&#x53C2;&#x89C1;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/backend2.png" alt="backend2"></p>
+<p>Kubernetes &#x81EA;&#x52A8;&#x4E3A;&#x6BCF;&#x4E2A; Service &#x521B;&#x5EFA; Endpoints &#x5BF9;&#x8C61;&#x3002;Endpoints &#x5BF9;&#x8C61;&#x7684;&#x804C;&#x8D23;&#x5C31;&#x662F;&#x4FDD;&#x5B58;&#x4E00;&#x4E2A;&#x7B26;&#x5408; Service &#x6807;&#x7B7E;&#x9009;&#x62E9;&#x5668;&#x6807;&#x51C6;&#x7684; Pod &#x5217;&#x8868;&#xFF0C;&#x8FD9;&#x4E9B; Pod &#x5C06;&#x63A5;&#x6536;&#x6765;&#x81EA; Service &#x7684;&#x6D41;&#x91CF;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x56FE;&#x4E2D;&#xFF0C;Service &#x4F1A;&#x9009;&#x62E9;&#x4E24;&#x4E2A; Pod&#xFF0C;&#x5E76;&#x4E14;&#x8FD8;&#x5C55;&#x793A;&#x4E86; Service &#x7684; Endpoints &#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x91CC;&#x5305;&#x542B;&#x4E86;&#x4E24;&#x4E2A;&#x7B26;&#x5408; Service &#x9009;&#x62E9;&#x6807;&#x51C6;&#x7684; Pod &#x7684; IP&#x3002;</p>
+<p>&#x5728;&#x540E;&#x9762;&#x6211;&#x4EEC;&#x5C06;&#x89E3;&#x91CA;&#x7F51;&#x7EDC;&#x5982;&#x4F55;&#x628A; ClusterIP &#x6D41;&#x91CF;&#x8F6C;&#x53D1;&#x7ED9; Pod IP &#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x8FD8;&#x4F1A;&#x5F15;&#x7528;&#x5230; Endpoints &#x5BF9;&#x8C61;&#x3002;</p>
+<h3 id="&#x670D;&#x52A1;&#x53D1;&#x73B0;">&#x670D;&#x52A1;&#x53D1;&#x73B0;</h3>
+<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A; Kubernetes &#x96C6;&#x7FA4;&#x4E2D;&#x6709;&#x4E24;&#x4E2A;&#x5E94;&#x7528;&#xFF0C;<code>my-app</code> &#x548C; <code>your-app</code>&#xFF0C;<code>my-app</code> &#x7684; Pod &#x7684;&#x524D;&#x7AEF;&#x662F;&#x4E00;&#x4E2A; &#x540D;&#x4E3A; <code>my-app-svc</code> &#x7684; Service &#x5BF9;&#x8C61;&#xFF1B;<code>your-app</code> Pod &#x4E4B;&#x524D;&#x7684; Service &#x5C31;&#x662F; <code>your-app-svc</code>&#x3002;</p>
+<p>&#x8FD9;&#x4E24;&#x4E2A; Service &#x5BF9;&#x8C61;&#x5BF9;&#x5E94;&#x7684; DNS &#x8BB0;&#x5F55;&#x662F;&#xFF1A;</p>
+<ul>
+<li><code>my-app-svc</code>&#xFF1A;10.0.0.10</li>
+<li><code>your-app-svc</code>&#xFF1A;10.0.0.20</li>
+</ul>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/dns-reg.png" alt="dns-reg"></p>
+<p>&#x8981;&#x4F7F;&#x7528;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x529F;&#x80FD;&#xFF0C;&#x6BCF;&#x4E2A; Pod &#x90FD;&#x9700;&#x8981;&#x77E5;&#x9053;&#x96C6;&#x7FA4; DNS &#x7684;&#x4F4D;&#x7F6E;&#x624D;&#x80FD;&#x4F7F;&#x7528;&#x5B83;&#x3002;&#x56E0;&#x6B64;&#x6BCF;&#x4E2A; Pod &#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x5BB9;&#x5668;&#x7684; <code>/etc/resolv.conf</code> &#x6587;&#x4EF6;&#x90FD;&#x88AB;&#x914D;&#x7F6E;&#x4E3A;&#x4F7F;&#x7528;&#x96C6;&#x7FA4; DNS &#x8FDB;&#x884C;&#x89E3;&#x6790;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>my-app</code> &#x4E2D;&#x7684; Pod &#x60F3;&#x8981;&#x8FDE;&#x63A5;&#x5230; <code>your-app</code> &#x4E2D;&#x7684; Pod&#xFF0C;&#x5C31;&#x5F97;&#x5411; DNS &#x670D;&#x52A1;&#x5668;&#x53D1;&#x8D77;&#x5BF9;&#x57DF;&#x540D; <code>your-app-svc</code> &#x7684;&#x67E5;&#x8BE2;&#x3002;&#x5047;&#x8BBE;&#x5B83;&#x4EEC;&#x672C;&#x5730;&#x7684; DNS &#x89E3;&#x6790;&#x7F13;&#x5B58;&#x4E2D;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x8BB0;&#x5F55;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x628A;&#x67E5;&#x8BE2;&#x63D0;&#x4EA4;&#x5230;&#x96C6;&#x7FA4; DNS &#x670D;&#x52A1;&#x5668;&#x3002;&#x4F1A;&#x5F97;&#x5230; <code>you-app-svc</code> &#x7684; ClusterIP&#xFF08;VIP&#xFF09;&#x3002;</p>
+<blockquote>
+<p>&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x524D;&#x63D0;&#x5C31;&#x662F; <code>my-app</code> &#x9700;&#x8981;&#x77E5;&#x9053;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x7684;&#x540D;&#x79F0;&#x3002;</p>
+</blockquote>
+<p>&#x81F3;&#x6B64;&#xFF0C;<code>my-app</code> &#x4E2D;&#x7684; Pod &#x5F97;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x76EE;&#x6807; IP &#x5730;&#x5740;&#xFF0C;&#x7136;&#x800C;&#x8FD9;&#x53EA;&#x662F;&#x4E2A;&#x865A;&#x62DF; IP&#xFF0C;&#x5728;&#x8F6C;&#x5165;&#x76EE;&#x6807; Pod &#x4E4B;&#x524D;&#xFF0C;&#x8FD8;&#x6709;&#x4E9B;&#x7F51;&#x7EDC;&#x5DE5;&#x4F5C;&#x8981;&#x505A;&#x3002;</p>
+<h4 id="&#x7F51;&#x7EDC;">&#x7F51;&#x7EDC;</h4>
+<p>&#x4E00;&#x4E2A; Pod &#x5F97;&#x5230;&#x4E86; Service &#x7684; ClusterIP &#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x5C1D;&#x8BD5;&#x5411;&#x8FD9;&#x4E2A; IP &#x53D1;&#x9001;&#x6D41;&#x91CF;&#x3002;&#x7136;&#x800C; ClusterIP &#x6240;&#x5728;&#x7684;&#x7F51;&#x7EDC;&#x88AB;&#x79F0;&#x4E3A; <code>Service Network</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x7F51;&#x7EDC;&#x6709;&#x70B9;&#x7279;&#x522B;&#x2014;&#x2014;&#x6CA1;&#x6709;&#x8DEF;&#x7531;&#x6307;&#x5411;&#x5B83;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x6CA1;&#x6709;&#x8DEF;&#x7531;&#xFF0C;&#x6240;&#x6709;&#x5BB9;&#x5668;&#x628A;&#x53D1;&#x73B0;&#x8FD9;&#x79CD;&#x5730;&#x5740;&#x7684;&#x6D41;&#x91CF;&#x90FD;&#x53D1;&#x9001;&#x5230;&#x4E86;&#x7F3A;&#x7701;&#x7F51;&#x5173;&#xFF08;&#x540D;&#x4E3A; <code>CBR0</code> &#x7684;&#x7F51;&#x6865;&#xFF09;&#x3002;&#x8FD9;&#x4E9B;&#x6D41;&#x91CF;&#x4F1A;&#x88AB;&#x8F6C;&#x53D1;&#x7ED9; Pod &#x6240;&#x5728;&#x8282;&#x70B9;&#x7684;&#x7F51;&#x5361;&#x4E0A;&#x3002;&#x8282;&#x70B9;&#x7684;&#x7F51;&#x7EDC;&#x6808;&#x4E5F;&#x540C;&#x6837;&#x6CA1;&#x6709;&#x8DEF;&#x7531;&#x80FD;&#x5230;&#x8FBE; Service Network&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x80FD;&#x53D1;&#x9001;&#x5230;&#x81EA;&#x5DF1;&#x7684;&#x7F3A;&#x7701;&#x7F51;&#x5173;&#x3002;&#x8DEF;&#x7531;&#x5230;&#x8282;&#x70B9;&#x7F3A;&#x7701;&#x7F51;&#x5173;&#x7684;&#x6570;&#x636E;&#x5305;&#x4F1A;&#x901A;&#x8FC7; Node &#x5185;&#x6838;&#x2014;&#x2014;&#x8FD9;&#x91CC;&#x6709;&#x4E86;&#x53D8;&#x5316;&#x3002;</p>
+<p>&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#x524D;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x9996;&#x5148; Service &#x5BF9;&#x8C61;&#x7684;&#x914D;&#x7F6E;&#x662F;&#x5168;&#x96C6;&#x7FA4;&#x8303;&#x56F4;&#x6709;&#x6548;&#x7684;&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x4F1A;&#x518D;&#x6B21;&#x8BF4;&#x5230; Endpoints &#x5BF9;&#x8C61;&#x3002;&#x6211;&#x4EEC;&#x8981;&#x5728;&#x56DE;&#x987E;&#x4E2D;&#x53D1;&#x73B0;&#x4ED6;&#x4EEC;&#x5404;&#x81EA;&#x5728;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x804C;&#x8D23;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A; Kubernetes &#x8282;&#x70B9;&#x4E0A;&#x90FD;&#x4F1A;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x53EB;&#x505A; <code>kube-proxy</code> &#x7684;&#x7CFB;&#x7EDF;&#x670D;&#x52A1;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E; Pod &#x8FD0;&#x884C;&#x7684; Kubernetes &#x539F;&#x751F;&#x5E94;&#x7528;&#xFF0C;&#x5B83;&#x6240;&#x5B9E;&#x73B0;&#x7684;&#x63A7;&#x5236;&#x5668;&#x4F1A;&#x76D1;&#x63A7; API Server &#x4E0A; Service &#x7684;&#x53D8;&#x5316;&#xFF0C;&#x5E76;&#x636E;&#x6B64;&#x521B;&#x5EFA; <code>iptables</code> &#x6216;&#x8005; <code>IPVS</code> &#x89C4;&#x5219;&#xFF0C;&#x8FD9;&#x4E9B;&#x89C4;&#x5219;&#x544A;&#x77E5;&#x8282;&#x70B9;&#xFF0C;&#x6355;&#x83B7;&#x76EE;&#x6807;&#x4E3A; Service &#x7F51;&#x7EDC;&#x7684;&#x62A5;&#x6587;&#xFF0C;&#x5E76;&#x8F6C;&#x53D1;&#x7ED9; Pod IP&#x3002;</p>
+<blockquote>
+<p>&#x6709;&#x8DA3;&#x7684;&#x662F;&#xFF0C;kube-proxy &#x5E76;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x666E;&#x904D;&#x610F;&#x4E49;&#x4E0A;&#x7684;&#x4EE3;&#x7406;&#x3002;&#x5B83;&#x7684;&#x5DE5;&#x4F5C;&#x4E0D;&#x8FC7;&#x662F;&#x521B;&#x5EFA;&#x548C;&#x7BA1;&#x7406; iptables/IPVS &#x89C4;&#x5219;&#x3002;&#x8FD9;&#x4E2A;&#x547D;&#x540D;&#x7684;&#x539F;&#x56E0;&#x662F;&#x5B83;&#x8FC7;&#x53BB;&#x4F7F;&#x7528; unserspace &#x6A21;&#x5F0F;&#x7684;&#x4EE3;&#x7406;&#x3002;</p>
+</blockquote>
+<p>&#x6BCF;&#x4E2A;&#x65B0; Service &#x5BF9;&#x8C61;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;&#x5B83;&#x7684; ClusterIP &#x4EE5;&#x53CA; Endpoints &#x5BF9;&#x8C61;&#xFF08;&#x5176;&#x4E2D;&#x5305;&#x542B;&#x5065;&#x5EB7; Pod &#x7684;&#x5217;&#x8868;&#xFF09;&#xFF0C;&#x90FD;&#x4F1A;&#x88AB;&#x53D1;&#x9001;&#x7ED9; &#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x7684; kube-proxy &#x8FDB;&#x7A0B;&#x3002;kube-proxy &#x4F1A;&#x521B;&#x5EFA; iptables &#x6216;&#x8005; IPVS &#x89C4;&#x5219;&#xFF0C;&#x544A;&#x77E5;&#x8282;&#x70B9;&#x6355;&#x83B7;&#x76EE;&#x6807;&#x4E3A; Service ClusterIP &#x7684;&#x6D41;&#x91CF;&#xFF0C;&#x5E76;&#x6839;&#x636E; Endpoints &#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5BB9;&#x8F6C;&#x53D1;&#x7ED9;&#x5BF9;&#x5E94;&#x7684; Pod&#x3002;</p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x6BCF;&#x6B21;&#x8282;&#x70B9;&#x5185;&#x6838;&#x5904;&#x7406;&#x5230;&#x76EE;&#x6807;&#x4E3A; Service &#x7F51;&#x7EDC;&#x7684;&#x6570;&#x636E;&#x5305;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x5BF9;&#x6570;&#x636E;&#x5305;&#x7684; Header &#x8FDB;&#x884C;&#x6539;&#x5199;&#xFF0C;&#x628A;&#x76EE;&#x6807; IP &#x6539;&#x4E3A; Service Endpoints &#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x5065;&#x5EB7; Pod &#x7684; IP&#x3002;</p>
+<blockquote>
+<p>&#x539F;&#x672C;&#x4F7F;&#x7528;&#x7684; iptables &#x6B63;&#x5728;&#x88AB; IPVS &#x53D6;&#x4EE3;&#xFF08;Kubernetes 1.11 &#x8FDB;&#x5165;&#x7A33;&#x5B9A;&#x671F;&#xFF09;&#x3002;&#x957F;&#x8BDD;&#x77ED;&#x8BF4;&#xFF0C;iptables &#x662F;&#x4E00;&#x4E2A;&#x5305;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5E76;&#x975E;&#x4E3A;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x8BBE;&#x8BA1;&#x7684;&#x3002;IPVS &#x662F;&#x4E00;&#x4E2A; 4 &#x5C42;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x5668;&#xFF0C;&#x5176;&#x6027;&#x80FD;&#x548C;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x90FD;&#x6BD4; iptables &#x66F4;&#x9002;&#x5408;&#x8FD9;&#x79CD;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x3002;</p>
+</blockquote>
+<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2>
+<p>&#x9700;&#x8981;&#x6D88;&#x5316;&#x7684;&#x5185;&#x5BB9;&#x5F88;&#x591A;&#xFF0C;&#x7B80;&#x5355;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#x3002;</p>
+<p>&#x521B;&#x5EFA;&#x65B0;&#x7684; Service &#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x4F1A;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x865A;&#x62DF; IP&#xFF0C;&#x88AB;&#x79F0;&#x4E3A; ClusterIP&#x3002;&#x670D;&#x52A1;&#x540D;&#x53CA;&#x5176; ClusterIP &#x88AB;&#x81EA;&#x52A8;&#x6CE8;&#x518C;&#x5230;&#x96C6;&#x7FA4; DNS &#x4E2D;&#xFF0C;&#x5E76;&#x4E14;&#x4F1A;&#x521B;&#x5EFA;&#x76F8;&#x5173;&#x7684; Endpoints &#x5BF9;&#x8C61;&#x7528;&#x4E8E;&#x4FDD;&#x5B58;&#x7B26;&#x5408;&#x6807;&#x7B7E;&#x6761;&#x4EF6;&#x7684;&#x5065;&#x5EB7; Pod &#x7684;&#x5217;&#x8868;&#xFF0C;Service &#x5BF9;&#x8C61;&#x4F1A;&#x5411;&#x5217;&#x8868;&#x4E2D;&#x7684; Pod &#x8F6C;&#x53D1;&#x6D41;&#x91CF;&#x3002;</p>
+<p>&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#x96C6;&#x7FA4;&#x4E2D;&#x6240;&#x6709;&#x8282;&#x70B9;&#x90FD;&#x4F1A;&#x914D;&#x7F6E;&#x76F8;&#x5E94;&#x7684; iptables/IPVS &#x89C4;&#x5219;&#xFF0C;&#x76D1;&#x542C;&#x76EE;&#x6807;&#x4E3A; ClusterIP &#x7684;&#x6D41;&#x91CF;&#x5E76;&#x8F6C;&#x53D1;&#x7ED9;&#x771F;&#x5B9E;&#x7684; Pod IP&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/registeration-flow.png" alt="service register"></p>
+<p>&#x4E00;&#x4E2A; Pod &#x9700;&#x8981;&#x7528; Service &#x8FDE;&#x63A5;&#x5176;&#x5B83; Pod&#x3002;&#x9996;&#x5148;&#x5411;&#x96C6;&#x7FA4; DNS &#x53D1;&#x51FA;&#x67E5;&#x8BE2;&#xFF0C;&#x628A; Service &#x540D;&#x79F0;&#x89E3;&#x6790;&#x4E3A; ClusterIP&#xFF0C;&#x7136;&#x540E;&#x628A;&#x6D41;&#x91CF;&#x53D1;&#x9001;&#x7ED9;&#x4F4D;&#x4E8E; Service &#x7F51;&#x7EDC;&#x7684; ClusterIP &#x4E0A;&#x3002;&#x7136;&#x800C;&#x6CA1;&#x6709;&#x5230; Service &#x7F51;&#x7EDC;&#x7684;&#x8DEF;&#x7531;&#xFF0C;&#x6240;&#x4EE5; Pod &#x628A;&#x6D41;&#x91CF;&#x53D1;&#x9001;&#x7ED9;&#x5B83;&#x7684;&#x7F3A;&#x7701;&#x7F51;&#x5173;&#x3002;&#x8FD9;&#x4E00;&#x884C;&#x4E3A;&#x5BFC;&#x81F4;&#x6D41;&#x91CF;&#x88AB;&#x8F6C;&#x53D1;&#x7ED9; Pod &#x6240;&#x5728;&#x8282;&#x70B9;&#x7684;&#x7F51;&#x5361;&#xFF0C;&#x7136;&#x540E;&#x662F;&#x8282;&#x70B9;&#x7684;&#x7F3A;&#x7701;&#x7F51;&#x5173;&#x3002;&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x4E2D;&#xFF0C;&#x8282;&#x70B9;&#x7684;&#x5185;&#x6838;&#x4FEE;&#x6539;&#x4E86;&#x6570;&#x636E;&#x5305; Header &#x4E2D;&#x7684;&#x76EE;&#x6807; IP&#xFF0C;&#x4F7F;&#x5176;&#x8F6C;&#x5411;&#x5065;&#x5EB7;&#x7684; Pod&#x3002;</p>
+<p><img src="https://blog.fleeto.us/post/demystifying-kubernetes-service-discovery/images/discovery-flow.png" alt="discovery"></p>
+<p>&#x6700;&#x7EC8;&#x6240;&#x6709; Pod &#x90FD;&#x662F;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x53EF;&#x8DEF;&#x7531;&#x7684;&#x6241;&#x5E73;&#x7684;&#x53E0;&#x52A0;&#x7F51;&#x7EDC;&#x4E0A;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x5185;&#x5BB9;&#x5C31;&#x5F88;&#x7B80;&#x5355;&#x4E86;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Kubernetes网络原理.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Kubernetes网络原理">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"浅谈 Kubernetes 中的服务发现","level":"1.8.2","depth":2,"previous":{"title":"Kubernetes网络原理","level":"1.8.1","depth":2,"path":"reproduce/Kubernetes网络原理.md","ref":"reproduce/Kubernetes网络原理.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"reproduce/浅谈 Kubernetes 中的服务发现.md","mtime":"2021-04-09T13:48:16.599Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-09T13:48:47.350Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
