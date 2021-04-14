@@ -141,6 +141,8 @@
 
 ## 部署Contiv-VPP
 
+参考：<https://fd.io/docs/vpp/master/usecases/contiv/networking>
+
 ```shell
 wget https://raw.githubusercontent.com/contiv/vpp/master/k8s/contiv-vpp.yaml
 kubectl apply -f ./contiv-vpp.yaml
