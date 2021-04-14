@@ -160,4 +160,28 @@ time="2021-04-09 08:20:16.99359" level=debug msg="binapi version 20.01-rc2~11 co
 time="2021-04-09 08:20:16.99370" level=fatal msg="retrieving VPP info failed: no compatible binapi version found" loc="contiv-agent/main.go(304)" logger=defaultLogger
 ```
 
-暂时没找到解决方法
+
+
+重启虚拟机之后解决了
+
+查看集群运行状况
+
+```shell
+root@ubuntu:~# kubectl get pods -n kube-system -o wide
+NAME                             READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+contiv-crd-5j7fk                 1/1     Running   0          20h   10.1.10.72   ubuntu     <none>           <none>
+contiv-etcd-0                    1/1     Running   0          20h   10.1.10.72   ubuntu     <none>           <none>
+contiv-ksr-pgvmz                 1/1     Running   0          20h   10.1.10.72   ubuntu     <none>           <none>
+contiv-vswitch-pvk9x             1/1     Running   0          20h   10.1.10.65   ubuntu16   <none>           <none>
+contiv-vswitch-qs9jq             1/1     Running   0          20h   10.1.10.72   ubuntu     <none>           <none>
+coredns-74ff55c5b-48txz          1/1     Running   4          21h   10.1.2.3     ubuntu     <none>           <none>
+coredns-74ff55c5b-65wx9          1/1     Running   4          21h   10.1.2.2     ubuntu     <none>           <none>
+etcd-ubuntu                      1/1     Running   0          21h   10.1.10.72   ubuntu     <none>           <none>
+kube-apiserver-ubuntu            1/1     Running   0          21h   10.1.10.72   ubuntu     <none>           <none>
+kube-controller-manager-ubuntu   1/1     Running   1          21h   10.1.10.72   ubuntu     <none>           <none>
+kube-proxy-k6jkk                 1/1     Running   0          21h   10.1.10.72   ubuntu     <none>           <none>
+kube-proxy-pf69v                 1/1     Running   0          21h   10.1.10.65   ubuntu16   <none>           <none>
+kube-scheduler-ubuntu            1/1     Running   0          21h   10.1.10.72   ubuntu     <none>           <none>
+```
+
+VPP failed to grab the NIC ens160. Don't know if it should be configured in /etc/vpp/startup.conf.
