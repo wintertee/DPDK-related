@@ -181,3 +181,5 @@ kube-proxy-k6jkk                 1/1     Running   0          21h   10.1.10.72  
 kube-proxy-pf69v                 1/1     Running   0          21h   10.1.10.65   ubuntu16   <none>           <none>
 kube-scheduler-ubuntu            1/1     Running   0          21h   10.1.10.72   ubuntu     <none>           <none>
 ```
+
+VPP failed to grab the NIC ens160. Don't know if it should be configured in /etc/vpp/startup.conf.
