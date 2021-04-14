@@ -46,3 +46,5 @@ sudo ldconfig
 ```shell
 pkg-config --modversion libdpdk
 ```
+
+> v20.02版本以后，DPDK就默认关闭igb_uio模块。若构建它，需要配置文件选项CONFIG_RTE_EAL_IGB_UIO设置为enabled。并且官方已计划将其移到其他项目；配置文件dpdk/config/common_base中开启该配置CONFIG_RTE_EAL_IGB_UIO=y，注意这个文件是全局配置。如果仅修改局部的编译，可以在编译时各自文件夹dpdk/x86_64-native-linux-gcc/.config文件中对应修改该参数。（调试DPDK可开启参数CONF_RTE_LIBRTE_CRYPTODEV_DEBUG=y
