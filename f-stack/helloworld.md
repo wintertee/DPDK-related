@@ -57,8 +57,12 @@ EAL: Error - exiting with code: 1
  ```
 
 参考:
+
 [F-Stack/f-stack#489](https://github.com/F-Stack/f-stack/issues/489)
+
 [mtcp-stack/mtcp#282](https://github.com/mtcp-stack/mtcp/issues/282)
+
+[net/virtio: reject unsupported Rx multi queue modes](https://patches.dpdk.org/project/dpdk/patch/1569944672-24754-3-git-send-email-arybchenko@solarflare.com/)
 
 临时解决方法：
 注释掉[dpdk/drivers/net/virtio/virtio_ethdev.c#L2080](https://github.com/F-Stack/f-stack/blob/2df8fe233511da315136e8a64f0f63428b5cab73/dpdk/drivers/net/virtio/virtio_ethdev.c#L2080)
