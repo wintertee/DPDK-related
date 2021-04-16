@@ -21,6 +21,7 @@
 3. Use the following command to set up the **stable** repository.
 
     ```shell
+    sudo apt-get install -y software-properties-common
     sudo add-apt-repository "deb [arch=amd64] https://mirror.sjtu.edu.cn/docker-ce/linux/ubuntu/  $(lsb_release -cs)  stable" 
     ```
 
