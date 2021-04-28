@@ -162,7 +162,7 @@ Configuration of the node finished successfully.
   --image-repository k8s-gcr-io.mirrors.sjtug.sjtu.edu.cn \
   --apiserver-advertise-address=192.168.23.128 \
   --control-plane-endpoint=192.168.99.129 \
-  --kubernetes-version 1.20.5
+  --kubernetes-version 1.17.17
 ```
 
 输出：
@@ -284,3 +284,10 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
   ```
 
   直接将master的resolv.conf文件复制一份，kubeproxy开始running。
+
+## 问题
+
+### coredns 一直 CrashLoopBackOff
+
+1. 尝试使用<https://github.com/coredns/coredns/blob/master/plugin/loop/README.md#troubleshooting-loops-in-kubernetes-clusters>和<https://askubuntu.com/a/1041631>。未果
+2. 尝试修改hosts，未果<https://stackoverflow.com/a/55433370>
