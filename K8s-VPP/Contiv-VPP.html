@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>部署k8s集群和Contiv-VPP CNI · GitBook</title>
+        <title>旧文件 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../scripts/" />
+    <link rel="next" href="VPP.html" />
     
+    
+    <link rel="prev" href="../K8s-vpp/K8s.md" />
     
 
     </head>
@@ -293,26 +295,52 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" >
+        <li class="chapter " data-level="1.6" data-path="../K8s-vpp/README.md">
             
                 <span>
             
                     
-                    VPP
+                    K8s-VPP
             
-                </span>
+                </a>
             
 
             
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.6.1" data-path="Contiv-VPP.html">
+        <li class="chapter " data-level="1.6.1" data-path="../K8s-vpp/K8s.md">
+            
+                <span>
+            
+                    
+                    部署k8s集群和Contiv-VPP CNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.2" data-path="Contiv-VPP.html">
             
                 <a href="Contiv-VPP.html">
             
                     
-                    部署k8s集群和Contiv-VPP CNI
+                    旧文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="VPP.html">
+            
+                <a href="VPP.html">
+            
+                    
+                    安装VPP
             
                 </a>
             
@@ -338,14 +366,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" >
+        <li class="chapter " data-level="1.8" data-path="../reproduce/">
             
-                <span>
+                <a href="../reproduce/">
             
                     
                     转载
             
-                </span>
+                </a>
             
 
             
@@ -378,12 +406,51 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.3" data-path="../reproduce/网易轻舟服务网格数据面性能优化实践.html">
+        <li class="chapter " data-level="1.8.3" data-path="../reproduce/Contiv-VPP架构.html">
+            
+                <a href="../reproduce/Contiv-VPP架构.html">
+            
+                    
+                    Contiv-VPP架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../reproduce/Contiv-vpp网络架构.html">
+            
+                <a href="../reproduce/Contiv-vpp网络架构.html">
+            
+                    
+                    Contiv-vpp网络架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="../reproduce/网易轻舟服务网格数据面性能优化实践.html">
             
                 <a href="../reproduce/网易轻舟服务网格数据面性能优化实践.html">
             
                     
                     网易轻舟服务网格数据面性能优化实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="../reproduce/Network-conf.html">
+            
+                <a href="../reproduce/Network-conf.html">
+            
+                    
+                    Ubuntu中的网络配置
             
                 </a>
             
@@ -426,7 +493,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >部署k8s集群和Contiv-VPP CNI</a>
+        <a href=".." >旧文件</a>
     </h1>
 </div>
 
@@ -441,111 +508,15 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x90E8;&#x7F72;k8s&#x96C6;&#x7FA4;&#x548C;contiv-vpp-cni">&#x90E8;&#x7F72;k8s&#x96C6;&#x7FA4;&#x548C;Contiv-VPP CNI</h1>
+                                <p>&#x65E7;&#x6587;&#x4EF6;</p>
+<h1 id="&#x90E8;&#x7F72;k8s&#x96C6;&#x7FA4;&#x548C;contiv-vpp-cni">&#x90E8;&#x7F72;k8s&#x96C6;&#x7FA4;&#x548C;Contiv-VPP CNI</h1>
 <p>&#x53C2;&#x8003;<a href="https://fd.io/docs/vpp/latest/usecases/contiv/" target="_blank">https://fd.io/docs/vpp/latest/usecases/contiv/</a></p>
 <h2 id="&#x73AF;&#x5883;">&#x73AF;&#x5883;</h2>
 <ul>
 <li>Kubernetes 1.20.5</li>
 <li>Contiv 3.4.2</li>
 </ul>
-<h2 id="&#x642D;&#x5EFA;k8s&#x96C6;&#x7FA4;">&#x642D;&#x5EFA;k8s&#x96C6;&#x7FA4;</h2>
-<h3 id="&#x914D;&#x7F6E;master-node72">&#x914D;&#x7F6E;master node(72)</h3>
-<ul>
-<li><p>&#x52A0;&#x8F7D;PCI&#x9A71;&#x52A8;</p>
-<pre><code class="lang-shell">modprobe uio_pci_generic
-</code></pre>
-</li>
-<li><p>&#x67E5;&#x770B;&#x5E76;&#x914D;&#x7F6E;&#x7F51;&#x5361;</p>
-<pre><code class="lang-shell">lshw -class network -businfo
-</code></pre>
-<p>ens192&#x7684;PCI&#x5730;&#x5740;&#x4E3A; 0000:0b:00.0&#x3002;</p>
-<pre><code class="lang-shell">ip link set ens192 down
-</code></pre>
-<p>&#x5728;/etc/vpp/contiv-vswitch.conf&#x4E2D;&#x4FEE;&#x6539;&#xFF1A;</p>
-<pre><code class="lang-json">dpdk {
-    dev <span class="hljs-number">0000</span>:<span class="hljs-number">0</span>b:<span class="hljs-number">00.0</span>
-}
-</code></pre>
-</li>
-<li><p>&#x5B89;&#x88C5;kubelet&#xFF0C;kubeadm&#xFF0C;kubectl</p>
-<pre><code class="lang-shell">apt-get update &amp;&amp; apt-get install -y apt-transport-https
-curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - 
-cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list
-deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
-EOF
-
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
-</code></pre>
-</li>
-<li><p>&#x5173;&#x95ED;swap</p>
-<pre><code class="lang-shell">swapoff -a
-</code></pre>
-</li>
-<li><p>&#x4FEE;&#x6539;docker&#x9A71;&#x52A8;</p>
-<pre><code class="lang-shell">mkdir /etc/docker/daemon.json
-</code></pre>
-<p>&#x52A0;&#x5165;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
-<blockquote>
-<p>&#x53C2;&#x8003; <a href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker" target="_blank">https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker</a></p>
-</blockquote>
-<pre><code class="lang-json">{
- <span class="hljs-string">&quot;exec-opts&quot;</span>:[<span class="hljs-string">&quot;native.cgroupdriver=systemd&quot;</span>]
-}
-</code></pre>
-<p>&#x91CD;&#x542F;docker</p>
-<pre><code class="lang-shell">service docker restart
-</code></pre>
-</li>
-<li><p>&#x4ECE;&#x963F;&#x91CC;&#x4E91;&#x62C9;&#x53D6;&#x9700;&#x8981;&#x7684;&#x955C;&#x50CF;&#x5E76;tag</p>
-<pre><code class="lang-shell">images=(
-    kube-apiserver:v1.20.5
-    kube-controller-manager:v1.20.5
-    kube-scheduler:v1.20.5
-    kube-proxy:v1.20.5
-    pause:3.2
-    etcd:3.4.13-0
-    coredns:1.7.0
-)
-for imageName in ${images[@]} ; do
-    docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/${imageName}
-    docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/${imageName} k8s.gcr.io/${imageName}
-    docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/${imageName}
-done
-</code></pre>
-</li>
-<li><p>&#x521D;&#x59CB;&#x5316;master node</p>
-<pre><code class="lang-shell">kubeadm init --token-ttl 0 --pod-network-cidr=10.1.0.0/16
-</code></pre>
-<p>&#x5982;&#x679C;&#x5931;&#x8D25;&#xFF0C;&#x91CD;&#x65B0;&#x521D;&#x59CB;&#x5316;&#x4E4B;&#x524D;kubeadm reset</p>
-<p>&#x521D;&#x59CB;&#x5316;&#x540E;&#x9700;&#x8981;&#x8BBE;&#x7F6E;.kube&#x6587;&#x4EF6;&#x5939;&#xFF08;&#x666E;&#x901A;&#x7528;&#x6237;&#xFF09;&#x6216;&#x6DFB;&#x52A0;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF08;root&#xFF09;&#xFF0C;&#x8BE6;&#x89C1;&#x521D;&#x59CB;&#x5316;log&#x672B;&#x5C3E;&#x3002;</p>
-<pre><code class="lang-shell">export KUBECONFIG=/etc/kubernetes/admin.conf
-</code></pre>
-</li>
-<li><p>&#x67E5;&#x770B;&#x542F;&#x52A8;&#x7684;pod&#x2014;&#x2014;kube-system&#x7684;&#x72B6;&#x6001;</p>
-<pre><code class="lang-shell">kubectl get pods -n kube-system -o wide
-</code></pre>
-<p>coredns&#x4E00;&#x76F4;pending&#x662F;&#x56E0;&#x4E3A;CNI&#x8FD8;&#x6CA1;&#x6709;&#x914D;&#x7F6E;&#x597D;&#x3002;</p>
-</li>
-</ul>
-<h3 id="&#x914D;&#x7F6E;worker-node65">&#x914D;&#x7F6E;worker node(65)</h3>
-<ul>
-<li><p>&#x548C;master&#x4E00;&#x6837;&#x5B89;&#x88C5;kubernetes&#x7EC4;&#x4EF6;</p>
-<p>&#x7528;master&#x7684;&#x521D;&#x59CB;&#x5316;log&#x6700;&#x540E;&#x7684;&#x547D;&#x4EE4;&#x52A0;&#x5165;&#x96C6;&#x7FA4;</p>
-</li>
-<li><p>&#x5728;master&#x5904;&#x7ED9;&#x8282;&#x70B9;&#x6DFB;&#x52A0;worker label&#xFF1A;</p>
-<pre><code class="lang-shell">kubectl label node ubuntu16 node-role.kubernetes.io/worker=worker
-</code></pre>
-</li>
-<li><p>worker node&#x7684;kubeproxy&#x4E00;&#x76F4;&#x5904;&#x5728;container creating&#x72B6;&#x6001;&#xFF0C;&#x67E5;&#x770B;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;</p>
-<pre><code class="lang-shell">kubectl describe pod kube-proxy-4ht98 --namespace=kube-system
-
-Failed to create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory
-</code></pre>
-<p>&#x76F4;&#x63A5;&#x5C06;master&#x7684;resolv.conf&#x6587;&#x4EF6;&#x590D;&#x5236;&#x4E00;&#x4EFD;&#xFF0C;kubeproxy&#x5F00;&#x59CB;running&#x3002;</p>
-</li>
-</ul>
+<p>#</p>
 <h2 id="&#x90E8;&#x7F72;contiv-vpp">&#x90E8;&#x7F72;Contiv-VPP</h2>
 <p>&#x53C2;&#x8003;&#xFF1A;<a href="https://fd.io/docs/vpp/master/usecases/contiv/networking" target="_blank">https://fd.io/docs/vpp/master/usecases/contiv/networking</a></p>
 <pre><code class="lang-shell">wget https://raw.githubusercontent.com/contiv/vpp/master/k8s/contiv-vpp.yaml
@@ -607,8 +578,12 @@ kube-scheduler-ubuntu            1/1     Running   0          21h   10.1.10.72  
 
             
                 
+                <a href="../K8s-vpp/K8s.md" class="navigation navigation-prev " aria-label="Previous page: 部署k8s集群和Contiv-VPP CNI">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="../scripts/" class="navigation navigation-next navigation-unique" aria-label="Next page: 脚本">
+                
+                <a href="VPP.html" class="navigation navigation-next " aria-label="Next page: 安装VPP">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -619,7 +594,7 @@ kube-scheduler-ubuntu            1/1     Running   0          21h   10.1.10.72  
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"next":{"title":"脚本","level":"1.7","depth":1,"path":"scripts/README.md","ref":"scripts/README.md","articles":[]},"previous":{"title":"VPP","level":"1.6","depth":1,"ref":"","articles":[{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"path":"VPP/Contiv-VPP.md","ref":"VPP/Contiv-VPP.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"VPP/Contiv-VPP.md","mtime":"2021-04-28T13:15:13.683Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-04-28T13:15:46.071Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"旧文件","level":"1.6.2","depth":2,"next":{"title":"安装VPP","level":"1.6.3","depth":2,"path":"K8s-VPP/VPP.md","ref":"K8s-VPP/VPP.md","articles":[]},"previous":{"title":"部署k8s集群和Contiv-VPP CNI","level":"1.6.1","depth":2,"path":"K8s-vpp/K8s.md","ref":"K8s-vpp/K8s.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"K8s-VPP/Contiv-VPP.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

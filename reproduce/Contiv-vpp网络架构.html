@@ -1,0 +1,651 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Contiv-vpp网络架构 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="网易轻舟服务网格数据面性能优化实践.html" />
+    
+    
+    <link rel="prev" href="Contiv-VPP架构.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    prerequisite
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../prerequisite/apt.html">
+            
+                <a href="../prerequisite/apt.html">
+            
+                    
+                    apt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../prerequisite/kernel parameters.html">
+            
+                <a href="../prerequisite/kernel parameters.html">
+            
+                    
+                    kernel parameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../prerequisite/Docker.html">
+            
+                <a href="../prerequisite/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DPDK/DPDK.html">
+            
+                <a href="../DPDK/DPDK.html">
+            
+                    
+                    DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../DPDK/testpmd.html">
+            
+                <a href="../DPDK/testpmd.html">
+            
+                    
+                    testpmd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
+            
+                <a href="../f-stack/f-stack.html">
+            
+                    
+                    f-stack
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
+            
+                <a href="../f-stack/helloworld.html">
+            
+                    
+                    helloworld
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
+            
+                <a href="../f-stack/nginx.html">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../OVS-DPDK/OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/OVS-DPDK.html">
+            
+                    
+                    OVS-DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../OVS-DPDK/pktgen.html">
+            
+                <a href="../OVS-DPDK/pktgen.html">
+            
+                    
+                    pktgen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                    
+                    Docker+OVS-DPDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../OVS-DPDK/Docker+ovs.html">
+            
+                <a href="../OVS-DPDK/Docker+ovs.html">
+            
+                    
+                    OVS-Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../K8s-vpp/README.md">
+            
+                <span>
+            
+                    
+                    K8s-VPP
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../K8s-vpp/K8s.md">
+            
+                <span>
+            
+                    
+                    部署k8s集群和Contiv-VPP CNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../K8s-VPP/Contiv-VPP.html">
+            
+                <a href="../K8s-VPP/Contiv-VPP.html">
+            
+                    
+                    旧文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../K8s-VPP/VPP.html">
+            
+                <a href="../K8s-VPP/VPP.html">
+            
+                    
+                    安装VPP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../scripts/">
+            
+                <a href="../scripts/">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    转载
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="Kubernetes网络原理.html">
+            
+                <a href="Kubernetes网络原理.html">
+            
+                    
+                    Kubernetes网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="浅谈 Kubernetes 中的服务发现.html">
+            
+                <a href="浅谈 Kubernetes 中的服务发现.html">
+            
+                    
+                    浅谈 Kubernetes 中的服务发现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="Contiv-VPP架构.html">
+            
+                <a href="Contiv-VPP架构.html">
+            
+                    
+                    Contiv-VPP架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8.4" data-path="Contiv-vpp网络架构.html">
+            
+                <a href="Contiv-vpp网络架构.html">
+            
+                    
+                    Contiv-vpp网络架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="网易轻舟服务网格数据面性能优化实践.html">
+            
+                <a href="网易轻舟服务网格数据面性能优化实践.html">
+            
+                    
+                    网易轻舟服务网格数据面性能优化实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="Network-conf.html">
+            
+                <a href="Network-conf.html">
+            
+                    
+                    Ubuntu中的网络配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Contiv-vpp网络架构</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="contivvpp-network-operation">Contiv/VPP Network Operation</h1>
+<p>This document describes the network operation of the Contiv/VPP k8s network plugin. It elaborates the operation and config options of the Contiv IPAM, as well as details on how the VPP gets programmed by Contiv/VPP control plane.</p>
+<p>&#x672C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x4E86;Contiv/VPP k8s&#x7F51;&#x7EDC;&#x63D2;&#x4EF6;&#x7684;&#x7F51;&#x7EDC;&#x64CD;&#x4F5C;&#x3002;&#x5B83;&#x9610;&#x8FF0;&#x4E86;Contiv IPAM&#x7684;&#x64CD;&#x4F5C;&#x548C;&#x914D;&#x7F6E;&#x9009;&#x9879;&#xFF0C;&#x4EE5;&#x53CA;VPP&#x5982;&#x4F55;&#x88AB;Contiv/VPP&#x63A7;&#x5236;&#x5E73;&#x9762;&#x7F16;&#x7A0B;&#x7684;&#x7EC6;&#x8282;&#x3002;</p>
+<p>The following picture shows 2-node k8s deployment of Contiv/VPP, with a VXLAN tunnel established between the nodes to forward inter-node POD traffic. The IPAM options are depicted on the Node 1, whereas the VPP programming is depicted on the Node 2.</p>
+<p>&#x4E0B;&#x56FE;&#x663E;&#x793A;&#x4E86;Contiv/VPP&#x7684;2&#x4E2A;&#x8282;&#x70B9;k8s&#x90E8;&#x7F72;&#xFF0C;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x5EFA;&#x7ACB;&#x4E86;VXLAN&#x96A7;&#x9053;&#x6765;&#x8F6C;&#x53D1;&#x8282;&#x70B9;&#x95F4;&#x7684;POD&#x6D41;&#x91CF;&#x3002;IPAM&#x9009;&#x9879;&#x88AB;&#x63CF;&#x8FF0;&#x5728;&#x8282;&#x70B9;1&#x4E0A;&#xFF0C;&#x800C;VPP&#x7F16;&#x7A0B;&#x88AB;&#x63CF;&#x8FF0;&#x5728;&#x8282;&#x70B9;2&#x4E0A;&#x3002;</p>
+<p><a href="https://github.com/contiv/vpp/blob/master/docs/img/contiv-networking.svg" target="_blank"><img src="https://github.com/contiv/vpp/raw/master/docs/img/contiv-networking.png" alt="Contiv/VPP Architecture"></a></p>
+<h2 id="contivvpp-ipam-ip-address-management">Contiv/VPP IPAM (IP Address Management)</h2>
+<p>IPAM in Contiv/VPP is based on the concept of <strong>Node ID</strong>. The Node ID is a number that uniquely identifies a node in the k8s cluster. The first node is assigned the ID of 1, the second node 2, etc. If a node leaves the cluster, its ID is released back to the pool and will be re-used by the next node.</p>
+<p>Contiv/VPP&#x7684;IPAM&#x662F;&#x57FA;&#x4E8E;&#x8282;&#x70B9;ID&#x7684;&#x6982;&#x5FF5;&#x3002;&#x8282;&#x70B9;ID&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#xFF0C;&#x7528;&#x4E8E;&#x552F;&#x4E00;&#x8BC6;&#x522B;k8s&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x3002;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x7684;ID&#x662F;1&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x8282;&#x70B9;&#x662F;2&#xFF0C;&#x7B49;&#x7B49;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x79BB;&#x5F00;&#x96C6;&#x7FA4;&#xFF0C;&#x5B83;&#x7684;ID&#x4F1A;&#x88AB;&#x91CA;&#x653E;&#x56DE;&#x6C60;&#x5B50;&#x91CC;&#xFF0C;&#x5E76;&#x5C06;&#x88AB;&#x4E0B;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x91CD;&#x65B0;&#x4F7F;&#x7528;&#x3002;</p>
+<p>The Node ID is used to calculate per-node IP subnets for PODs and other internal subnets that need to be unique on each node. Apart from the Node ID, the input for IPAM calculations is a set of config knobs, which can be specified in the <code>IPAMConfig</code> section of the <a href="https://github.com/contiv/vpp/blob/master/k8s/contiv-vpp.yaml" target="_blank">Contiv/VPP deployment YAML</a>:</p>
+<p>&#x8282;&#x70B9;ID&#x7528;&#x4E8E;&#x8BA1;&#x7B97;POD&#x7684;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;IP&#x5B50;&#x7F51;&#x548C;&#x5176;&#x4ED6;&#x9700;&#x8981;&#x5728;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x552F;&#x4E00;&#x7684;&#x5185;&#x90E8;&#x5B50;&#x7F51;&#x3002;&#x9664;&#x4E86;&#x8282;&#x70B9;ID&#xFF0C;IPAM&#x8BA1;&#x7B97;&#x7684;&#x8F93;&#x5165;&#x662F;&#x4E00;&#x7EC4;&#x914D;&#x7F6E;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;Contiv/VPP&#x90E8;&#x7F72;YAML&#x7684; &quot;IPAMConfig &quot;&#x90E8;&#x5206;&#x6307;&#x5B9A;&quot;:</p>
+<ul>
+<li><strong>PodSubnetCIDR</strong> (default <code>10.1.0.0/16</code>): each pod gets an IP address assigned from this range. The size of this range (default <code>/16</code>) dictates upper limit of POD count for the entire k8s cluster (default 65536 PODs).</li>
+<li><strong>PodSubnetCIDR</strong> (&#x9ED8;&#x8BA4;&#x4E3A;<code>10.1.0.0/16</code>): &#x6BCF;&#x4E2A;pod&#x4ECE;&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x5F97;&#x5230;&#x4E00;&#x4E2A;IP&#x5730;&#x5740;&#x3002;&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x7684;&#x5927;&#x5C0F;&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;<code>/16</code>&#xFF09;&#x51B3;&#x5B9A;&#x4E86;&#x6574;&#x4E2A;k8s&#x96C6;&#x7FA4;&#x7684;POD&#x6570;&#x91CF;&#x7684;&#x4E0A;&#x9650;&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;65536&#x4E2A;POD&#xFF09;&#x3002;</li>
+<li><strong>PodSubnetOneNodePrefixLen</strong> (default <code>24</code>): per-node dedicated podSubnet range. From the allocatable range defined in <code>PodSubnetCIDR</code>, this value will dictate the allocation for each node. With the default value (<code>24</code>) this indicates that each node has a <code>/24</code> slice of the <code>PodSubnetCIDR</code>. The Node ID is used to address the node. In case of <code>PodSubnetCIDR = 10.1.0.0/16</code>,  <code>PodSubnetOneNodePrefixLen = 24</code> and <code>NodeID = 5</code>, the resulting POD subnet for the node would be <code>10.1.5.0/24</code>.</li>
+<li><strong>PodSubnetOneNodePrefixLen</strong> (&#x9ED8;&#x8BA4;&#x4E3A;<code>24</code>): &#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4E13;&#x7528;&#x7684;podSubnet&#x8303;&#x56F4;&#x3002;&#x4ECE;<code>PodSubnetCIDR</code>&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x53EF;&#x5206;&#x914D;&#x8303;&#x56F4;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x5C06;&#x51B3;&#x5B9A;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x5206;&#x914D;&#x3002;&#x9ED8;&#x8BA4;&#x503C;(<code>24</code>)&#x8868;&#x793A;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x62E5;&#x6709;<code>PodSubnetCIDR</code>&#x7684;<code>/24</code>&#x5206;&#x7247;&#x3002;&#x8282;&#x70B9;ID&#x662F;&#x7528;&#x6765;&#x5BF9;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x5BFB;&#x5740;&#x7684;&#x3002;&#x5982;&#x679C;<code>PodSubnetCIDR = 10.1.0.0/16</code>&#xFF0C;<code>PodSubnetOneNodePrefixLen = 24</code>&#x548C;<code>NodeID = 5</code>&#xFF0C;&#x5219;&#x8BE5;&#x8282;&#x70B9;&#x7684;POD&#x5B50;&#x7F51;&#x5C06;&#x662F;<code>10.1.5.0/24</code>&#x3002;</li>
+<li><strong>VPPHostSubnetCIDR</strong> (default <code>172.30.0.0/16</code>): used for addressing the interconnect of the VPP with the Linux network stack within the same node. Since this subnet needs to be unique on each node, the Node ID is used to determine the actual subnet used on the node with the combination of <code>VPPHostSubnetOneNodePrefixLen</code>, similarly as for the <code>PodSubnetCIDR</code> and <code>PodSubnetOneNodePrefixLen</code>.</li>
+<li><strong>VPPHostSubnetCIDR</strong>&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;<code>172.30.0.0/16</code>&#xFF09;&#xFF1A;&#x7528;&#x4E8E;&#x89E3;&#x51B3;VPP&#x4E0E;&#x540C;&#x4E00;&#x8282;&#x70B9;&#x5185;&#x7684;Linux&#x7F51;&#x7EDC;&#x6808;&#x7684;&#x4E92;&#x8FDE;&#x3002;&#x7531;&#x4E8E;&#x8BE5;&#x5B50;&#x7F51;&#x5728;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x9700;&#x8981;&#x662F;&#x552F;&#x4E00;&#x7684;&#xFF0C;&#x8282;&#x70B9;ID&#x7528;&#x4E8E;&#x786E;&#x5B9A;&#x8282;&#x70B9;&#x4E0A;&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x7684;&#x5B50;&#x7F51;&#x4E0E;<code>VPPHostSubnetOneNodePrefixLen</code>&#x7684;&#x7EC4;&#x5408;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;<code>PodSubnetCIDR</code>&#x548C;<code>PodSubnetOneNodePrefixLen</code>&#x3002;</li>
+<li><strong>VPPHostSubnetOneNodePrefixLen</strong> (default <code>24</code>): used to calculate the subnet for addressing the interconnect of VPP with the Linux network stack within the same node. With <code>VPPHostSubnetCIDR = 172.30.0.0/16</code>,  <code>VPPHostSubnetOneNodePrefixLen = 24</code> and <code>NodeID = 5</code> the resulting subnet for the node would be <code>172.30.5.0/24</code>.</li>
+<li><strong>VPPHostSubnetOneNodePrefixLen</strong>&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;<code>24</code>&#xFF09;&#xFF1A;&#x7528;&#x4E8E;&#x8BA1;&#x7B97;&#x5B50;&#x7F51;&#xFF0C;&#x4EE5;&#x89E3;&#x51B3;VPP&#x4E0E;&#x540C;&#x4E00;&#x8282;&#x70B9;&#x5185;&#x7684;Linux&#x7F51;&#x7EDC;&#x6808;&#x7684;&#x4E92;&#x8FDE;&#x3002;&#x5728;<code>VPPHostSubnetCIDR = 172.30.0.0/16</code>&#xFF0C;<code>VPPHostSubnetOneNodePrefixLen = 24</code>&#x548C;<code>NodeID = 5</code>&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8BE5;&#x8282;&#x70B9;&#x7684;&#x5B50;&#x7F51;&#x5C06;&#x662F;<code>172.30.5.0/24</code>&#x3002;</li>
+<li><strong>NodeInterconnectCIDR</strong> (default <code>192.168.16.0/24</code>): range for the addresses assigned to the data plane interfaces managed by VPP. Unless DHCP is used (<code>NodeInterconnectDHCP = True</code>), Contiv/VPP control plane automatically assigns an IP address from this range to the DPDK-managed ethernet interface bound to the VPP on each node. The actual IP address will be calculated from the Node ID, e.g. with <code>NodeInterconnectCIDR = 192.168.16.0/24</code> and <code>NodeID = 5</code> the resulting IP address assigned to ethernet interface on VPP will be <code>192.168.16.5</code>.</li>
+<li><strong>NodeInterconnectCIDR</strong>&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;192.168.16.0/24&#xFF09;&#xFF1A;&#x5206;&#x914D;&#x7ED9;VPP&#x7BA1;&#x7406;&#x7684;&#x6570;&#x636E;&#x5E73;&#x9762;&#x63A5;&#x53E3;&#x7684;&#x5730;&#x5740;&#x8303;&#x56F4;&#x3002;&#x9664;&#x975E;&#x4F7F;&#x7528;DHCP&#xFF08;<code>NodeInterconnectDHCP = True</code>&#xFF09;&#xFF0C;&#x5426;&#x5219;Contiv/VPP&#x63A7;&#x5236;&#x5E73;&#x9762;&#x4F1A;&#x4ECE;&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x5185;&#x81EA;&#x52A8;&#x5206;&#x914D;&#x4E00;&#x4E2A;IP&#x5730;&#x5740;&#x7ED9;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x4E0E;VPP&#x7ED1;&#x5B9A;&#x7684;DPDK&#x7BA1;&#x7406;&#x7684;&#x4EE5;&#x592A;&#x7F51;&#x63A5;&#x53E3;&#x3002;&#x5B9E;&#x9645;&#x7684;IP&#x5730;&#x5740;&#x5C06;&#x4ECE;&#x8282;&#x70B9;ID&#x8BA1;&#x7B97;&#x51FA;&#x6765;&#xFF0C;&#x4F8B;&#x5982;&#xFF0C;&#x5728;<code>NodeInterconnectCIDR = 192.168.16.0/24</code>&#x548C;<code>NodeID = 5</code>&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5206;&#x914D;&#x7ED9;VPP&#x7684;&#x4EE5;&#x592A;&#x7F51;&#x63A5;&#x53E3;&#x7684;IP&#x5730;&#x5740;&#x5C06;&#x662F;<code>192.168.16.5</code>&#x3002;</li>
+<li><strong>NodeInterconnectDHCP</strong> (default <code>False</code>): instead of assigning the IPs for the data plane interfaces managed by VPP from the <code>NodeInterconnectCIDR</code> by Contiv/VPP control plane, use DHCP that must be running in the network where the data plane interface is connected to. In case that <code>NodeInterconnectDHCP = True</code>,  <code>NodeInterconnectCIDR</code> is ignored.</li>
+<li><strong>NodeInterconnectDHCP</strong> (&#x9ED8;&#x8BA4;&#x4E3A;<code>False&apos;)&#xFF1A;&#x4E0D;&#x901A;&#x8FC7;Contiv/VPP&#x63A7;&#x5236;&#x5E73;&#x9762;&#x4ECE;</code>NodeInterconnectCIDR&apos;&#x4E3A;VPP&#x7BA1;&#x7406;&#x7684;&#x6570;&#x636E;&#x5E73;&#x9762;&#x63A5;&#x53E3;&#x5206;&#x914D;IP&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;&#x5FC5;&#x987B;&#x5728;&#x6570;&#x636E;&#x5E73;&#x9762;&#x63A5;&#x53E3;&#x6240;&#x8FDE;&#x63A5;&#x7684;&#x7F51;&#x7EDC;&#x4E2D;&#x8FD0;&#x884C;&#x7684;DHCP&#x3002;&#x5982;&#x679C;<code>NodeInterconnectDHCP = True</code>&#xFF0C;<code>NodeInterconnectCIDR</code>&#x5C06;&#x88AB;&#x5FFD;&#x7565;&#x3002;</li>
+<li><strong>VxlanCIDR</strong> (default <code>192.168.30.0/24</code>): in order to provide inter-node POD to POD connectivity via any underlay network (not necessarily a L2 network), Contiv/VPP sets up VXLAN tunnel overlay between each 2 nodes within the cluster. For this purpose, each node needs its unique IP address of the VXLAN BVI interface. This IP address is automatically calculated from the Node ID, e.g. with <code>VxlanCIDR = 192.168.30.0/24</code> and <code>NodeID = 5</code> the resulting IP address assigned to VXLAN BVI interface will be <code>192.168.30.5</code>.</li>
+<li><strong>VxlanCIDR</strong>&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;192.168.30.0/24&#xFF09;&#xFF1A;&#x4E3A;&#x4E86;&#x901A;&#x8FC7;&#x4EFB;&#x4F55;&#x5E95;&#x5C42;&#x7F51;&#x7EDC;&#xFF08;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;L2&#x7F51;&#x7EDC;&#xFF09;&#x63D0;&#x4F9B;&#x8282;&#x70B9;&#x95F4;&#x7684;POD&#x5230;POD&#x7684;&#x8FDE;&#x63A5;&#xFF0C;Contiv/VPP&#x5728;&#x96C6;&#x7FA4;&#x5185;&#x6BCF;2&#x4E2A;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x8BBE;&#x7F6E;&#x4E86;VXLAN&#x96A7;&#x9053;&#x53E0;&#x52A0;&#x3002;&#x4E3A;&#x6B64;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x90FD;&#x9700;&#x8981;&#x5176;&#x72EC;&#x7279;&#x7684;VXLAN BVI&#x63A5;&#x53E3;&#x7684;IP&#x5730;&#x5740;&#x3002;&#x8FD9;&#x4E2A;IP&#x5730;&#x5740;&#x662F;&#x7531;&#x8282;&#x70B9;ID&#x81EA;&#x52A8;&#x8BA1;&#x7B97;&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;<code>VxlanCIDR = 192.168.30.0/24</code>&#x548C;<code>NodeID = 5</code>&#xFF0C;&#x5206;&#x914D;&#x7ED9;VXLAN BVI&#x63A5;&#x53E3;&#x7684;IP&#x5730;&#x5740;&#x5C06;&#x662F;<code>192.168.30.5</code>&#x3002;</li>
+</ul>
+<h2 id="vpp-programming">VPP Programming</h2>
+<p>This section describes how Contiv/VPP control plane programs the VPP based on the events it receives from k8s. It is not necessarily needed to understand this section for basic operation of Contiv/VPP, but it can be very useful for debugging purposes.</p>
+<p>&#x672C;&#x8282;&#x63CF;&#x8FF0;&#x4E86;Contiv/VPP&#x63A7;&#x5236;&#x5E73;&#x9762;&#x5982;&#x4F55;&#x6839;&#x636E;&#x5B83;&#x4ECE;k8s&#x6536;&#x5230;&#x7684;&#x4E8B;&#x4EF6;&#x5BF9;VPP&#x8FDB;&#x884C;&#x7F16;&#x7A0B;&#x3002;&#x5BF9;&#x4E8E;Contiv/VPP&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;&#x6765;&#x8BF4;&#xFF0C;&#x4E0D;&#x4E00;&#x5B9A;&#x9700;&#x8981;&#x4E86;&#x89E3;&#x8FD9;&#x4E00;&#x8282;&#xFF0C;&#x4F46;&#x5BF9;&#x4E8E;&#x8C03;&#x8BD5;&#x6765;&#x8BF4;&#x662F;&#x975E;&#x5E38;&#x6709;&#x7528;&#x7684;&#x3002;</p>
+<p>Contiv/VPP currently uses two VRFs - one to connect PODs on all nodes and the other to connect host network stack and DPDK-managed dataplane interface. Routing between them enforces inter-node traffic to be sent in VXLAN and allows to access PODs from host network stack. The forwarding among PODs is purely L3-based, even for case of communication between 2 PODs within the same node.</p>
+<p>Contiv/VPP&#x76EE;&#x524D;&#x4F7F;&#x7528;&#x4E24;&#x4E2A;VRF--&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x8FDE;&#x63A5;&#x6240;&#x6709;&#x8282;&#x70B9;&#x4E0A;&#x7684;POD&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x8FDE;&#x63A5;&#x4E3B;&#x673A;&#x7F51;&#x7EDC;&#x6808;&#x548C;DPDK&#x7BA1;&#x7406;&#x7684;&#x6570;&#x636E;&#x5E73;&#x9762;&#x63A5;&#x53E3;&#x3002;&#x5B83;&#x4EEC;&#x4E4B;&#x95F4;&#x7684;&#x8DEF;&#x7531;&#x5F3A;&#x5236;&#x8981;&#x6C42;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x6D41;&#x91CF;&#x5728;VXLAN&#x4E2D;&#x53D1;&#x9001;&#xFF0C;&#x5E76;&#x5141;&#x8BB8;&#x4ECE;&#x4E3B;&#x673A;&#x7F51;&#x7EDC;&#x6808;&#x8BBF;&#x95EE;POD&#x3002;POD&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x53D1;&#x7EAF;&#x7CB9;&#x662F;&#x57FA;&#x4E8E;L3&#x7684;&#xFF0C;&#x5373;&#x4F7F;&#x662F;&#x540C;&#x4E00;&#x8282;&#x70B9;&#x5185;&#x7684;&#x4E24;&#x4E2A;POD&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x4E5F;&#x662F;&#x5982;&#x6B64;&#x3002;</p>
+<h4 id="dpdk-managed-data-interface">DPDK-managed data interface</h4>
+<p>In order to allow inter-node communication between PODs on different nodes and between PODs and outside world, Contiv/VPP uses data-plane interfaces bound to VPP using DPDK. Each node should have one &quot;main&quot; VPP interface, which is unbound from the host network stack and bound to VPP. Contiv/VPP control plane automatically configures the interface either via DHCP, or with statically assigned address (see <code>NodeInterconnectCIDR</code> and <code>NodeInterconnectDHCP</code> yaml settings).</p>
+<p>&#x4E3A;&#x4E86;&#x5141;&#x8BB8;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x4E0A;&#x7684;POD&#x4E4B;&#x95F4;&#x4EE5;&#x53CA;POD&#x4E0E;&#x5916;&#x754C;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#xFF0C;Contiv/VPP&#x4F7F;&#x7528;DPDK&#x4E0E;VPP&#x7ED1;&#x5B9A;&#x7684;&#x6570;&#x636E;&#x5E73;&#x9762;&#x63A5;&#x53E3;&#x3002;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x90FD;&#x5E94;&#x8BE5;&#x6709;&#x4E00;&#x4E2A; &quot;&#x4E3B; &quot;VPP&#x63A5;&#x53E3;&#xFF0C;&#x8BE5;&#x63A5;&#x53E3;&#x4E0D;&#x4E0E;&#x4E3B;&#x673A;&#x7F51;&#x7EDC;&#x5806;&#x6808;&#x7ED1;&#x5B9A;&#xFF0C;&#x800C;&#x662F;&#x4E0E;VPP&#x7ED1;&#x5B9A;&#x3002;Contiv/VPP&#x63A7;&#x5236;&#x5E73;&#x9762;&#x901A;&#x8FC7;DHCP&#x6216;&#x9759;&#x6001;&#x5206;&#x914D;&#x7684;&#x5730;&#x5740;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x63A5;&#x53E3;&#xFF08;&#x89C1; <code>NodeInterconnectCIDR</code> &#x548C; <code>NodeInterconnectDHCP</code> yaml&#x8BBE;&#x7F6E;&#xFF09;&#x3002;</p>
+<h4 id="pods-on-the-same-node">PODs on the same node</h4>
+<p>PODs are connected to VPP using virtio-based TAP interfaces created by VPP, with POD-end of the interface placed into the POD container network namespace. Each POD is assigned an IP address from the <code>PodSubnetCIDR</code> . The allocated IP is configured with the prefix length <code>/32</code> . Additionally, a static route pointing towards the VPP is configured in the POD network namespace. The prefix length <code>/32</code> means that all IP traffic will be forwarded to the default route - VPP. To get rid of unnecessary broadcasts between POD and VPP, a static ARP entry is configured for the gateway IP in the POD namespace, as well as for POD IP on VPP. Both ends of the TAP interface have a static (non-default) MAC address applied.</p>
+<p>POD&#x4F7F;&#x7528;VPP&#x521B;&#x5EFA;&#x7684;&#x57FA;&#x4E8E;virtio&#x7684;TAP&#x63A5;&#x53E3;&#x8FDE;&#x63A5;&#x5230;VPP&#xFF0C;&#x63A5;&#x53E3;&#x7684;POD&#x7AEF;&#x88AB;&#x653E;&#x5165;POD&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x3002;&#x6BCF;&#x4E2A;POD&#x4ECE; <code>PodSubnetCIDR</code> &#x4E2D;&#x5206;&#x914D;&#x4E00;&#x4E2A;IP&#x5730;&#x5740;&#x3002;&#x5206;&#x914D;&#x7684;IP&#x88AB;&#x914D;&#x7F6E;&#x4E3A;&#x524D;&#x7F00;&#x957F;&#x5EA6; <code>/32</code> &#x3002;&#x6B64;&#x5916;&#xFF0C;&#x5728;POD&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x6307;&#x5411;VPP&#x7684;&#x9759;&#x6001;&#x8DEF;&#x7531;&#x3002;&#x524D;&#x7F00;&#x957F;&#x5EA6; <code>/32</code> &#x610F;&#x5473;&#x7740;&#x6240;&#x6709;&#x7684;IP&#x6D41;&#x91CF;&#x5C06;&#x88AB;&#x8F6C;&#x53D1;&#x5230;&#x9ED8;&#x8BA4;&#x8DEF;&#x7531; - VPP&#x3002;&#x4E3A;&#x4E86;&#x6446;&#x8131;POD&#x548C;VPP&#x4E4B;&#x95F4;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5E7F;&#x64AD;&#xFF0C;&#x5728;POD&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E3A;&#x7F51;&#x5173;IP&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x9759;&#x6001;ARP&#x6761;&#x76EE;&#xFF0C;&#x5728;VPP&#x4E0A;&#x4E5F;&#x4E3A;POD IP&#x914D;&#x7F6E;&#x4E86;&#x9759;&#x6001;ARP&#x3002;TAP&#x63A5;&#x53E3;&#x7684;&#x4E24;&#x7AEF;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#xFF08;&#x975E;&#x9ED8;&#x8BA4;&#xFF09;&#x7684;MAC&#x5730;&#x5740;&#x3002;</p>
+<h4 id="pods-with-hostnetworktrue">PODs with hostNetwork=true</h4>
+<p>PODs with <code>hostNetwork=true</code> attribute are not placed into a separate network namespace</p>
+<ul>
+<li>they use the main host Linux network namespace. Therefore, they are not directly connected to the VPP. They rely on the interconnection between the VPP and the host Linux network stack, which is described in the next paragraph. Note that in case that these PODs access some service IP, their network communication will be NATed in Linux (by iptables rules programmed by kube-proxy) as opposed to VPP, which is the case for the PODs connected to VPP directly.</li>
+</ul>
+<p>&#x5E26;&#x6709; <code>hostNetwork=true</code> &#x5C5E;&#x6027;&#x7684;POD&#x4E0D;&#x4F1A;&#x88AB;&#x653E;&#x5165;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;</p>
+<ul>
+<li>&#x5B83;&#x4EEC;&#x4F7F;&#x7528;&#x4E3B;&#x8981;&#x7684;&#x4E3B;&#x673A;Linux&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5B83;&#x4EEC;&#x4E0D;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;&#x5230;VPP&#x3002;&#x5B83;&#x4EEC;&#x4F9D;&#x8D56;&#x4E8E;VPP&#x548C;&#x4E3B;&#x673A;Linux&#x7F51;&#x7EDC;&#x5806;&#x6808;&#x4E4B;&#x95F4;&#x7684;&#x4E92;&#x8FDE;&#xFF0C;&#x8FD9;&#x5C06;&#x5728;&#x4E0B;&#x4E00;&#x6BB5;&#x63CF;&#x8FF0;&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x4E9B;POD&#x8BBF;&#x95EE;&#x4E00;&#x4E9B;&#x670D;&#x52A1;IP&#xFF0C;&#x5B83;&#x4EEC;&#x7684;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x5C06;&#x5728;Linux&#x4E2D;&#x88AB;NAT&#x5904;&#x7406;&#xFF08;&#x901A;&#x8FC7;kube-proxy&#x7F16;&#x7A0B;&#x7684;iptables&#x89C4;&#x5219;&#xFF09;&#xFF0C;&#x800C;&#x4E0D;&#x662F;VPP&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;&#x5230;VPP&#x7684;POD&#x7684;&#x60C5;&#x51B5;&#x3002;</li>
+</ul>
+<h4 id="linux-host-network-stack">Linux host network stack</h4>
+<p>In order to interconnect the Linux host network stack with the VPP (to allow the access to the cluster resources from the host itself, as well as for the PODs with <code>hostNetwork=true</code> ), VPP creates a TAP interface between VPP and the main network namespace. It is configured with an IP addresses from the <code>VPPHostSubnetCIDR</code> range, with <code>.1</code> in the latest octet on the VPP side, and <code>.2</code> on the host side. The name of the host interface is <code>vpp1</code> . The host has two static routes pointing to VPP configured: a route to the whole <code>PodSubnetCIDR</code> to route traffic targeting PODs towards VPP and a route to <code>ServiceCIDR</code> (default <code>10.96.0.0/12</code> ), to route service IP targeted traffic that has not been translated by kube-proxy for some reason towards VPP. To get rid of unnecessary broadcasts between the main network namespace and VPP, the host also has a static ARP entry configured for the IP of the VPP-end TAP interface.</p>
+<p>&#x4E3A;&#x4E86;&#x4F7F;Linux&#x4E3B;&#x673A;&#x7F51;&#x7EDC;&#x5806;&#x6808;&#x4E0E;VPP&#x4E92;&#x8FDE;&#xFF08;&#x5141;&#x8BB8;&#x4ECE;&#x4E3B;&#x673A;&#x672C;&#x8EAB;&#x8BBF;&#x95EE;&#x96C6;&#x7FA4;&#x8D44;&#x6E90;&#xFF0C;&#x4EE5;&#x53CA;&#x4E3A; <code>hostNetwork=true&apos;&#x7684;POD&#x8BBF;&#x95EE;&#xFF09;&#xFF0C;VPP&#x5728;VPP&#x548C;&#x4E3B;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E4B;&#x95F4;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;TAP&#x63A5;&#x53E3;&#x3002;&#x5B83;&#x88AB;&#x914D;&#x7F6E;&#x4E3A;</code> VPPHostSubnetCIDR <code>&#x8303;&#x56F4;&#x5185;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x5728;VPP&#x4E00;&#x4FA7;&#x7684;&#x6700;&#x65B0;&#x516B;&#x4F4D;&#x6570;&#x4E2D;&#x4E3A;</code> .1 <code>&#xFF0C;&#x5728;&#x4E3B;&#x673A;&#x4E00;&#x4FA7;&#x4E3A;</code> .2 <code>&#x3002;&#x4E3B;&#x673A;&#x63A5;&#x53E3;&#x7684;&#x540D;&#x79F0;&#x662F;</code> vpp1 <code>&#x3002;&#x4E3B;&#x673A;&#x914D;&#x7F6E;&#x4E86;&#x4E24;&#x6761;&#x6307;&#x5411;VPP&#x7684;&#x9759;&#x6001;&#x8DEF;&#x7531;&#xFF1A;&#x4E00;&#x6761;&#x662F;&#x6307;&#x5411;&#x6574;&#x4E2A;</code> PodSubnetCIDR <code>&#x7684;&#x8DEF;&#x7531;&#xFF0C;&#x5C06;&#x9488;&#x5BF9;POD&#x7684;&#x6D41;&#x91CF;&#x5BFC;&#x5411;VPP&#xFF1B;&#x4E00;&#x6761;&#x662F;&#x6307;&#x5411;</code> ServiceCIDR <code>&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A;</code> 10.96.0.0/12`&#xFF09;&#x7684;&#x8DEF;&#x7531;&#xFF0C;&#x5C06;&#x56E0;&#x67D0;&#x4E9B;&#x539F;&#x56E0;&#x672A;&#x88AB;kube-proxy&#x7FFB;&#x8BD1;&#x7684;&#x670D;&#x52A1;IP&#x76EE;&#x6807;&#x6D41;&#x91CF;&#x5BFC;&#x5411;VPP&#x3002;&#x4E3A;&#x4E86;&#x6446;&#x8131;&#x4E3B;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x548C;VPP&#x4E4B;&#x95F4;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5E7F;&#x64AD;&#xFF0C;&#x4E3B;&#x673A;&#x8FD8;&#x4E3A;VPP&#x7AEF;TAP&#x63A5;&#x53E3;&#x7684;IP&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x9759;&#x6001;ARP&#x6761;&#x76EE;&#x3002;</p>
+<h4 id="vxlans-to-other-nodes">VXLANs to other nodes</h4>
+<p>In order to provide inter-node POD to POD connectivity via any underlay network (not necessarily a L2 network), Contiv/VPP sets up a VXLAN tunnel overlay between each 2 nodes within the cluster (full mesh).</p>
+<p>&#x4E3A;&#x4E86;&#x901A;&#x8FC7;&#x4EFB;&#x4F55;&#x5E95;&#x5C42;&#x7F51;&#x7EDC;&#xFF08;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;L2&#x7F51;&#x7EDC;&#xFF09;&#x63D0;&#x4F9B;&#x8282;&#x70B9;&#x95F4;&#x7684;POD&#x5230;POD&#x7684;&#x8FDE;&#x63A5;&#xFF0C;Contiv/VPP&#x5728;&#x96C6;&#x7FA4;&#x5185;&#x7684;&#x6BCF;2&#x4E2A;&#x8282;&#x70B9;&#x4E4B;&#x95F4;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;VXLAN&#x96A7;&#x9053;&#x8986;&#x76D6;&#xFF08;&#x5168;&#x7F51;&#xFF09;&#x3002;</p>
+<p>All VXLAN tunnels are terminated in one bridge domain on each VPP. The bridge domain has learning and flooding disabled, the l2fib of the bridge domain is filled in with a static entry for each VXLAN tunnel. Each bridge domain has a BVI interface which interconnects the bridge domain with the POD VRF (L3 forwarding). This interface needs an unique IP address, which is assigned from the <code>VxlanCIDR</code> as describe above.</p>
+<p>&#x6240;&#x6709;VXLAN&#x96A7;&#x9053;&#x90FD;&#x5728;&#x6BCF;&#x4E2A;VPP&#x7684;&#x4E00;&#x4E2A;&#x6865;&#x57DF;&#x4E2D;&#x7EC8;&#x6B62;&#x3002;&#x6865;&#x57DF;&#x7981;&#x6B62;&#x5B66;&#x4E60;&#x548C;&#x6CDB;&#x6D2A;&#xFF0C;&#x6865;&#x57DF;&#x7684;l2fib&#x4E3A;&#x6BCF;&#x4E2A;VXLAN&#x96A7;&#x9053;&#x586B;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x6761;&#x76EE;&#x3002;&#x6BCF;&#x4E2A;&#x6865;&#x57DF;&#x90FD;&#x6709;&#x4E00;&#x4E2A;BVI&#x63A5;&#x53E3;&#xFF0C;&#x5C06;&#x6865;&#x57DF;&#x4E0E;POD VRF&#xFF08;L3&#x8F6C;&#x53D1;&#xFF09;&#x4E92;&#x8FDE;&#x3002;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x552F;&#x4E00;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x5982;&#x4E0A;&#x6240;&#x8FF0;&#xFF0C;&#x8FD9;&#x4E2A;&#x5730;&#x5740;&#x662F;&#x7531; <code>VxlanCIDR</code> &#x5206;&#x914D;&#x7684;&#x3002;</p>
+<p>The POD VRF contains several static routes that point to the BVI IP addresses of other nodes. For each node, it is a route to PODSubnet and VppHostSubnet of the remote node, as well as a route to the management IP address of the remote node. For each of these routes, the next hop IP is the BVI interface IP of the remote node, which goes via the BVI interface of the local node.</p>
+<p>POD VRF&#x5305;&#x542B;&#x51E0;&#x4E2A;&#x9759;&#x6001;&#x8DEF;&#x7531;&#xFF0C;&#x6307;&#x5411;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;BVI IP&#x5730;&#x5740;&#x3002;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x662F;&#x6307;&#x5411;&#x8FDC;&#x7A0B;&#x8282;&#x70B9;&#x7684;PODSubnet&#x548C;VppHostSubnet&#x7684;&#x8DEF;&#x7531;&#xFF0C;&#x4EE5;&#x53CA;&#x6307;&#x5411;&#x8FDC;&#x7A0B;&#x8282;&#x70B9;&#x7684;&#x7BA1;&#x7406;IP&#x5730;&#x5740;&#x7684;&#x8DEF;&#x7531;&#x3002;&#x5BF9;&#x4E8E;&#x8FD9;&#x4E9B;&#x8DEF;&#x7531;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#xFF0C;&#x4E0B;&#x4E00;&#x8DF3;IP&#x662F;&#x8FDC;&#x7A0B;&#x8282;&#x70B9;&#x7684;BVI&#x63A5;&#x53E3;IP&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x672C;&#x5730;&#x8282;&#x70B9;&#x7684;BVI&#x63A5;&#x53E3;&#x3002;</p>
+<p>The VXLAN tunnels and the static routes pointing to them are added/deleted on each VPP, whenever a node is added/deleted in the k8s cluster.</p>
+<p>&#x6BCF;&#x5F53;k8s&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x88AB;&#x6DFB;&#x52A0;/&#x5220;&#x9664;&#x65F6;&#xFF0C;VXLAN&#x96A7;&#x9053;&#x548C;&#x6307;&#x5411;&#x5B83;&#x4EEC;&#x7684;&#x9759;&#x6001;&#x8DEF;&#x7531;&#x5C31;&#x4F1A;&#x5728;&#x6BCF;&#x4E2A;VPP&#x4E0A;&#x88AB;&#x6DFB;&#x52A0;/&#x5220;&#x9664;&#x3002;</p>
+<h4 id="more-info">More info</h4>
+<p>Please refer to the <a href="https://github.com/contiv/vpp/blob/master/docs/dev-guide/PACKET_FLOW.md" target="_blank">Packet Flow Dev Guide</a> for more detailed description of paths traversed by request and response packets inside Contiv/VPP Kubernetes cluster under different situations.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Contiv-VPP架构.html" class="navigation navigation-prev " aria-label="Previous page: Contiv-VPP架构">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="网易轻舟服务网格数据面性能优化实践.html" class="navigation navigation-next " aria-label="Next page: 网易轻舟服务网格数据面性能优化实践">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Contiv-vpp网络架构","level":"1.8.4","depth":2,"next":{"title":"网易轻舟服务网格数据面性能优化实践","level":"1.8.5","depth":2,"path":"reproduce/网易轻舟服务网格数据面性能优化实践.md","ref":"reproduce/网易轻舟服务网格数据面性能优化实践.md","articles":[]},"previous":{"title":"Contiv-VPP架构","level":"1.8.3","depth":2,"path":"reproduce/Contiv-VPP架构.md","ref":"reproduce/Contiv-VPP架构.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"reproduce/Contiv-vpp网络架构.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

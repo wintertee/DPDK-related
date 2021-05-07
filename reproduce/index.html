@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>nginx · GitBook</title>
+        <title>转载 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../OVS-DPDK/OVS-DPDK.html" />
+    <link rel="next" href="Kubernetes网络原理.html" />
     
     
-    <link rel="prev" href="helloworld.html" />
+    <link rel="prev" href="../scripts/" />
     
 
     </head>
@@ -192,9 +192,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="f-stack.html">
+        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
             
-                <a href="f-stack.html">
+                <a href="../f-stack/f-stack.html">
             
                     
                     f-stack
@@ -206,9 +206,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="helloworld.html">
+        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
             
-                <a href="helloworld.html">
+                <a href="../f-stack/helloworld.html">
             
                     
                     helloworld
@@ -219,9 +219,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.2" data-path="nginx.html">
+        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
             
-                <a href="nginx.html">
+                <a href="../f-stack/nginx.html">
             
                     
                     nginx
@@ -366,9 +366,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="../reproduce/">
+        <li class="chapter active" data-level="1.8" data-path="./">
             
-                <a href="../reproduce/">
+                <a href="./">
             
                     
                     转载
@@ -380,9 +380,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.8.1" data-path="../reproduce/Kubernetes网络原理.html">
+        <li class="chapter " data-level="1.8.1" data-path="Kubernetes网络原理.html">
             
-                <a href="../reproduce/Kubernetes网络原理.html">
+                <a href="Kubernetes网络原理.html">
             
                     
                     Kubernetes网络原理
@@ -393,9 +393,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.2" data-path="../reproduce/浅谈 Kubernetes 中的服务发现.html">
+        <li class="chapter " data-level="1.8.2" data-path="浅谈 Kubernetes 中的服务发现.html">
             
-                <a href="../reproduce/浅谈 Kubernetes 中的服务发现.html">
+                <a href="浅谈 Kubernetes 中的服务发现.html">
             
                     
                     浅谈 Kubernetes 中的服务发现
@@ -406,9 +406,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.3" data-path="../reproduce/Contiv-VPP架构.html">
+        <li class="chapter " data-level="1.8.3" data-path="Contiv-VPP架构.html">
             
-                <a href="../reproduce/Contiv-VPP架构.html">
+                <a href="Contiv-VPP架构.html">
             
                     
                     Contiv-VPP架构
@@ -419,9 +419,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.4" data-path="../reproduce/Contiv-vpp网络架构.html">
+        <li class="chapter " data-level="1.8.4" data-path="Contiv-vpp网络架构.html">
             
-                <a href="../reproduce/Contiv-vpp网络架构.html">
+                <a href="Contiv-vpp网络架构.html">
             
                     
                     Contiv-vpp网络架构
@@ -432,9 +432,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.5" data-path="../reproduce/网易轻舟服务网格数据面性能优化实践.html">
+        <li class="chapter " data-level="1.8.5" data-path="网易轻舟服务网格数据面性能优化实践.html">
             
-                <a href="../reproduce/网易轻舟服务网格数据面性能优化实践.html">
+                <a href="网易轻舟服务网格数据面性能优化实践.html">
             
                     
                     网易轻舟服务网格数据面性能优化实践
@@ -445,9 +445,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.6" data-path="../reproduce/Network-conf.html">
+        <li class="chapter " data-level="1.8.6" data-path="Network-conf.html">
             
-                <a href="../reproduce/Network-conf.html">
+                <a href="Network-conf.html">
             
                     
                     Ubuntu中的网络配置
@@ -493,7 +493,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >nginx</a>
+        <a href=".." >转载</a>
     </h1>
 </div>
 
@@ -508,48 +508,8 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="nginx">nginx</h1>
-<h2 id="&#x7F16;&#x8BD1;nginx">&#x7F16;&#x8BD1;nginx</h2>
-<pre><code class="lang-shell">apt-get install libpcre3 libpcre3-dev  
-cd app/nginx-1.16.1
-bash ./configure --prefix=/usr/local/nginx_fstack --with-ff_module
-make
-make install
-</code></pre>
-<h2 id="&#x8FD0;&#x884C;nginx">&#x8FD0;&#x884C;nginx</h2>
-<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/" target="_blank">https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/</a></p>
-<p>&#x9996;&#x5148;&#x8BB0;&#x4F4F;&#x7F51;&#x5361;&#x7684;&#x7F51;&#x7EDC;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x5199;&#x5165;f-stack&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;</p>
-<pre><code class="lang-shell">dev1=&quot;ens35&quot;
-dev2=&quot;ens36&quot;
-nginx_dir=&quot;/usr/local/nginx_fstack&quot;
-
-myip=`ifconfig $dev1 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $2}&apos;`
-mybroadcast=`ifconfig $dev1 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $6}&apos;`
-mynetmask=`ifconfig $dev1 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $4}&apos;`
-# mygateway=`route -n | grep 0.0.0.0 | grep $dev | grep UG | awk -F &apos; &apos; &apos;{print $2}&apos;`
-mygateway=`ifconfig $dev2 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $2}&apos;`
-# dev1&#x548C;dev2&#x90FD;&#x662F;host-only&#x7F51;&#x5361;&#xFF0C;&#x4E24;&#x4E2A;&#x7F51;&#x5361;&#x76F8;&#x8FDE;&#xFF0C;&#x6240;&#x4EE5;&#x628A;dev2&#x7684;ip&#x4F5C;&#x4E3A;dev1&#x7684;&#x7F51;&#x5173;&#x3002;&#x7A0D;&#x540E;&#x901A;&#x8FC7;dev2&#x8BBF;&#x95EE;&#x8FD0;&#x884C;&#x5728;dev1&#x4E0A;&#x7684;nginx
-
-sed &quot;s/^addr=.*$/addr=${myip}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-sed &quot;s/^netmask=.*$/netmask=${mynetmask}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-sed &quot;s/^broadcast=.*$/broadcast=${mybroadcast}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-sed &quot;s/^gateway=.*$/gateway=${mygateway}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-</code></pre>
-<p>&#x7ED1;&#x5B9A;igb_uio&#xFF1A;</p>
-<pre><code class="lang-shell">modprobe uio
-insmod dpdk/build/kernel/linux/igb_uio/igb_uio.ko
-insmod dpdk/build/kernel/linux/kni/rte_kni.ko carrier=on
-
-python dpdk/usertools/dpdk-devbind.py --status # &#x67E5;&#x770B;&#x5F53;&#x524D;&#x7F51;&#x5361;&#x7ED1;&#x5B9A;&#x7684;&#x9A71;&#x52A8;
-ifconfig $dev1 down
-python dpdk/usertools/dpdk-devbind.py --bind=igb_uio $dev1
-</code></pre>
-<p>&#x8FD0;&#x884C;&#x548C;&#x6D4B;&#x8BD5;nginx:</p>
-<pre><code class="lang-shell">$nginx_dir/sbin/nginx
-ps -ef | grep nginx
-curl -v $myip
-$nginx_dir/sbin/nginx -s stop
-</code></pre>
+                                <h1 id="&#x8F6C;&#x8F7D;&#x5185;&#x5BB9;">&#x8F6C;&#x8F7D;&#x5185;&#x5BB9;</h1>
+<p>&#x90E8;&#x5206;&#x56FE;&#x7247;&#x65E0;&#x6CD5;&#x5728;Github&#x4E2D;&#x6B63;&#x5E38;&#x663E;&#x793A;&#xFF0C;&#x9700;&#x8981;&#x5728;Gitbook&#x9875;&#x9762;&#x5185;&#x67E5;&#x770B;&#x3002;</p>
 
                                 
                                 </section>
@@ -577,12 +537,12 @@ $nginx_dir/sbin/nginx -s stop
 
             
                 
-                <a href="helloworld.html" class="navigation navigation-prev " aria-label="Previous page: helloworld">
+                <a href="../scripts/" class="navigation navigation-prev " aria-label="Previous page: 脚本">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../OVS-DPDK/OVS-DPDK.html" class="navigation navigation-next " aria-label="Next page: OVS-DPDK">
+                <a href="Kubernetes网络原理.html" class="navigation navigation-next " aria-label="Next page: Kubernetes网络原理">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -593,7 +553,7 @@ $nginx_dir/sbin/nginx -s stop
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"nginx","level":"1.4.2","depth":2,"next":{"title":"OVS-DPDK","level":"1.5","depth":1,"path":"OVS-DPDK/OVS-DPDK.md","ref":"OVS-DPDK/OVS-DPDK.md","articles":[{"title":"pktgen","level":"1.5.1","depth":2,"path":"OVS-DPDK/pktgen.md","ref":"OVS-DPDK/pktgen.md","articles":[]},{"title":"Docker+OVS-DPDK","level":"1.5.2","depth":2,"path":"OVS-DPDK/Docker+OVS-DPDK.md","ref":"OVS-DPDK/Docker+OVS-DPDK.md","articles":[]},{"title":"OVS-Docker","level":"1.5.3","depth":2,"path":"OVS-DPDK/Docker+ovs.md","ref":"OVS-DPDK/Docker+ovs.md","articles":[]}]},"previous":{"title":"helloworld","level":"1.4.1","depth":2,"path":"f-stack/helloworld.md","ref":"f-stack/helloworld.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"f-stack/nginx.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"转载","level":"1.8","depth":1,"next":{"title":"Kubernetes网络原理","level":"1.8.1","depth":2,"path":"reproduce/Kubernetes网络原理.md","ref":"reproduce/Kubernetes网络原理.md","articles":[]},"previous":{"title":"脚本","level":"1.7","depth":1,"path":"scripts/README.md","ref":"scripts/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"reproduce/README.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

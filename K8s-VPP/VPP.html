@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>nginx · GitBook</title>
+        <title>安装VPP · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../OVS-DPDK/OVS-DPDK.html" />
+    <link rel="next" href="../scripts/" />
     
     
-    <link rel="prev" href="helloworld.html" />
+    <link rel="prev" href="Contiv-VPP.html" />
     
 
     </head>
@@ -192,9 +192,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="f-stack.html">
+        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
             
-                <a href="f-stack.html">
+                <a href="../f-stack/f-stack.html">
             
                     
                     f-stack
@@ -206,9 +206,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="helloworld.html">
+        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
             
-                <a href="helloworld.html">
+                <a href="../f-stack/helloworld.html">
             
                     
                     helloworld
@@ -219,9 +219,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.2" data-path="nginx.html">
+        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
             
-                <a href="nginx.html">
+                <a href="../f-stack/nginx.html">
             
                     
                     nginx
@@ -322,9 +322,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="../K8s-VPP/Contiv-VPP.html">
+        <li class="chapter " data-level="1.6.2" data-path="Contiv-VPP.html">
             
-                <a href="../K8s-VPP/Contiv-VPP.html">
+                <a href="Contiv-VPP.html">
             
                     
                     旧文件
@@ -335,9 +335,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="../K8s-VPP/VPP.html">
+        <li class="chapter active" data-level="1.6.3" data-path="VPP.html">
             
-                <a href="../K8s-VPP/VPP.html">
+                <a href="VPP.html">
             
                     
                     安装VPP
@@ -493,7 +493,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >nginx</a>
+        <a href=".." >安装VPP</a>
     </h1>
 </div>
 
@@ -508,47 +508,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="nginx">nginx</h1>
-<h2 id="&#x7F16;&#x8BD1;nginx">&#x7F16;&#x8BD1;nginx</h2>
-<pre><code class="lang-shell">apt-get install libpcre3 libpcre3-dev  
-cd app/nginx-1.16.1
-bash ./configure --prefix=/usr/local/nginx_fstack --with-ff_module
-make
-make install
-</code></pre>
-<h2 id="&#x8FD0;&#x884C;nginx">&#x8FD0;&#x884C;nginx</h2>
-<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/" target="_blank">https://ytlm.github.io/2018/05/f-stack%E5%88%9D%E6%8E%A2/</a></p>
-<p>&#x9996;&#x5148;&#x8BB0;&#x4F4F;&#x7F51;&#x5361;&#x7684;&#x7F51;&#x7EDC;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x5199;&#x5165;f-stack&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;</p>
-<pre><code class="lang-shell">dev1=&quot;ens35&quot;
-dev2=&quot;ens36&quot;
-nginx_dir=&quot;/usr/local/nginx_fstack&quot;
-
-myip=`ifconfig $dev1 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $2}&apos;`
-mybroadcast=`ifconfig $dev1 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $6}&apos;`
-mynetmask=`ifconfig $dev1 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $4}&apos;`
-# mygateway=`route -n | grep 0.0.0.0 | grep $dev | grep UG | awk -F &apos; &apos; &apos;{print $2}&apos;`
-mygateway=`ifconfig $dev2 | grep inet | grep -v &apos;:&apos; | awk &apos;{print $2}&apos;`
-# dev1&#x548C;dev2&#x90FD;&#x662F;host-only&#x7F51;&#x5361;&#xFF0C;&#x4E24;&#x4E2A;&#x7F51;&#x5361;&#x76F8;&#x8FDE;&#xFF0C;&#x6240;&#x4EE5;&#x628A;dev2&#x7684;ip&#x4F5C;&#x4E3A;dev1&#x7684;&#x7F51;&#x5173;&#x3002;&#x7A0D;&#x540E;&#x901A;&#x8FC7;dev2&#x8BBF;&#x95EE;&#x8FD0;&#x884C;&#x5728;dev1&#x4E0A;&#x7684;nginx
-
-sed &quot;s/^addr=.*$/addr=${myip}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-sed &quot;s/^netmask=.*$/netmask=${mynetmask}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-sed &quot;s/^broadcast=.*$/broadcast=${mybroadcast}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-sed &quot;s/^gateway=.*$/gateway=${mygateway}/&quot; -i -E $nginx_dir/conf/f-stack.conf
-</code></pre>
-<p>&#x7ED1;&#x5B9A;igb_uio&#xFF1A;</p>
-<pre><code class="lang-shell">modprobe uio
-insmod dpdk/build/kernel/linux/igb_uio/igb_uio.ko
-insmod dpdk/build/kernel/linux/kni/rte_kni.ko carrier=on
-
-python dpdk/usertools/dpdk-devbind.py --status # &#x67E5;&#x770B;&#x5F53;&#x524D;&#x7F51;&#x5361;&#x7ED1;&#x5B9A;&#x7684;&#x9A71;&#x52A8;
-ifconfig $dev1 down
-python dpdk/usertools/dpdk-devbind.py --bind=igb_uio $dev1
-</code></pre>
-<p>&#x8FD0;&#x884C;&#x548C;&#x6D4B;&#x8BD5;nginx:</p>
-<pre><code class="lang-shell">$nginx_dir/sbin/nginx
-ps -ef | grep nginx
-curl -v $myip
-$nginx_dir/sbin/nginx -s stop
+                                <h1 id="&#x5B89;&#x88C5;vpp">&#x5B89;&#x88C5;VPP</h1>
+<p>&#x4F7F;&#x7528;contiv-vpp&#x65F6;&#x65E0;&#x9700;&#x6B64;&#x6B65;&#x9AA4;&#x3002;</p>
+<pre><code class="lang-shell">curl -L https://packagecloud.io/fdio/release/gpgkey | sudo apt-key add -
+sudo add-apt-repository &quot;deb [trusted=yes] https://packagecloud.io/fdio/release/ubuntu bionic main&quot; 
+sudo apt-get install -y vpp vpp-plugin-core vpp-plugin-dpdk
 </code></pre>
 
                                 
@@ -577,12 +541,12 @@ $nginx_dir/sbin/nginx -s stop
 
             
                 
-                <a href="helloworld.html" class="navigation navigation-prev " aria-label="Previous page: helloworld">
+                <a href="Contiv-VPP.html" class="navigation navigation-prev " aria-label="Previous page: 旧文件">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../OVS-DPDK/OVS-DPDK.html" class="navigation navigation-next " aria-label="Next page: OVS-DPDK">
+                <a href="../scripts/" class="navigation navigation-next " aria-label="Next page: 脚本">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -593,7 +557,7 @@ $nginx_dir/sbin/nginx -s stop
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"nginx","level":"1.4.2","depth":2,"next":{"title":"OVS-DPDK","level":"1.5","depth":1,"path":"OVS-DPDK/OVS-DPDK.md","ref":"OVS-DPDK/OVS-DPDK.md","articles":[{"title":"pktgen","level":"1.5.1","depth":2,"path":"OVS-DPDK/pktgen.md","ref":"OVS-DPDK/pktgen.md","articles":[]},{"title":"Docker+OVS-DPDK","level":"1.5.2","depth":2,"path":"OVS-DPDK/Docker+OVS-DPDK.md","ref":"OVS-DPDK/Docker+OVS-DPDK.md","articles":[]},{"title":"OVS-Docker","level":"1.5.3","depth":2,"path":"OVS-DPDK/Docker+ovs.md","ref":"OVS-DPDK/Docker+ovs.md","articles":[]}]},"previous":{"title":"helloworld","level":"1.4.1","depth":2,"path":"f-stack/helloworld.md","ref":"f-stack/helloworld.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"f-stack/nginx.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"安装VPP","level":"1.6.3","depth":2,"next":{"title":"脚本","level":"1.7","depth":1,"path":"scripts/README.md","ref":"scripts/README.md","articles":[]},"previous":{"title":"旧文件","level":"1.6.2","depth":2,"path":"K8s-VPP/Contiv-VPP.md","ref":"K8s-VPP/Contiv-VPP.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"K8s-VPP/VPP.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

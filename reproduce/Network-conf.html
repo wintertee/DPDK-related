@@ -1,0 +1,653 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Ubuntu中的网络配置 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="网易轻舟服务网格数据面性能优化实践.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    prerequisite
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../prerequisite/apt.html">
+            
+                <a href="../prerequisite/apt.html">
+            
+                    
+                    apt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../prerequisite/kernel parameters.html">
+            
+                <a href="../prerequisite/kernel parameters.html">
+            
+                    
+                    kernel parameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../prerequisite/Docker.html">
+            
+                <a href="../prerequisite/Docker.html">
+            
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DPDK/DPDK.html">
+            
+                <a href="../DPDK/DPDK.html">
+            
+                    
+                    DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../DPDK/testpmd.html">
+            
+                <a href="../DPDK/testpmd.html">
+            
+                    
+                    testpmd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../f-stack/f-stack.html">
+            
+                <a href="../f-stack/f-stack.html">
+            
+                    
+                    f-stack
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../f-stack/helloworld.html">
+            
+                <a href="../f-stack/helloworld.html">
+            
+                    
+                    helloworld
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../f-stack/nginx.html">
+            
+                <a href="../f-stack/nginx.html">
+            
+                    
+                    nginx
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../OVS-DPDK/OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/OVS-DPDK.html">
+            
+                    
+                    OVS-DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../OVS-DPDK/pktgen.html">
+            
+                <a href="../OVS-DPDK/pktgen.html">
+            
+                    
+                    pktgen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                <a href="../OVS-DPDK/Docker+OVS-DPDK.html">
+            
+                    
+                    Docker+OVS-DPDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../OVS-DPDK/Docker+ovs.html">
+            
+                <a href="../OVS-DPDK/Docker+ovs.html">
+            
+                    
+                    OVS-Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../K8s-vpp/README.md">
+            
+                <span>
+            
+                    
+                    K8s-VPP
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../K8s-vpp/K8s.md">
+            
+                <span>
+            
+                    
+                    部署k8s集群和Contiv-VPP CNI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../K8s-VPP/Contiv-VPP.html">
+            
+                <a href="../K8s-VPP/Contiv-VPP.html">
+            
+                    
+                    旧文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../K8s-VPP/VPP.html">
+            
+                <a href="../K8s-VPP/VPP.html">
+            
+                    
+                    安装VPP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../scripts/">
+            
+                <a href="../scripts/">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    转载
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="Kubernetes网络原理.html">
+            
+                <a href="Kubernetes网络原理.html">
+            
+                    
+                    Kubernetes网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="浅谈 Kubernetes 中的服务发现.html">
+            
+                <a href="浅谈 Kubernetes 中的服务发现.html">
+            
+                    
+                    浅谈 Kubernetes 中的服务发现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="Contiv-VPP架构.html">
+            
+                <a href="Contiv-VPP架构.html">
+            
+                    
+                    Contiv-VPP架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="Contiv-vpp网络架构.html">
+            
+                <a href="Contiv-vpp网络架构.html">
+            
+                    
+                    Contiv-vpp网络架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="网易轻舟服务网格数据面性能优化实践.html">
+            
+                <a href="网易轻舟服务网格数据面性能优化实践.html">
+            
+                    
+                    网易轻舟服务网格数据面性能优化实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8.6" data-path="Network-conf.html">
+            
+                <a href="Network-conf.html">
+            
+                    
+                    Ubuntu中的网络配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Ubuntu中的网络配置</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="setting-a-static-ip-address-in-ubuntu-1604-vs-1804-lts">Setting a static IP address in Ubuntu 16.04 vs 18.04 LTS</h1>
+<p><a href="https://infra.engineer/linux/39-setting-a-static-ip-address-in-ubuntu-16-04-vs-18-04-lts" target="_blank">https://infra.engineer/linux/39-setting-a-static-ip-address-in-ubuntu-16-04-vs-18-04-lts</a></p>
+<p>Static IP addresses are an important part of networking for many types of servers, although a bit more overhead to configure they ensure a consistent state. The Ubuntu configuration of static addresses varies depending on the operating system version you are running, this guide will look at the 2 most recent versions with Long Term Support (LTS)</p>
+<p>This guide shows you how to configure a static IP address on an Ubuntu server running 16.04 LTS or 18.04 LTS that is currently configured with DHCP.</p>
+<p>Assuming your Ubuntu server is connected to the network on DHCP, to verify this run</p>
+<pre><code class="lang-markup">ifconfig
+</code></pre>
+<p>This should return the interface along with the IP address and subnet issued by DHCP.</p>
+<p>To find the gateway address run</p>
+<pre><code class="lang-markup">ip route | grep default
+</code></pre>
+<h2 id="configuring-a-static-ip-using-the-network-interfaces-configuration-file-1604-lts">Configuring a static IP using the network interfaces configuration file (16.04 LTS)</h2>
+<p>To set a static address, edit the following file,</p>
+<pre><code class="lang-markup">sudo vi /etc/network/interfaces
+</code></pre>
+<p>If you are presented with the following below, please see the section below titled &quot;Configuring a static IP using Netplan&quot;</p>
+<p><em># ifupdown has been replaced by netplan(5) on this system. See</em>
+<em># /etc/netplan for current configuration.</em>
+<em># To re-enable ifupdown on this system, you can run:</em>
+<em>#  sudo apt install ifupdown</em></p>
+<p>Change the file from the DHCP configuration which will look similar to below (Do not change the loopback settings)</p>
+<p><em># The primary network interface
+auto ens160
+iface ens160 inet dynamic</em></p>
+<p>to the static configuration as per your requirements, i.e.</p>
+<pre><code class="lang-css"># <span class="hljs-selector-tag">The</span> <span class="hljs-selector-tag">primary</span> <span class="hljs-selector-tag">network</span> <span class="hljs-selector-tag">interface</span>
+<span class="hljs-selector-tag">auto</span> <span class="hljs-selector-tag">ens160</span>
+<span class="hljs-selector-tag">iface</span> <span class="hljs-selector-tag">ens160</span> <span class="hljs-selector-tag">inet</span> <span class="hljs-selector-tag">static</span>
+   <span class="hljs-selector-tag">address</span> &lt;<span class="hljs-selector-tag">ip</span> <span class="hljs-selector-tag">address</span>&gt;
+   <span class="hljs-selector-tag">netmask</span> &lt;<span class="hljs-selector-tag">subnet</span> <span class="hljs-selector-tag">mask</span>&gt;
+   <span class="hljs-selector-tag">gateway</span> &lt;<span class="hljs-selector-tag">gateway</span> <span class="hljs-selector-tag">address</span>&gt;
+   <span class="hljs-selector-tag">dns-nameservers</span> &lt;<span class="hljs-selector-tag">dns</span> <span class="hljs-selector-tag">server</span> 1&gt; &lt;<span class="hljs-selector-tag">dns</span> <span class="hljs-selector-tag">server</span> 2&gt;
+</code></pre>
+<p>Exit vi with <strong>ESC</strong> the <strong>:wq!</strong> and enter</p>
+<p>Reboot and reconnect on new IP to ensure changes have applied correctly.</p>
+<h2 id="configuring-a-static-ip-using-netplan-1804-lts">Configuring a static IP using Netplan (18.04 LTS)</h2>
+<p>Starting from Ubuntu 18.04 LTS, Ubuntu uses Netplan to configure network interfaces by default. Netplan is a YAML based configuration system, which is designed to simplify the configuration process.</p>
+<p>Check for the netplan yaml filename using</p>
+<pre><code class="lang-markup">ls /etc/netplan/
+</code></pre>
+<p>Once you have the filename, edit this file using</p>
+<pre><code class="lang-markup">sudo vi /etc/netplan/50-cloud-init.yaml
+</code></pre>
+<p>This should be set similar to the DHCP config as following;</p>
+<p><img src="data:image/png;base64,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" alt="img"></p>
+<p>Edit the file so it looks similar to the following;</p>
+<pre><code class="lang-markup"># This file is generated from information provided by
+# the datasource.  Changes to it will not persist across an instance.
+# To disable cloud-init&apos;s network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+network:
+    version: 2
+    ethernets:
+        eth0:
+            dhcp4: no
+            addresses: [172.16.100.234/24]
+            gateway4: 172.16.100.1
+            nameservers:
+                    addresses: [8.8.8.8,8.8.4.4]
+            match:
+                macaddress: 02:0e:0d:42:65:1c
+            set-name: eth0
+</code></pre>
+<p>Exit vi with <strong>ESC</strong> the <strong>:wq!</strong> and enter</p>
+<p>Apply the yaml configuration</p>
+<pre><code class="lang-markup"> sudo netplan apply
+</code></pre>
+<p>Verify with ifconfig that the changes have come into effect and ensure you can ping a device outside of the local subnet</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="网易轻舟服务网格数据面性能优化实践.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 网易轻舟服务网格数据面性能优化实践">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Ubuntu中的网络配置","level":"1.8.6","depth":2,"previous":{"title":"网易轻舟服务网格数据面性能优化实践","level":"1.8.5","depth":2,"path":"reproduce/网易轻舟服务网格数据面性能优化实践.md","ref":"reproduce/网易轻舟服务网格数据面性能优化实践.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"reproduce/Network-conf.md","mtime":"2021-05-07T16:03:00.105Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-07T16:03:26.048Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
