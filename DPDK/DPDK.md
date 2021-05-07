@@ -8,6 +8,14 @@ tar xzf v1.21.tar.gz
 rm v1.21.tar.gz
 ```
 
+或从源安装：
+
+```shell
+wget https://fast.dpdk.org/rel/dpdk-20.11.1.tar.xz
+tar xf dpdk-20.11.1.tar.xz
+rm dpdk-20.11.1.tar.xz
+```
+
 安装pkt-config：
 
 ```shell
