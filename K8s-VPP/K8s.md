@@ -291,3 +291,12 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
 1. 尝试使用<https://github.com/coredns/coredns/blob/master/plugin/loop/README.md#troubleshooting-loops-in-kubernetes-clusters>和<https://askubuntu.com/a/1041631>。未果
 2. 尝试修改hosts，未果<https://stackoverflow.com/a/55433370>
+
+### 安装Dashboard
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/rootsongjc/kubernetes-handbook/master/manifests/dashboard-1.7.1/admin-role.yaml
+kubectl -n kube-system get secret|grep admin-token
+kubectl -n kube-system describe secret admin-token-2bfv6
+kubectl proxy
+ssh -L 8001:127.0.0.1:8001 a@b
