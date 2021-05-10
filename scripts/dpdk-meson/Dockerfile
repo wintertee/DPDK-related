@@ -23,5 +23,10 @@ RUN apt-get update && \
 # build dpdk:
     meson -Dexamples=all -Denable_kmods=true build && \
     ninja -C build && \
-    ninja -C build install
-# TODO build f-stack??
+    ninja -C build install && \
+# build f-stack
+    export FF_PATH=/root/f-stack-1.21 && \
+    export PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib/pkgconfig && \
+    cd /root/f-stack-1.21/lib/ && \
+    make && \
+    make install
