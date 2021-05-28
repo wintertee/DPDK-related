@@ -14,8 +14,6 @@
     - [pktgen](OVS-DPDK/pktgen.md)
     - [Docker+OVS-DPDK](OVS-DPDK/Docker+OVS-DPDK.md)
     - [OVS-Docker](OVS-DPDK/Docker+ovs.md)
-* [K8s-VPP](K8s-VPP/README.md)
-    - [部署k8s集群和Contiv-VPP CNI](K8s-VPP/K8s.md)
     - [旧文件](K8s-VPP/Contiv-VPP.md)
     - [安装VPP](K8s-VPP/VPP.md)
 * [脚本](scripts/README.md)
