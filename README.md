@@ -11,7 +11,7 @@
 - [**DPDK 19.11.06**](https://doc.dpdk.org/guides-19.11/)
 - [**OVS-DPDK 2.13.3**](https://ovs-2133.readthedocs.io/en/stable/topics/dpdk/index.html)
 - [**VPP 20.09**](https://fd.io/docs/vpp/v2009/)
-- [**Kubernetes 1.12.5**](https://kubernetes.io/zh/docs/home/)
+- [**Kubernetes 1.12.5**](https://github.com/kubernetes/kubernetes)
 - [**Contiv 3.4.2**](https://fdio-vpp.readthedocs.io/en/latest/usecases/contiv/K8s_Overview.html)
 - [**Contiv-VPP**](https://github.com/contiv/vpp/tree/master/docs)
 - **Ubuntu18.04**
